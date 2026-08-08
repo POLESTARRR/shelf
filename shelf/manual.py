@@ -4,6 +4,16 @@ These are the surfaces real buyers actually use, and none of them has a free
 API. So we collect a smaller, deliberately stratified sample by hand and label
 it clearly as manually collected in the methodology.
 
+Every engine gets the SAME core question set — `select()` is deterministic, so
+asking for --n 10 returns the same ten prompts every time. That is what makes
+cross-engine comparison possible: differences in the answers are then
+attributable to the engine, not to having asked it different questions.
+
+One thing that is NOT valid here: a single system producing a "panel" that
+reports what several models would each say. That is one model's impression of
+the others, not their answers, and a panel instructed to be balanced names
+every vendor, which destroys the ranking signal. Ask each engine directly.
+
 Interactive mode is the fast path. It copies each question to your clipboard,
 you paste it into a new chat, paste the answer back, and type END:
 
@@ -49,9 +59,10 @@ def select(conn, n: int) -> list:
                               subkeys=("persona", "subject"), weights=weights)
 
 
-def _store(conn, prompt_id: int, engine: str, rep: int, text: str) -> None:
+def _store(conn, prompt_id: int, engine: str, rep: int, text: str,
+           model: str = "default") -> None:
     run_id = db.record_run(conn, prompt_id=prompt_id, engine=f"manual_{engine}",
-                           model="web", grounded=1, rep=rep, response=text)
+                           model=model, grounded=1, rep=rep, response=text)
     if run_id:
         for c in extract.find_citations(text):
             conn.execute("INSERT INTO citations (run_id, url, domain, title, position) "
@@ -103,8 +114,8 @@ def cmd_collect(args):
     conn = db.connect()
     todo = [p for p in select(conn, args.n)
             if not conn.execute(
-                "SELECT 1 FROM runs WHERE prompt_id=? AND engine=? AND rep=?",
-                (p["id"], f"manual_{args.engine}", args.rep)).fetchone()]
+                "SELECT 1 FROM runs WHERE prompt_id=? AND engine=? AND model=? AND rep=?",
+                (p["id"], f"manual_{args.engine}", args.model, args.rep)).fetchone()]
 
     if not todo:
         print("nothing left to collect for this engine/rep"); return 0
@@ -143,7 +154,7 @@ def cmd_collect(args):
         if not text or text.strip().upper() == "SKIP":
             print("  skipped\n"); continue
 
-        _store(conn, p["id"], args.engine, args.rep, text)
+        _store(conn, p["id"], args.engine, args.rep, text, args.model)
         done += 1
         cites = len(extract.find_citations(text))
         print(f"  saved — {len(text)} chars, {cites} citations   "
@@ -189,7 +200,7 @@ def cmd_import(args):
             print(f"  skip {f.name} (expected <prompt_id>_<rep>.txt)"); continue
         text = f.read_text().strip()
         if text:
-            _store(conn, pid, args.engine, rep, text)
+            _store(conn, pid, args.engine, rep, text, args.model)
             n += 1
     print(f"imported {n} answers from {d}")
     return 0
@@ -200,8 +211,16 @@ def main():
     sub = ap.add_subparsers(dest="cmd", required=True)
     for name, fn in (("collect", cmd_collect), ("export", cmd_export), ("import", cmd_import)):
         p = sub.add_parser(name)
+        # Free-form rather than a fixed list: the point is to cover whatever
+        # surfaces buyers actually use. Each is stored and reported separately.
         p.add_argument("--engine", default="perplexity",
-                       choices=["perplexity", "chatgpt", "claude", "gemini_web", "copilot"])
+                       help="platform the answer came from, e.g. perplexity, chatgpt, "
+                            "claude, gemini, grok, copilot")
+        p.add_argument("--model", default="default",
+                       help="model chosen inside that platform, if it has a selector "
+                            "(e.g. gpt-5, claude-sonnet, grok). Recorded separately, "
+                            "because 'Perplexity with Claude' is a different answer "
+                            "surface from 'Perplexity default'.")
         p.add_argument("--n", type=int, default=20)
         p.add_argument("--rep", type=int, default=0)
         p.set_defaults(fn=fn)
