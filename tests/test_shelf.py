@@ -151,7 +151,7 @@ class TestPromptGeneration(unittest.TestCase):
     CFG = {
         "category": "widget platforms", "category_short": "widget tools",
         "segments": ["a 20-person startup", "an enterprise"],
-        "constraints": ["is SOC 2 certified", "costs under $500 per month"],
+        "requirements": ["SOC 2 Type II certification", "pricing under $500 per month"],
         "integrations": ["Salesforce"],
         "roles": {"practitioner": "ops lead", "economic_buyer": "VP of Sales",
                   "technical": "security reviewer", "procurement": "procurement manager"},
@@ -197,6 +197,75 @@ class TestPromptGeneration(unittest.TestCase):
             if " vs " in p["text"]:
                 left = p["text"].split(" vs ")[0].split(". ")[-1].strip()
                 self.assertNotIn(f"{left} vs {left}", p["text"])
+
+
+class TestAllocator(unittest.TestCase):
+    """Regression tests for the sampling bug that skewed the whole study.
+
+    A flat round-robin over (intent, persona, subject) looks balanced but is
+    not: intents with one bucket per vendor collect a slot every pass, while
+    category-wide intents have a single bucket. In the real config that gave
+    60 'alternatives' prompts and 2 'shortlist' prompts — starving the exact
+    question type where vendors get recommended.
+    """
+
+    def _items(self):
+        items = []
+        # brand-specific intent: 14 vendors x 4 variants
+        for brand in [f"V{i}" for i in range(14)]:
+            for k in range(4):
+                items.append({"intent": "alternatives", "persona": "economic_buyer",
+                              "subject": brand, "id": f"a-{brand}-{k}"})
+        # category-wide intent: no subject, so only two buckets
+        for persona in ("economic_buyer", "procurement"):
+            for k in range(20):
+                items.append({"intent": "shortlist", "persona": persona,
+                              "subject": None, "id": f"s-{persona}-{k}"})
+        return items
+
+    def test_category_wide_intent_is_not_starved(self):
+        picked = promptgen.allocate(self._items(), 40, group="intent",
+                                    subkeys=("persona", "subject"))
+        counts = {}
+        for p in picked:
+            counts[p["intent"]] = counts.get(p["intent"], 0) + 1
+        self.assertEqual(len(picked), 40)
+        self.assertGreaterEqual(counts.get("shortlist", 0), 15,
+                                f"category-wide intent starved: {counts}")
+        self.assertGreaterEqual(counts.get("alternatives", 0), 15, counts)
+
+    def test_no_single_subject_dominates(self):
+        picked = promptgen.allocate(self._items(), 40, group="intent",
+                                    subkeys=("persona", "subject"))
+        subjects = [p["subject"] for p in picked if p["subject"]]
+        worst = max(subjects.count(s) for s in set(subjects))
+        self.assertLessEqual(worst, 3, "one vendor absorbed its intent's budget")
+
+    def test_quota_capped_at_availability_and_redistributed(self):
+        items = ([{"intent": "rare", "persona": "p", "subject": None, "id": "r1"}]
+                 + [{"intent": "common", "persona": "p", "subject": None, "id": f"c{i}"}
+                    for i in range(50)])
+        picked = promptgen.allocate(items, 20, group="intent", subkeys=("persona", "subject"))
+        self.assertEqual(len(picked), 20, "scarce group's unused quota was not redistributed")
+        self.assertEqual(sum(1 for p in picked if p["intent"] == "rare"), 1)
+
+    def test_returns_everything_when_under_limit(self):
+        items = self._items()
+        self.assertEqual(len(promptgen.allocate(items, 10_000, "intent",
+                                                ("persona", "subject"))), len(items))
+
+    def test_weights_shift_the_split(self):
+        items = self._items()
+        heavy = promptgen.allocate(items, 30, "intent", ("persona", "subject"),
+                                   weights={"shortlist": 5.0, "alternatives": 1.0})
+        n_short = sum(1 for p in heavy if p["intent"] == "shortlist")
+        self.assertGreater(n_short, 15, "weighting had no effect")
+
+    def test_deterministic(self):
+        items = self._items()
+        a = promptgen.allocate(items, 30, "intent", ("persona", "subject"))
+        b = promptgen.allocate(items, 30, "intent", ("persona", "subject"))
+        self.assertEqual([x["id"] for x in a], [x["id"] for x in b])
 
 
 class TestDatabase(unittest.TestCase):

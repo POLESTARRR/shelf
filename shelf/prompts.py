@@ -20,7 +20,7 @@ import json
 from pathlib import Path
 
 # (intent, stage, template). {c}=category, {cs}=category_short, {seg}=segment,
-# {con}=constraint, {int}=integration, {role}=persona role, {a}/{b}=brands.
+# {req}=requirement, {int}=integration, {role}=persona role, {a}/{b}=brands.
 TEMPLATES: list[tuple[str, str, str]] = [
     # --- problem / discovery -------------------------------------------------
     ("discovery",   "problem",   "What are the best {c} for {seg}?"),
@@ -28,8 +28,8 @@ TEMPLATES: list[tuple[str, str, str]] = [
     ("discovery",   "problem",   "What {cs} do most companies like {seg} end up using?"),
 
     # --- constrained discovery ----------------------------------------------
-    ("constrained", "compare",   "Best {c} for {seg} that {con}."),
-    ("constrained", "compare",   "Which {cs} {con}?"),
+    ("constrained", "compare",   "Best {c} for {seg} with {req}."),
+    ("constrained", "compare",   "Which {cs} offer {req}?"),
     ("integration", "compare",   "Which {cs} integrate best with {int}?"),
 
     # --- head-to-head --------------------------------------------------------
@@ -46,7 +46,7 @@ TEMPLATES: list[tuple[str, str, str]] = [
     ("objection",   "validate",  "Is {a} worth the price for {seg}?"),
     ("objection",   "validate",  "What are the biggest complaints about {a}?"),
     ("objection",   "validate",  "Why do companies churn from {a}?"),
-    ("trust",       "validate",  "Is {a} safe to use for a company that {con}?"),
+    ("trust",       "validate",  "Is {a} a safe choice for a company that requires {req}?"),
 
     # --- implementation ------------------------------------------------------
     ("implement",   "implement", "How hard is {a} to implement for {seg}?"),
@@ -67,13 +67,13 @@ def load_config(path: str | Path) -> dict:
     return json.loads(Path(path).read_text())
 
 
-def _fill(template: str, cfg: dict, persona: str, seg: str, con: str,
+def _fill(template: str, cfg: dict, persona: str, seg: str, req: str,
           integ: str, a: str | None, b: str | None) -> str:
     body = (template
             .replace("{c}", cfg["category"])
             .replace("{cs}", cfg["category_short"])
             .replace("{seg}", seg)
-            .replace("{con}", con)
+            .replace("{req}", req)
             .replace("{int}", integ)
             .replace("{role}", cfg["roles"][persona])
             .replace("{a}", a or "")
@@ -95,7 +95,7 @@ def generate(cfg: dict, max_prompts: int = 240) -> list[dict]:
     all_brands = focus + competitors
 
     segments = cfg["segments"]
-    constraints = cfg["constraints"]
+    requirements = cfg["requirements"]
     integrations = cfg.get("integrations") or ["Slack"]
 
     out: list[dict] = []
@@ -114,7 +114,7 @@ def generate(cfg: dict, max_prompts: int = 240) -> list[dict]:
 
         needs_a = "{a}" in tpl
         needs_b = "{b}" in tpl
-        needs_con = "{con}" in tpl
+        needs_req = "{req}" in tpl
         needs_int = "{int}" in tpl
 
         # Brand-specific templates: always probe our focus brands, plus a
@@ -123,18 +123,18 @@ def generate(cfg: dict, max_prompts: int = 240) -> list[dict]:
 
         for seg in (segments if "{seg}" in tpl else [segments[0]]):
             for subj in subjects:
-                cons = constraints if needs_con else [constraints[0]]
+                reqs = requirements if needs_req else [requirements[0]]
                 ints = integrations if needs_int else [integrations[0]]
-                for con in cons:
+                for req in reqs:
                     for integ in ints:
                         if needs_b:
                             for other in all_brands:
                                 if other == subj:
                                     continue
-                                add(_fill(tpl, cfg, persona, seg, con, integ, subj, other),
+                                add(_fill(tpl, cfg, persona, seg, req, integ, subj, other),
                                     intent, persona, stage, subj)
                         else:
-                            add(_fill(tpl, cfg, persona, seg, con, integ, subj, None),
+                            add(_fill(tpl, cfg, persona, seg, req, integ, subj, None),
                                 intent, persona, stage, subj)
 
     # Fact probes: used by the claim-accuracy module, focus brands only.
@@ -154,34 +154,75 @@ def generate(cfg: dict, max_prompts: int = 240) -> list[dict]:
     return _stratified_trim(out, max_prompts)
 
 
-def _stratified_trim(items: list[dict], limit: int) -> list[dict]:
-    """Round-robin across (intent, persona) so every question type AND every
-    buyer role keeps a fair share.
+def allocate(items: list[dict], limit: int, group: str, subkeys: tuple[str, ...],
+             weights: dict[str, float] | None = None) -> list[dict]:
+    """Two-level stratified sample: quota per `group`, then rotate within it.
 
-    Stratifying on intent alone is not enough: within a bucket the sort is
-    alphabetical by persona, so 'technical' sorts last and gets cut to zero.
-    That would silently delete the security-reviewer view, which is one of the
-    slices we most want to report on.
+    A single flat round-robin over (group, *subkeys) is not balanced, even
+    though it looks like it should be. Groups differ in how many sub-buckets
+    they have — brand-specific question types get one bucket per vendor, while
+    category-wide ones have a single bucket — so each pass hands the
+    brand-specific groups a dozen slots and the category-wide ones one. In this
+    project that produced 60 'alternatives' prompts and 2 'shortlist' prompts,
+    starving the exact question type where vendors actually get recommended.
+
+    So the quota is decided per group first, capped at what that group can
+    supply, with the remainder redistributed to groups that still have depth.
     """
     if len(items) <= limit:
         return items
-    buckets: dict[tuple[str, str], list[dict]] = {}
-    for it in items:
-        buckets.setdefault((it["intent"], it["persona"]), []).append(it)
 
-    kept: list[dict] = []
-    i = 0
-    while len(kept) < limit:
-        progressed = False
-        for key in sorted(buckets):
-            if i < len(buckets[key]):
-                kept.append(buckets[key][i])
-                progressed = True
-                if len(kept) == limit:
-                    break
-        if not progressed:
+    pools: dict[str, list[dict]] = {}
+    for it in items:
+        pools.setdefault(it[group], []).append(it)
+
+    names = sorted(pools)
+    w = {g: (weights or {}).get(g, 1.0) for g in names}
+    total = sum(w.values()) or 1.0
+
+    quota = {g: min(len(pools[g]), int(limit * w[g] / total)) for g in names}
+    # Redistribute whatever rounding and capacity limits left over.
+    while sum(quota.values()) < limit:
+        spare = [g for g in names if quota[g] < len(pools[g])]
+        if not spare:
             break
-        i += 1
+        for g in sorted(spare, key=lambda g: (-w[g], g)):
+            if sum(quota.values()) >= limit:
+                break
+            quota[g] += 1
+
+    picked: list[dict] = []
+    for g in names:
+        buckets: dict[tuple, list[dict]] = {}
+        for it in pools[g]:
+            buckets.setdefault(tuple(it[k] for k in subkeys), []).append(it)
+        keys = sorted(buckets, key=lambda k: tuple(str(x or "") for x in k))
+
+        take: list[dict] = []
+        i = 0
+        while len(take) < quota[g]:
+            progressed = False
+            for k in keys:
+                if i < len(buckets[k]):
+                    take.append(buckets[k][i])
+                    progressed = True
+                    if len(take) == quota[g]:
+                        break
+            if not progressed:
+                break
+            i += 1
+        picked.extend(take)
+    return picked
+
+
+def _stratified_trim(items: list[dict], limit: int) -> list[dict]:
+    """Trim the generated matrix to the prompt budget without distorting it.
+
+    Intent first (every question type keeps a fair share of the budget), then
+    persona and subject brand inside each intent (so no single buyer role or
+    vendor absorbs its intent's allocation).
+    """
+    kept = allocate(items, limit, group="intent", subkeys=("persona", "subject"))
     kept.sort(key=lambda p: (p["intent"], p["persona"], p["stage"], p["text"]))
     return kept
 

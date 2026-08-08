@@ -7,13 +7,6 @@
     "a UK-based B2B company that must comply with GDPR",
     "an enterprise sales team with strict data-compliance requirements"
   ],
-  "constraints": [
-    "is GDPR compliant for UK and EU prospect data",
-    "is SOC 2 Type II certified",
-    "keeps a human approving every email before it sends",
-    "integrates natively with Salesforce",
-    "costs under $500 per month"
-  ],
   "integrations": [
     "Salesforce",
     "HubSpot",
@@ -234,5 +227,13 @@
       "truth_date": "2025-03-24"
     }
   ],
-  "_comment_case": "case_sensitive is set for brand names that are also ordinary English words. Without it, 'respond instantly', 'qualified leads' and 'sales outreach' all register as brand mentions."
+  "_comment_case": "case_sensitive is set for brand names that are also ordinary English words. Without it, 'respond instantly', 'qualified leads' and 'sales outreach' all register as brand mentions.",
+  "_comment_requirements": "Noun phrases, deliberately. Verb-phrase constraints ('costs under $500') break grammar the moment a template attaches them to the company instead of the tool -> 'a company that costs under $500 per month'. Incoherent prompts produce garbage answers, so the phrasing has to survive every slot it lands in.",
+  "requirements": [
+    "GDPR compliance for UK and EU prospect data",
+    "SOC 2 Type II certification",
+    "human approval before every email is sent",
+    "native Salesforce integration",
+    "pricing under $500 per month"
+  ]
 }

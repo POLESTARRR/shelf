@@ -21,10 +21,9 @@ no Perplexity API key — it uses your ordinary account through the browser.
 from __future__ import annotations
 
 import argparse
-from collections import defaultdict
 from pathlib import Path
 
-from shelf import db, extract
+from shelf import db, extract, prompts as promptgen
 
 ROOT = Path(__file__).resolve().parent.parent
 MANUAL = ROOT / "runs" / "manual"
@@ -38,29 +37,16 @@ PRIORITY = {
 
 
 def select(conn, n: int) -> list:
-    """Stratified pick: rotate through intents by priority, then personas, so a
-    small manual sample still covers every slice we report on."""
-    rows = list(conn.execute("SELECT * FROM prompts"))
-    buckets = defaultdict(list)
-    for r in rows:
-        buckets[(PRIORITY.get(r["intent"], 9), r["intent"], r["persona"])].append(r)
-    for k in buckets:
-        buckets[k].sort(key=lambda r: r["id"])
+    """Pick a small hand-collectable sample that still covers every slice.
 
-    picked, i = [], 0
-    keys = sorted(buckets)
-    while len(picked) < n:
-        added = False
-        for k in keys:
-            if i < len(buckets[k]):
-                picked.append(buckets[k][i])
-                added = True
-                if len(picked) == n:
-                    break
-        if not added:
-            break
-        i += 1
-    return picked
+    Uses the same two-level allocator as the main prompt set, weighted so that
+    scarce human effort lands on the question types where vendors actually get
+    recommended.
+    """
+    rows = [dict(r) for r in conn.execute("SELECT * FROM prompts")]
+    weights = {i: 1.0 / (1 + p) for i, p in PRIORITY.items()}
+    return promptgen.allocate(rows, n, group="intent",
+                              subkeys=("persona", "subject"), weights=weights)
 
 
 def _store(conn, prompt_id: int, engine: str, rep: int, text: str) -> None:

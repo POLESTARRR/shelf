@@ -36,6 +36,29 @@ def cmd_init(args):
     ps = promptgen.generate(cfg, max_prompts=args.max_prompts)
     for p in ps:
         db.insert_prompt(conn, p["text"], p["intent"], p["persona"], p["stage"], p["subject"])
+
+    if args.prune:
+        # Prompts are keyed by text, so editing a template leaves the old
+        # wording behind as an orphan that still owns runs. Those runs answer a
+        # question we no longer ask, and pooling them with the new set would
+        # mix two different instruments in one number.
+        keep = {p["text"] for p in ps}
+        stale = [r["id"] for r in conn.execute("SELECT id, text FROM prompts")
+                 if r["text"] not in keep]
+        if stale:
+            marks = ",".join("?" * len(stale))
+            runs = conn.execute(f"SELECT COUNT(*) FROM runs WHERE prompt_id IN ({marks})",
+                                stale).fetchone()[0]
+            conn.execute(f"DELETE FROM mentions WHERE run_id IN "
+                         f"(SELECT id FROM runs WHERE prompt_id IN ({marks}))", stale)
+            conn.execute(f"DELETE FROM citations WHERE run_id IN "
+                         f"(SELECT id FROM runs WHERE prompt_id IN ({marks}))", stale)
+            conn.execute(f"DELETE FROM claims WHERE run_id IN "
+                         f"(SELECT id FROM runs WHERE prompt_id IN ({marks}))", stale)
+            conn.execute(f"DELETE FROM runs WHERE prompt_id IN ({marks})", stale)
+            conn.execute(f"DELETE FROM prompts WHERE id IN ({marks})", stale)
+            print(f"pruned {len(stale)} superseded prompts and {runs} runs collected "
+                  f"against the old wording")
     conn.commit()
 
     print(f"initialised: {len(ps)} prompts, "
@@ -220,7 +243,12 @@ def main():
     ap = argparse.ArgumentParser(prog="shelf")
     sub = ap.add_subparsers(dest="cmd", required=True)
 
-    p = sub.add_parser("init");     p.add_argument("config"); p.add_argument("--max-prompts", type=int, default=240); p.set_defaults(fn=cmd_init)
+    p = sub.add_parser("init")
+    p.add_argument("config")
+    p.add_argument("--max-prompts", type=int, default=240)
+    p.add_argument("--prune", action="store_true",
+                   help="delete prompts (and their runs) no longer generated")
+    p.set_defaults(fn=cmd_init)
     p = sub.add_parser("collect")
     p.add_argument("--engine", default="gemini", choices=list(runners.REGISTRY))
     p.add_argument("--model", default=None)
