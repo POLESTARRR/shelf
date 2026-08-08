@@ -4,21 +4,23 @@ These are the surfaces real buyers actually use, and none of them has a free
 API. So we collect a smaller, deliberately stratified sample by hand and label
 it clearly as manually collected in the methodology.
 
-Interactive mode is the fast path — it prints a prompt, you paste the answer,
-press Ctrl-D, and it stores it and moves on:
+Interactive mode is the fast path. It copies each question to your clipboard,
+you paste it into a new chat, paste the answer back, and type END:
 
-    python3 -m shelf.manual collect --engine perplexity --n 60
+    python3 -m shelf.manual collect --engine perplexity --n 20
 
 Or work offline from a printed sheet and import the folder later:
 
-    python3 -m shelf.manual export --engine perplexity --n 60
+    python3 -m shelf.manual export --engine perplexity --n 20
     python3 -m shelf.manual import --engine perplexity
+
+Note: this is a module inside this project, not a public package, and it needs
+no Perplexity API key — it uses your ordinary account through the browser.
 """
 
 from __future__ import annotations
 
 import argparse
-import sys
 from collections import defaultdict
 from pathlib import Path
 
@@ -72,6 +74,45 @@ def _store(conn, prompt_id: int, engine: str, rep: int, text: str) -> None:
     conn.commit()
 
 
+def _to_clipboard(text: str) -> bool:
+    """Copy the prompt straight to the clipboard so the human step is just
+    Cmd-V. Silently a no-op where pbcopy/xclip is unavailable."""
+    import shutil
+    import subprocess
+    for cmd in (["pbcopy"], ["xclip", "-selection", "clipboard"], ["wl-copy"]):
+        if shutil.which(cmd[0]):
+            try:
+                subprocess.run(cmd, input=text.encode(), check=True)
+                return True
+            except subprocess.SubprocessError:
+                return False
+    return False
+
+
+def _read_answer() -> str | None:
+    """Read a pasted multi-line answer, terminated by a line containing END.
+
+    A sentinel rather than Ctrl-D: pasted text often arrives without a trailing
+    newline, which makes Ctrl-D need pressing twice and looks like a freeze.
+    Returns None if the user asked to quit.
+    """
+    lines: list[str] = []
+    while True:
+        try:
+            line = input()
+        except EOFError:
+            break
+        except KeyboardInterrupt:
+            return None
+        stripped = line.strip().upper()
+        if stripped == "END":
+            break
+        if stripped == "QUIT":
+            return None
+        lines.append(line)
+    return "\n".join(lines).strip()
+
+
 def cmd_collect(args):
     conn = db.connect()
     todo = [p for p in select(conn, args.n)
@@ -82,30 +123,49 @@ def cmd_collect(args):
     if not todo:
         print("nothing left to collect for this engine/rep"); return 0
 
-    print(f"\n{len(todo)} prompts to collect from {args.engine}.")
-    print("For each: copy the prompt, paste it into a NEW chat, then paste the full")
-    print("answer back here and press Ctrl-D. Type 'skip' + Ctrl-D to skip.\n")
-    print("Use a new chat each time — a continuing thread contaminates the next answer.\n")
+    print(f"""
+{'=' * 72}
+  Collecting {len(todo)} answers from {args.engine}
+{'=' * 72}
+
+  For each prompt below:
+    1. The question is already COPIED TO YOUR CLIPBOARD.
+    2. Open a NEW {args.engine} chat  (new chat every time — a continuing
+       thread contaminates the next answer and invalidates the sample).
+    3. Paste it, press enter, wait for the full answer.
+    4. Copy the whole answer, paste it back here.
+    5. Type  END  on its own line and press enter.
+
+  Type  SKIP  + END to skip one.   Type  QUIT to stop and save progress.
+  Progress is saved after every answer, so you can stop and resume anytime.
+""")
 
     done = 0
     for i, p in enumerate(todo, 1):
+        copied = _to_clipboard(p["text"])
         print("=" * 72)
-        print(f"[{i}/{len(todo)}]  prompt id {p['id']}   ({p['persona']} / {p['intent']})")
+        print(f"[{i}/{len(todo)}]  {p['persona']} / {p['intent']}"
+              f"{'   (copied to clipboard)' if copied else ''}")
         print("-" * 72)
         print(p["text"])
         print("-" * 72)
-        print("paste answer, then Ctrl-D:")
-        try:
-            text = sys.stdin.read().strip()
-        except KeyboardInterrupt:
-            print("\nstopped."); break
-        if not text or text.lower() == "skip":
+        print(f"paste the {args.engine} answer, then type END:\n")
+
+        text = _read_answer()
+        if text is None:
+            print("\nstopped — progress saved."); break
+        if not text or text.strip().upper() == "SKIP":
             print("  skipped\n"); continue
+
         _store(conn, p["id"], args.engine, args.rep, text)
         done += 1
-        print(f"  saved ({len(text)} chars)\n")
+        cites = len(extract.find_citations(text))
+        print(f"  saved — {len(text)} chars, {cites} citations   "
+              f"({done} done, {len(todo) - i} left)\n")
 
-    print(f"stored {done} answers from {args.engine}")
+    print(f"\nstored {done} answers from {args.engine}")
+    if done:
+        print("next:  python3 run.py extract && python3 run.py metrics --slices")
     return 0
 
 
@@ -156,7 +216,7 @@ def main():
         p = sub.add_parser(name)
         p.add_argument("--engine", default="perplexity",
                        choices=["perplexity", "chatgpt", "claude", "gemini_web", "copilot"])
-        p.add_argument("--n", type=int, default=60)
+        p.add_argument("--n", type=int, default=20)
         p.add_argument("--rep", type=int, default=0)
         p.set_defaults(fn=fn)
     args = ap.parse_args()
