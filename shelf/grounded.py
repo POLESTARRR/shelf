@@ -123,7 +123,7 @@ def _unwrap(url: str) -> str:
     return url
 
 
-def search(query: str, k: int = 6, sleep: float = 2.0) -> list[dict]:
+def search(query: str, k: int = 6, sleep: float = 1.2) -> list[dict]:
     cache = _cache_path("search", f"{query}|{k}")
     if cache.exists():
         return json.loads(cache.read_text())
@@ -145,12 +145,12 @@ def search(query: str, k: int = 6, sleep: float = 2.0) -> list[dict]:
     return results
 
 
-def fetch_page(url: str, max_chars: int = 4000, sleep: float = 1.5) -> str:
+def fetch_page(url: str, max_chars: int = 2200, sleep: float = 0.8) -> str:
     cache = _cache_path("page", url)
     if cache.exists():
         return json.loads(cache.read_text()).get("text", "")
 
-    html = _get(url, timeout=15)
+    html = _get(url, timeout=7)
     time.sleep(sleep)
     text = ""
     if html:
@@ -180,7 +180,7 @@ class WebGrounded(Runner):
     supports_grounding = True
 
     def __init__(self, model: str = "llama-3.1-8b-instant",
-                 k: int = 6, fetch: int = 3):
+                 k: int = 6, fetch: int = 2):
         self.model = model
         self.k = k
         self.fetch = fetch
