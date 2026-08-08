@@ -19,9 +19,15 @@ def now() -> str:
 def connect(path: Path | None = None) -> sqlite3.Connection:
     path = path or DB_PATH
     path.parent.mkdir(parents=True, exist_ok=True)
-    conn = sqlite3.connect(path)
+    # Background collectors and a hand-collection session write to the same
+    # file. WAL allows concurrent readers alongside one writer, and a generous
+    # busy timeout makes the brief overlap between two committers wait rather
+    # than raise "database is locked" and lose an answer someone just typed.
+    conn = sqlite3.connect(path, timeout=30.0)
     conn.row_factory = sqlite3.Row
     conn.execute("PRAGMA foreign_keys = ON")
+    conn.execute("PRAGMA busy_timeout = 30000")
+    conn.execute("PRAGMA journal_mode = WAL")
     return conn
 
 
