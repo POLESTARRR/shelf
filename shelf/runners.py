@@ -268,7 +268,13 @@ def json_ask(prompt: str, model: str = "llama-3.3-70b-versatile", retries: int =
     return None
 
 
+def _websearch(model=None):
+    from shelf.grounded import WebGrounded          # imported lazily: grounded.py imports us
+    return WebGrounded(model or "llama-3.1-8b-instant")
+
+
 REGISTRY = {
+    "websearch": _websearch,
     "gemini": lambda m=None: Gemini(m or "gemini-2.5-flash"),
     "groq": lambda m=None: Groq(m or "llama-3.3-70b-versatile"),
     "openrouter": lambda m=None: OpenRouter(m or "meta-llama/llama-3.3-70b-instruct:free"),
