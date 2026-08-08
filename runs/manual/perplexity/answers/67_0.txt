@@ -1,0 +1,56 @@
+For a 20-person B2B SaaS startup with no SDR team, you'll want tools that combine **prospecting data**, **AI-driven outreach**, and **lightweight automation** so your AEs/founders can run outbound without hiring. [monday](https://monday.com/blog/crm-and-sales/best-ai-sdr-tools/)
+
+## What to prioritize
+
+Look for tools that:
+
+- Have a strong B2B contact database (especially SaaS/tech ICPs) [devcommx](https://www.devcommx.com/blogs/best-sales-prospecting-tools-ai-software-to-drive-qualified-leads)
+- Automate research, personalization, and sequencing across email + LinkedIn [monday](https://monday.com/blog/crm-and-sales/best-ai-sdr-tools/)
+- Integrate with your CRM (HubSpot, Pipedrive, etc.) and calendar [apollo](https://www.apollo.io/insights/best-ai-powered-outreach-tool-for-a-sales-team-without-a-dedicated-sdr-function)
+- Are simple enough for non–RevOps people to run day-to-day [origami](https://origami.chat/blog/best-ai-sales-prospecting-tools-startups-small-businesses-2026)
+
+## Top AI SDR & prospecting tools for your situation
+
+### 1. Apollo.io (best all-round value)
+
+- **Why:** Huge B2B database, built-in AI research, sequencing, and dialer in one workspace. [apollo](https://www.apollo.io/insights/best-ai-powered-outreach-tool-for-a-sales-team-without-a-dedicated-sdr-function)
+- **Fit:** Great when you have no SDRs; AEs can own end-to-end outbound. [apollo](https://www.apollo.io/insights/best-ai-powered-outreach-tool-for-a-sales-team-without-a-dedicated-sdr-function)
+- **Pricing:** Free tier for testing; paid plans from ~$49/user/month. [devcommx](https://www.devcommx.com/blogs/best-sales-prospecting-tools-ai-software-to-drive-qualified-leads)
+
+### 2. Instantly.ai / Smartlead / Lemlist (cold email engines)
+
+- **Why:** Focused on high-volume, deliverable cold email with AI personalization and warmup. [dooza](https://www.dooza.ai/blog/best-ai-sales-tools-for-startups)
+- **Fit:** Pair with a data source (Apollo, Clay, etc.) if you want maximum control over email infra. [duet](https://duet.so/blog/how-to-set-up-ai-sales-prospecting-startups)
+- **Pricing:** Typically ~$30–$100/month depending on scale. [dooza](https://www.dooza.ai/blog/best-ai-sales-tools-for-startups)
+
+### 3. Clay + Instantly (DIY "AI SDR" stack)
+
+- **Why:** Clay = flexible data enrichment + AI research; Instantly = sending & tracking. [saas-hackers](https://www.saas-hackers.com/blog/best-ai-sdr-tools-for-b2b-saas)
+- **Fit:** Good if you have someone technical/analytical who can build workflows. [saas-hackers](https://www.saas-hackers.com/blog/best-ai-sdr-tools-for-b2b-saas)
+- **Trade-off:** More powerful but more setup than Apollo/Enginy. [origami](https://origami.chat/blog/best-ai-sales-prospecting-tools-startups-small-businesses-2026)
+
+### 4. Enginy (all-in-one, non-technical friendly)
+
+- **Why:** End-to-end AI prospecting: discovery, enrichment, and multi-channel outreach without needing a GTM engineer. [enginy](https://www.enginy.ai/fr/blog/best-ai-prospecting-tools)
+- **Fit:** Early-stage teams that want "one tool" for outbound. [enginy](https://www.enginy.ai/fr/blog/best-ai-prospecting-tools)
+
+### 5. 11x (Alice/Jordan), Artisan (Ava), AiSDR (autonomous AI SDRs)
+
+- **Why:** Market themselves as autonomous AI SDRs that research, write, send, and book meetings. [saas-hackers](https://www.saas-hackers.com/blog/best-ai-sdr-tools-for-b2b-saas)
+- **Fit:** If you want something closer to a "virtual SDR employee" rather than just a tool. [saas-hackers](https://www.saas-hackers.com/blog/best-ai-sdr-tools-for-b2b-saas)
+- **Caveat:** Usually pricier and more sales-led; evaluate carefully on actual meeting quality, not just demos. [marketbetter](https://www.marketbetter.ai/blog/best-ai-sdr-tools/)
+
+### 6. Humanlinker / AISQ (startup-focused AI SDRs)
+
+- **Why:** Built and priced for startups; Humanlinker is often recommended as the best AI SDR for early-stage teams. [hackceleration](https://hackceleration.com/labs/best/ai-sdr-startups)
+- **Fit:** Bootstrapped to seed-stage startups wanting an "SDR-like" agent. [hackceleration](https://hackceleration.com/labs/best/ai-sdr-startups)
+
+## A pragmatic stack for a 20-person startup
+
+If you want something simple and cost-effective to start:
+
+1. **Apollo.io** – for data + AI research + sequencing (your core "AI SDR"). [apollo](https://www.apollo.io/insights/best-ai-powered-outreach-tool-for-a-sales-team-without-a-dedicated-sdr-function)
+2. **Instantly** (optional) – if you need more email accounts/scale and deliverability control. [dooza](https://www.dooza.ai/blog/best-ai-sales-tools-for-startups)
+3. **Your CRM** – ensure two-way sync so all activity is logged and measurable. [apollo](https://www.apollo.io/insights/best-ai-powered-outreach-tool-for-a-sales-team-without-a-dedicated-sdr-function)
+
+If you'd like, tell me your ICP (company size, role, geography) and current CRM, and I can suggest a concrete 2–3 tool setup with a 30-day pilot plan.
