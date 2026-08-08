@@ -1,0 +1,44 @@
+For a 20-person B2B SaaS startup with no existing SDR team, you should prioritize tools that combine **prospecting data + outreach automation** at a reasonable price, while requiring minimal setup and ops overhead. [monday](https://monday.com/blog/crm-and-sales/best-ai-sdr-tools/)
+
+## Top AI SDR & Prospecting Tools to Consider
+
+### 1. **Apollo.io** – Best all-in-one starting point
+- **Why:** Massive B2B database (210M+ contacts), built-in email/LinkedIn sequencing, AI writing, and CRM sync. [intempt](https://intempt.com/blog/top-ai-sales-prospecting-tools)
+- **Price:** Free plan available; paid from ~$49/user/month. [intempt](https://intempt.com/blog/top-ai-sales-prospecting-tools)
+- **Best for:** Seed to Series B teams needing prospecting + outreach in one place without hiring an SDR. [vezadigital](https://www.vezadigital.com/post/best-ai-sales-tools)
+
+### 2. **Origami** – Best for ICP-driven prospecting
+- **Why:** Describe your ideal customer in plain English; AI finds and verifies contacts across the web. [origami](https://origami.chat/blog/best-ai-sales-prospecting-tools-sdrs-small-businesses-2026)
+- **Price:** Free plan with 1,000 credits; paid tiers scale affordably. [origami](https://origami.chat/blog/best-ai-sales-prospecting-tools-sdrs-small-businesses-2026)
+- **Best for:** Small teams (1–5 people) or startups with niche ICPs where LinkedIn/Apollo coverage is thin. [origami](https://origami.chat/blog/best-ai-sales-prospecting-tools-sdrs-small-businesses-2026)
+
+### 3. **Instantly** or **SalesHandy** – Best for cold email at scale
+- **Why:** Focused on high-volume, multi-account cold email with warm-up, deliverability controls, and basic AI personalization. [marketbetter](https://www.marketbetter.ai/blog/best-ai-sdr-tools/)
+- **Price:** Instantly from ~$30/month; SalesHandy from ~$25/month. [marketbetter](https://www.marketbetter.ai/blog/best-ai-sdr-tools/)
+- **Best for:** Teams that already have a lead list and want to automate outbound email cheaply. [marketbetter](https://www.marketbetter.ai/blog/best-ai-sdr-tools/)
+
+### 4. **11x (Alice/Jordan)** or **Artisan (Ava)** – Autonomous AI SDR agents
+- **Why:** Fully autonomous agents that research, personalize, and send multi-channel outreach; some claim to book meetings end-to-end. [saas-hackers](https://www.saas-hackers.com/blog/best-ai-sdr-tools-for-b2b-saas)
+- **Price:** 11x ~$50K/year; Artisan pricing not always public. [marketbetter](https://www.marketbetter.ai/blog/best-ai-sdr-tools/)
+- **Best for:** Teams ready to invest in a "hire-like" AI SDR rather than just tools. [saas-hackers](https://www.saas-hackers.com/blog/best-ai-sdr-tools-for-b2b-saas)
+
+### 5. **Humanlinker** – Best AI SDR for early-stage startups
+- **Why:** Designed for bootstrapped to seed-stage startups; focuses on LinkedIn + email outreach with AI personalization. [hackceleration](https://hackceleration.com/labs/best/ai-sdr-startups)
+- **Price:** From ~€69/user/month. [hackceleration](https://hackceleration.com/labs/best/ai-sdr-startups)
+- **Best for:** Very small teams wanting an AI SDR that feels like a first hire without enterprise cost. [hackceleration](https://hackceleration.com/labs/best/ai-sdr-startups)
+
+## Recommended Stack for Your Situation
+
+Given you're a **20-person startup with no SDR team**, a pragmatic starting stack would be:
+
+- **Apollo.io (free or starter plan)** – for database + sequencing + basic AI. [intempt](https://intempt.com/blog/top-ai-sales-prospecting-tools)
+- **Instantly** – if you plan to run high-volume cold email from multiple domains. [marketbetter](https://www.marketbetter.ai/blog/best-ai-sdr-tools/)
+- **Origami (free tier)** – to quickly generate verified prospect lists from natural-language ICP descriptions. [origami](https://origami.chat/blog/best-ai-sales-prospecting-tools-sdrs-small-businesses-2026)
+
+This combo gives you:
+- Lead discovery (Origami + Apollo)
+- Multi-channel sequencing (Apollo + Instantly)
+- AI personalization and writing assistance (built into all three)
+- Low upfront cost and minimal ops burden [marketbetter](https://www.marketbetter.ai/blog/best-ai-sdr-tools/)
+
+Once you're consistently booking meetings, you can evaluate upgrading to an autonomous agent like **11x** or **Artisan**, or layer in a conversation intelligence tool (e.g., Gong, Avoma) for call coaching. [vezadigital](https://www.vezadigital.com/post/best-ai-sales-tools)

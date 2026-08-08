@@ -1,0 +1,17 @@
+## Recommendation: Apollo.io
+
+I would recommend **Apollo.io** for a 20-person B2B SaaS startup with no dedicated SDR team. It combines prospect discovery, contact-data enrichment, AI-assisted research, email sequencing, calling, follow-ups, and CRM synchronization in one platform, reducing the need to purchase and integrate several separate tools. [apollo](https://www.apollo.io/anywhere)
+
+### Why Apollo fits
+
+- **All-in-one prospecting:** The team can identify target accounts and decision-makers using filters such as industry, company size, job title, and technology used.
+- **AI-assisted outreach:** Apollo can research prospects, generate personalized messages, and build multichannel sequences, while allowing a founder or account executive to review them before sending. [apollo](https://www.apollo.io/insights/how-do-i-integrate-an-ai-sales-assistant-into-my-existing-outbound-workflow)
+- **Affordable for a small startup:** Apollo offers a free tier and paid plans starting around $49 per user per month on annual billing, making it more accessible than enterprise tools such as ZoomInfo or fully autonomous AI SDR platforms. [apollo](https://www.apollo.io/insights/apollo-vs-uplead)
+- **Easy adoption:** Its database, sequencing, dialer, workflows, and CRM integrations are available in one workspace, reducing operational complexity for a team without SDR expertise. [apollo](https://www.apollo.io/)
+- **Scalable:** The company can begin with founder-led or AE-led outreach and later add users, automation, intent signals, and more advanced workflows as sales volume grows.
+
+### Procurement condition
+
+I would start with a **short paid pilot**, using one clearly defined ICP and measuring qualified meetings, positive reply rate, data accuracy, email deliverability, and CRM cleanliness. Apollo should assist the sales team—not send uncontrolled mass outreach—so SPF, DKIM, DMARC, human approval, and compliance checks should be configured before launch. [apollo](https://www.apollo.io/insights/how-do-i-integrate-an-ai-sales-assistant-into-my-existing-outbound-workflow)
+
+**Final choice: Apollo.io**, because it offers the best balance of prospecting coverage, AI assistance, outreach automation, integration, and cost for a small B2B SaaS company that lacks an SDR team.

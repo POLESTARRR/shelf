@@ -191,18 +191,23 @@ def cmd_import(args):
     d = MANUAL / args.engine
     if not d.exists():
         print(f"no folder {d}"); return 1
-    n = 0
-    for f in sorted(d.glob("*.txt")):
+    n = skipped = 0
+    # Answers live in answers/ but accept them at the top level too.
+    files = sorted(set(d.glob("*.txt")) | set((d / "answers").glob("*.txt")))
+    for f in files:
         try:
             pid, rep = f.stem.split("_")
             pid, rep = int(pid), int(rep)
         except ValueError:
             print(f"  skip {f.name} (expected <prompt_id>_<rep>.txt)"); continue
         text = f.read_text().strip()
-        if text:
-            _store(conn, pid, args.engine, rep, text, args.model)
-            n += 1
-    print(f"imported {n} answers from {d}")
+        if not text:
+            skipped += 1      # placeholder never filled in; not an error
+            continue
+        _store(conn, pid, args.engine, rep, text, args.model)
+        n += 1
+    print(f"imported {n} answers from {d}"
+          + (f" ({skipped} empty placeholders skipped)" if skipped else ""))
     return 0
 
 

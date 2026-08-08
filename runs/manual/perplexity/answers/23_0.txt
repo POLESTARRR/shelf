@@ -1,0 +1,52 @@
+For a **20-person B2B SaaS startup with no SDR team, I'd choose AiSDR first—not 11x**. AiSDR is cheaper, faster to launch, and better suited to validating your outbound motion before committing to an enterprise-style autonomous sales system. Its official plans start at $250/month, with the commonly positioned Explore plan at $900/month billed quarterly; 11x's Alice starts at $3,750/month billed annually, or $36,000/year. [aisdr](https://aisdr.com/pricing/)
+
+## Quick comparison
+
+| Factor | AiSDR | 11x |
+|---|---|---|
+| Best fit | Startups and SMBs testing outbound | Larger teams scaling an established outbound engine |
+| Starting cost | From $250/month; Explore commonly listed at $900/month | $3,750/month, billed annually |
+| Commitment | Monthly/quarterly options depending on plan | Annual commitment on Growth |
+| Primary strength | Research-led, relatively accessible outbound | More autonomous, multi-channel sales execution |
+| Operational burden | You still need to define ICP, messaging, and qualification | More vendor-led implementation and oversight |
+| Main risk | Limited depth if your motion becomes complex | High cost and over-automation before product-market/message fit |
+
+11x has broader enterprise-oriented capabilities and supports more extensive autonomous outreach, but its pricing and annual commitment make it a significant bet for a company that has not yet built an SDR process. [11x](https://www.11x.ai/products/alice/pricing)
+
+## Why AiSDR is the better first move
+
+At your size, the main problem probably isn't sending more messages—it's discovering:
+
+- Which customer segment responds.
+- Which pain point creates meetings.
+- Which titles are genuine buyers.
+- What qualification criteria define a good opportunity.
+- Whether outbound can produce pipeline at an acceptable cost.
+
+AiSDR's lower entry price lets you test those assumptions without spending roughly $45,000 in the first year on the base 11x Growth plan. AiSDR also advertises research-led personalization, email/LinkedIn/call outreach, and approximately 1–3 meetings per 100 leads; treat those meeting figures as a vendor claim that must be validated against your own data. [aisdr](https://aisdr.com/)
+
+## When 11x makes sense
+
+Choose 11x instead if most of these are already true:
+
+- You have a clearly defined ICP and repeatable messaging.
+- Your average contract value is high enough to justify a large annual commitment.
+- You want autonomous execution across several channels, potentially including voice.
+- Someone on the team can manage deliverability, compliance, routing, and meeting quality.
+- You already know the economics of a qualified meeting and opportunity.
+
+In other words, **11x is a scale decision; AiSDR is a learning and validation decision**.
+
+## Recommended rollout
+
+I'd run AiSDR as a controlled 6–8 week pilot:
+
+1. Pick one narrow ICP, one geography, and one buyer persona.
+2. Start with 300–500 carefully selected accounts rather than maximum volume.
+3. Have the founder, CEO, or sales manager approve the first campaigns and replies.
+4. Track positive-reply rate, qualified-meeting rate, show rate, opportunity rate, and pipeline generated—not just meetings booked.
+5. Continue only if the resulting opportunities meet your target customer profile and economics.
+
+Do not let either tool operate as an unsupervised replacement for sales strategy. With no SDR team, assign one internal owner—probably the founder, sales leader, or growth marketer—to review targeting, replies, and qualification every week.
+
+**Verdict:** Start with **AiSDR**, preferably on the lowest plan that supports a meaningful test. Reconsider 11x after you have proven your ICP, messaging, deliverability, and unit economics.

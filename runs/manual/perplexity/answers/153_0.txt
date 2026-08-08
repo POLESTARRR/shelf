@@ -1,0 +1,21 @@
+Yes. There are serious, well-documented credibility concerns about 11x (the AI SDR startup) that buyers should treat as red flags. [techcrunch](https://techcrunch.com/2025/03/24/a16z-and-benchmark-backed-11x-has-been-claiming-customers-it-doesnt-have/)
+
+## Core credibility issues
+
+- **Fabricated customer claims and testimonials:** A March 2025 TechCrunch investigation reported that 11x listed companies (e.g., ZoomInfo, Airtable) as customers without authorization and published customer testimonials that were denied by the quoted individuals or companies. [techcrunch](https://techcrunch.com/2025/03/24/a16z-and-benchmark-backed-11x-has-been-claiming-customers-it-doesnt-have/)
+- **Inflated growth metrics (ARR):** Former employees and sources alleged 11x counted full-year contract value toward annual recurring revenue (ARR) even when customers exercised early "break clauses" and left after ~3 months, making growth look stronger than committed revenue. [techcrunch](https://techcrunch.com/2025/03/24/a16z-and-benchmark-backed-11x-has-been-claiming-customers-it-doesnt-have/)
+- **Very high early churn:** Multiple sources (former/current employees, industry observers) report ~70–80% of customers churn within the first 3 months; one 2026 review cites ~75% 3-month churn. [techcrunch](https://techcrunch.com/2025/03/24/a16z-and-benchmark-backed-11x-has-been-claiming-customers-it-doesnt-have/)
+- **Product performance complaints:** Reports include AI "hallucinations," features not working as expected, inconsistent results, and messaging that can feel generic or robotic—leading to more manual work than promised. [techcrunch](https://techcrunch.com/2025/03/24/a16z-and-benchmark-backed-11x-has-been-claiming-customers-it-doesnt-have/)
+- **Contract rigidity and pricing opacity:** Buyers note a high minimum annual commitment (often cited around $60K), no pilots, opaque pricing until sales conversations, and anxiety around credits/usage visibility. [thecroreport](https://thecroreport.com/tools/11x/)
+
+## What this means for a buyer
+
+Because social proof on 11x's site has been called into question, independent verification becomes essential:
+
+- **Do not rely on website logos or case-study quotes** as evidence of fit or performance. [thecroreport](https://thecroreport.com/tools/11x/)
+- **Require independently sourced customer references** (e.g., find 3 current users via LinkedIn or your network, not just references 11x provides) and ask specifically about 12-month retention, reply quality, and setup effort. [thecroreport](https://thecroreport.com/tools/11x/)
+- **Pressure-test contract terms** (break clauses, usage caps, data export, termination rights) and get clarity on how performance will be measured and reported. [thecroreport](https://thecroreport.com/tools/11x/)
+
+## Bottom line
+
+Given the combination of alleged misrepresentation, high early churn, and mixed product performance reports, 11x is widely characterized in 2025–2026 analyst/review content as a **high-risk purchase** for most teams unless you can independently validate outcomes and secure flexible contractual protections. [thecroreport](https://thecroreport.com/tools/11x/)
