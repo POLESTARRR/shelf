@@ -1,0 +1,80 @@
+{
+  "sample_id": "claude_7_24",
+  "labeler": "claude",
+  "n_labelled": 24,
+  "mentioned": {
+    "tp": 24,
+    "fp": 0,
+    "fn": 3,
+    "precision": 1.0,
+    "recall": 0.8889,
+    "f1": 0.9412
+  },
+  "recommended": {
+    "tp": 8,
+    "fp": 3,
+    "fn": 2,
+    "precision": 0.7273,
+    "recall": 0.8,
+    "f1": 0.7619
+  },
+  "disagreements": [
+    {
+      "run_id": 613,
+      "field": "recommended",
+      "extractor_said": [
+        "Apollo"
+      ],
+      "human_said": []
+    },
+    {
+      "run_id": 122,
+      "field": "mentioned",
+      "extractor_said": [],
+      "human_said": [
+        "Warmly"
+      ]
+    },
+    {
+      "run_id": 136,
+      "field": "mentioned",
+      "extractor_said": [],
+      "human_said": [
+        "Unify"
+      ]
+    },
+    {
+      "run_id": 336,
+      "field": "recommended",
+      "extractor_said": [
+        "Clay"
+      ],
+      "human_said": []
+    },
+    {
+      "run_id": 186,
+      "field": "mentioned",
+      "extractor_said": [],
+      "human_said": [
+        "Unify"
+      ]
+    },
+    {
+      "run_id": 475,
+      "field": "recommended",
+      "extractor_said": [],
+      "human_said": [
+        "11x",
+        "Salesloft"
+      ]
+    },
+    {
+      "run_id": 138,
+      "field": "recommended",
+      "extractor_said": [
+        "Warmly"
+      ],
+      "human_said": []
+    }
+  ]
+}

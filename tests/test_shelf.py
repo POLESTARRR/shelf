@@ -129,6 +129,45 @@ class TestMentions(unittest.TestCase):
         self.assertEqual(extract.find_mentions("", self.BRANDS), [])
 
 
+class TestAmbiguousBrandNames(unittest.TestCase):
+    """Calibration found one failure mode behind 7 of 13 extractor errors:
+    a brand whose name is an ordinary English word matches title-case prose.
+    Case sensitivity alone does not fix it - 'Automated Outreach' and
+    'Qualified Meetings' are capitalised too."""
+
+    BRANDS = [
+        {"id": 1, "name": "Outreach", "aliases": ["Outreach.io"], "case_sensitive": 1},
+        {"id": 2, "name": "Qualified", "aliases": [], "case_sensitive": 1},
+        {"id": 3, "name": "Apollo", "aliases": [], "case_sensitive": 1},
+        {"id": 4, "name": "Amplemarket", "aliases": [], "case_sensitive": 0},
+    ]
+
+    def _names(self, text, subject=None):
+        by_id = {b["id"]: b["name"] for b in self.BRANDS}
+        return {by_id[h["brand_id"]] for h in
+                extract.find_mentions(text, self.BRANDS, subject)}
+
+    def test_title_case_prose_is_not_a_brand(self):
+        text = ("## Automated Outreach\n\nTrack Qualified Meetings and improve "
+                "Reply Rates across your Sales Outreach programme.")
+        self.assertEqual(self._names(text), set())
+
+    def test_bolded_ambiguous_name_still_counts(self):
+        self.assertIn("Outreach", self._names("- **Outreach** is the incumbent."))
+
+    def test_list_head_ambiguous_name_still_counts(self):
+        self.assertIn("Qualified", self._names("1. Qualified - inbound agent."))
+
+    def test_domain_suffix_counts(self):
+        self.assertIn("Outreach", self._names("We evaluated Outreach.io last year."))
+
+    def test_vendor_verb_context_counts(self):
+        self.assertIn("Apollo", self._names("We are moving off Apollo this quarter."))
+
+    def test_unambiguous_names_unaffected_by_the_rule(self):
+        self.assertIn("Amplemarket", self._names("Amplemarket appears in prose."))
+
+
 class TestCitations(unittest.TestCase):
     def test_extracts_and_dedupes(self):
         text = ("See https://www.g2.com/categories/ai-sdr and "

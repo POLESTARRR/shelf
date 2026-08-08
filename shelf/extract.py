@@ -29,6 +29,29 @@ def brand_pattern(name: str, aliases: list[str], case_sensitive: bool = False) -
     return re.compile(rf"(?<![\w])(?:{alt})(?![\w])", flags)
 
 
+# For a brand whose name is an ordinary English word, a capital letter is not
+# enough: title-case prose ("Automated Outreach", "Reply Rates", "Qualified
+# Meetings") reads as the brand. Calibration showed this single failure mode
+# caused 7 of 13 extractor errors. So ambiguous names must additionally appear
+# in a position where a product name is actually used: emphasised, heading a
+# list item, or carrying a domain suffix.
+_DOMAINISH = re.compile(r"^\s*\.(ai|io|com|co)\b", re.I)
+
+
+def _proper_noun_position(text, start, end, in_list, in_bold, matched="") -> bool:
+    if in_list or in_bold:
+        return True
+    # The matched form itself carries a domain ("Outreach.io"): unambiguous.
+    if "." in matched:
+        return True
+    if _DOMAINISH.match(text[end:end + 5]):
+        return True
+    # "moving off X.", "switch to X," - X is the object of a vendor verb
+    before = text[max(0, start - 24):start].lower()
+    return bool(re.search(r"\b(off|from|to|with|using|versus|vs\.?|than|replace|replacing)\s+$",
+                          before))
+
+
 def find_mentions(text: str, brands: list[dict], subject: str | None = None) -> list[dict]:
     """brands: [{id, name, aliases, case_sensitive}] -> one row per brand present.
 
@@ -45,8 +68,23 @@ def find_mentions(text: str, brands: list[dict], subject: str | None = None) -> 
 
     hits = []
     for b in brands:
-        pat = brand_pattern(b["name"], b.get("aliases") or [], bool(b.get("case_sensitive")))
-        m = pat.search(text)
+        ambiguous = bool(b.get("case_sensitive"))
+        pat = brand_pattern(b["name"], b.get("aliases") or [], ambiguous)
+
+        m = None
+        for cand in pat.finditer(text):
+            if not ambiguous:
+                m = cand
+                break
+            ls = text.rfind("\n", 0, cand.start()) + 1
+            le = text.find("\n", cand.start())
+            le = len(text) if le == -1 else le
+            c_list = bool(LIST_RE.match(text[ls:le + 1]))
+            c_bold = any(s0 <= cand.start() < e0 for s0, e0 in bold_spans)
+            if _proper_noun_position(text, cand.start(), cand.end(), c_list, c_bold,
+                                     cand.group(0)):
+                m = cand
+                break
         if not m:
             continue
 

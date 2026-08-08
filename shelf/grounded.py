@@ -67,12 +67,27 @@ except ImportError:
 # not want "I'm a VP of Sales." Real answer engines rewrite the question before
 # retrieving; we do the same with a deterministic rule so it stays reproducible.
 _PERSONA_PREFIX = re.compile(r"^(I'm a [^.]+\.\s*|As an? [^,]+,\s*)", re.I)
+# Buyer context helps the model but poisons the search: a long descriptive
+# clause matches keyword-stuffed SEO pages rather than substantive comparisons.
+# Real answer engines decompose a question into short queries before retrieving.
+_SEGMENT_CLAUSE = re.compile(
+    r"\s+(for|at)\s+(a|an)\s+[^,.?]*?(startup|company|team|business|organisation|organization)"
+    r"[^,.?]*", re.I)
+_TAIL_QUALIFIER = re.compile(r"\s+(with|that requires)\s+[^,.?]+$", re.I)
 _TAGS = re.compile(r"<(script|style)[^>]*>.*?</\1>|<[^>]+>", re.S | re.I)
 _WS = re.compile(r"[ \t\r\f\v]+")
 
 
-def derive_query(prompt: str, max_words: int = 24) -> str:
+def derive_query(prompt: str, max_words: int = 12) -> str:
+    """Turn a conversational prompt into a search-shaped query.
+
+    Deterministic and rule-based on purpose. Rewriting queries with a model
+    would let the retrieval step drift, and tuning the rules until the results
+    look better would be choosing the answer.
+    """
     q = _PERSONA_PREFIX.sub("", prompt.strip())
+    q = _SEGMENT_CLAUSE.sub("", q)
+    q = _TAIL_QUALIFIER.sub("", q)
     q = q.rstrip("?.").strip()
     return " ".join(q.split()[:max_words])
 

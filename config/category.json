@@ -186,9 +186,7 @@
     {
       "name": "Reply.io",
       "domain": "reply.io",
-      "aliases": [
-        "Reply"
-      ]
+      "aliases": []
     },
     {
       "name": "Clearbit",

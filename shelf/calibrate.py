@@ -83,8 +83,11 @@ def _prf(tp: int, fp: int, fn: int) -> dict:
 def cmd_score(args):
     sheet = json.loads(Path(args.sheet).read_text())
     conn = db.connect()
-    brands = [{"id": r["id"], "name": r["name"], "aliases": json.loads(r["aliases"])}
-              for r in db.brands(conn)]
+    # case_sensitive MUST be carried through. Omitting it silently scores a
+    # different extractor configuration than the one that produced the data,
+    # so the published error rate would describe code that never ran.
+    brands = [{"id": r["id"], "name": r["name"], "aliases": json.loads(r["aliases"]),
+               "case_sensitive": r["case_sensitive"]} for r in db.brands(conn)]
     id2name = {b["id"]: b["name"] for b in brands}
 
     unlabelled = [i["run_id"] for i in sheet["items"] if i["mentioned"] is None]
