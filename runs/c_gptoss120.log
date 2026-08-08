@@ -1,0 +1,5 @@
+note: groq cannot search the web; collecting ungrounded (model memory)
+720 calls pending  [groq/openai/gpt-oss-120b grounded=0]
+  10/720  ok=10 fail=0
+  20/720  ok=20 fail=0
+  30/720  ok=30 fail=0

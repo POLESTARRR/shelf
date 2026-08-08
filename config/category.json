@@ -1,0 +1,238 @@
+{
+  "category": "AI sales prospecting and outbound platforms",
+  "category_short": "AI SDR and prospecting tools",
+  "segments": [
+    "a 20-person B2B SaaS startup with no SDR team",
+    "a 200-person B2B SaaS company with 8 SDRs",
+    "a UK-based B2B company that must comply with GDPR",
+    "an enterprise sales team with strict data-compliance requirements"
+  ],
+  "constraints": [
+    "is GDPR compliant for UK and EU prospect data",
+    "is SOC 2 Type II certified",
+    "keeps a human approving every email before it sends",
+    "integrates natively with Salesforce",
+    "costs under $500 per month"
+  ],
+  "integrations": [
+    "Salesforce",
+    "HubSpot",
+    "Outreach"
+  ],
+  "roles": {
+    "practitioner": "SDR manager",
+    "economic_buyer": "VP of Sales",
+    "technical": "RevOps lead responsible for data compliance",
+    "procurement": "procurement manager"
+  },
+  "_comment_focus": "Brands we produce full scorecards for and deep-probe with fact questions.",
+  "focus_brands": [
+    {
+      "name": "Clay",
+      "domain": "clay.com",
+      "aliases": [
+        "Clay.com",
+        "Claygent"
+      ],
+      "case_sensitive": true
+    },
+    {
+      "name": "Apollo",
+      "domain": "apollo.io",
+      "aliases": [
+        "Apollo.io"
+      ],
+      "case_sensitive": true
+    },
+    {
+      "name": "Unify",
+      "domain": "unifygtm.com",
+      "aliases": [
+        "Unify GTM",
+        "UnifyGTM"
+      ],
+      "case_sensitive": true
+    },
+    {
+      "name": "Common Room",
+      "domain": "commonroom.io",
+      "aliases": [
+        "CommonRoom"
+      ]
+    },
+    {
+      "name": "Artisan",
+      "domain": "artisan.co",
+      "aliases": [
+        "Artisan AI",
+        "Ava by Artisan"
+      ]
+    },
+    {
+      "name": "11x",
+      "domain": "11x.ai",
+      "aliases": [
+        "11x.ai",
+        "Eleven X"
+      ]
+    },
+    {
+      "name": "Regie.ai",
+      "domain": "regie.ai",
+      "aliases": [
+        "Regie",
+        "RegieAI"
+      ]
+    },
+    {
+      "name": "Amplemarket",
+      "domain": "amplemarket.com",
+      "aliases": []
+    },
+    {
+      "name": "Warmly",
+      "domain": "warmly.ai",
+      "aliases": [
+        "Warmly.ai"
+      ],
+      "case_sensitive": true
+    },
+    {
+      "name": "AiSDR",
+      "domain": "aisdr.com",
+      "aliases": [
+        "AI SDR by AiSDR"
+      ]
+    },
+    {
+      "name": "Instantly",
+      "domain": "instantly.ai",
+      "aliases": [
+        "Instantly.ai"
+      ],
+      "case_sensitive": true
+    },
+    {
+      "name": "Smartlead",
+      "domain": "smartlead.ai",
+      "aliases": [
+        "Smartlead.ai"
+      ]
+    }
+  ],
+  "_comment_competitors": "Detected and counted for share-of-voice, but not deep-probed.",
+  "competitor_brands": [
+    {
+      "name": "ZoomInfo",
+      "domain": "zoominfo.com",
+      "aliases": [
+        "Zoom Info"
+      ]
+    },
+    {
+      "name": "Outreach",
+      "domain": "outreach.io",
+      "aliases": [
+        "Outreach.io"
+      ],
+      "case_sensitive": true
+    },
+    {
+      "name": "Salesloft",
+      "domain": "salesloft.com",
+      "aliases": [
+        "Sales Loft"
+      ]
+    },
+    {
+      "name": "Lemlist",
+      "domain": "lemlist.com",
+      "aliases": []
+    },
+    {
+      "name": "Autobound",
+      "domain": "autobound.ai",
+      "aliases": []
+    },
+    {
+      "name": "Qualified",
+      "domain": "qualified.com",
+      "aliases": [
+        "Piper by Qualified"
+      ],
+      "case_sensitive": true
+    },
+    {
+      "name": "Pocus",
+      "domain": "pocus.com",
+      "aliases": []
+    },
+    {
+      "name": "Lavender",
+      "domain": "lavender.ai",
+      "aliases": [],
+      "case_sensitive": true
+    },
+    {
+      "name": "Cognism",
+      "domain": "cognism.com",
+      "aliases": []
+    },
+    {
+      "name": "Lusha",
+      "domain": "lusha.com",
+      "aliases": []
+    },
+    {
+      "name": "Seamless.ai",
+      "domain": "seamless.ai",
+      "aliases": [
+        "Seamless AI"
+      ]
+    },
+    {
+      "name": "Reply.io",
+      "domain": "reply.io",
+      "aliases": [
+        "Reply"
+      ]
+    },
+    {
+      "name": "Clearbit",
+      "domain": "clearbit.com",
+      "aliases": [
+        "Breeze Intelligence"
+      ]
+    },
+    {
+      "name": "La Growth Machine",
+      "domain": "lagrowthmachine.com",
+      "aliases": [
+        "LaGrowthMachine"
+      ]
+    }
+  ],
+  "_comment_probes": "Fact probes feed the claim-accuracy module. Every one of these is checkable against a public source, which is what turns 'accuracy' from an opinion into a score.",
+  "fact_probes": [
+    "How much does {brand} cost per month?",
+    "Is {brand} SOC 2 Type II certified?",
+    "Who founded {brand} and in what year?",
+    "Has {brand} acquired any company, or been acquired?",
+    "What are the main criticisms or controversies about {brand}?",
+    "Does {brand} send emails autonomously, or does a human approve each one?"
+  ],
+  "_comment_recency": "Known-answer probes with a hard date. These measure whether an engine is current or answering from stale training memory. Ground truth is recorded in METHODOLOGY.md, never in the prompt.",
+  "recency_probes": [
+    {
+      "prompt": "Has Apollo.io made any acquisitions recently?",
+      "truth": "Apollo acquired Pocus on 19 March 2026.",
+      "truth_date": "2026-03-19"
+    },
+    {
+      "prompt": "Are there any credibility concerns a buyer should know about 11x?",
+      "truth": "TechCrunch reported in March 2025 that 11x claimed customers it did not have; the founder-CEO moved to non-executive chairman in May 2025.",
+      "truth_date": "2025-03-24"
+    }
+  ],
+  "_comment_case": "case_sensitive is set for brand names that are also ordinary English words. Without it, 'respond instantly', 'qualified leads' and 'sales outreach' all register as brand mentions."
+}

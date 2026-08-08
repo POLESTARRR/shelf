@@ -1,0 +1,7 @@
+note: groq cannot search the web; collecting ungrounded (model memory)
+1197 calls pending  [groq/llama-3.3-70b-versatile grounded=0]
+  ! HTTP 429: Retry-After 247s exceeds cap; deferring
+  ! HTTP 429: Retry-After 227s exceeds cap; deferring
+  ! HTTP 429: Retry-After 272s exceeds cap; deferring
+  .. 5 consecutive rate limits; cooling down 60s
+  .. 6 consecutive rate limits; cooling down 60s
