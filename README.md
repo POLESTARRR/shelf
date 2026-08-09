@@ -39,23 +39,56 @@ statement.
 **Category:** AI sales prospecting and outbound platforms
 **Vendors:** 12 focus + 14 comparison
 **Prompts:** 240, generated across 4 personas × 5 stages × 11 intents
-**Engines:** 3 models via Groq free tier (model memory) + a manual Perplexity
-sample (live web)
+**Engines:** 3 models via Groq free tier (model memory), a self-built retrieval
+pipeline (live web), and a manual Perplexity sample
 **Repetitions:** 5 per prompt
 
-Findings will be published here once collection completes. Interim numbers are
-not reported as conclusions.
+### Headline finding
+
+On the **134 prompts answered by both** a model with live web access and the
+same model working from memory alone:
+
+| Vendor | Live web | Model memory | Gap |
+|---|---:|---:|---:|
+| Clay | 14.2% | **0.0%** | +14.2 |
+| Lemlist | 12.7% | **0.0%** | +12.7 |
+| Instantly | 8.2% | **0.0%** | +8.2 |
+| Artisan | 7.5% | **0.0%** | +7.5 |
+| Outreach | 15.7% | 21.6% | −6.0 |
+| Salesloft | 5.2% | 27.6% | −22.4 |
+
+Ten vendors — AiSDR, Amplemarket, Artisan, Clay, Common Room, Instantly,
+Regie.ai, Smartlead, Unify, Warmly — were recommended **zero times** from model
+memory (95% upper bound 2.8%), several of them while the *same prompts* against
+live search recommended them repeatedly.
+
+Outreach and Salesloft are the control: substantial on both sides, which is what
+makes the zeros interpretable rather than a suspected extractor bug. The split
+tracks company age — a model's memory is frozen at training time, so newer
+vendors are invisible to every assistant that is not retrieving.
+
+Full numbers, slices and limitations: [report/FINDINGS.md](report/FINDINGS.md).
+Nothing in that file is written by hand; it is regenerated from the database.
 
 ## Quick start
 
+The collected corpus ships with the repository, so you can inspect the findings
+before running anything:
+
 ```bash
 git clone <repo> && cd shelf
+python3 -m shelf.serve            # http://127.0.0.1:8000
+```
+
+To collect your own data:
+
+```bash
 cp .env.example .env          # add a free Groq key: console.groq.com/keys
 
 python3 run.py init config/category.json
 python3 run.py collect --engine groq --model llama-3.1-8b-instant --reps 5
 python3 run.py extract
-python3 run.py metrics --slices
+python3 -m shelf.report       # regenerates report/FINDINGS.md
 ```
 
 To audit a different category, copy `config/category.example.json`, fill in your
@@ -70,6 +103,9 @@ vendors and buyer segments, and re-run. Nothing else changes.
 | `run.py extract` | Parse answers into mentions, ranks and citations |
 | `run.py metrics --slices` | Visibility, stability, persona/stage slices, source graph |
 | `run.py status` | Collection progress |
+| `run.py checkpoint` | Fold the WAL into the `.db` before committing it |
+| `shelf.serve` | Local dashboard; every figure drills down to the raw answers |
+| `shelf.report` | Regenerate `report/FINDINGS.md` from the database |
 | `shelf.manual collect` | Paste-in workflow for Perplexity / ChatGPT |
 | `shelf.calibrate sample` | Draw a blind sample to hand-label |
 | `shelf.calibrate score` | Publish the extractor's precision/recall/F1 |
@@ -115,10 +151,17 @@ limitation: [METHODOLOGY.md](METHODOLOGY.md).
 python3 -m unittest discover -s tests -v
 ```
 
-35 tests, covering the places where a silent bug would corrupt published
+50 tests, covering the places where a silent bug would corrupt published
 numbers: Wilson bounds at 0 and 1, brand matching against ordinary English words
 (`Clay`, `Instantly`, `Warmly`, `Outreach`), self-reference exclusion, retry of
-failed runs, and stratified trimming that must not delete an entire persona.
+failed runs, stratified trimming that must not delete an entire persona, and
+paired comparison — the memory-vs-web table must never compare two engines
+across different prompt sets.
+
+Several of these exist because the bug happened. Calibration caught the
+extractor scoring under a different configuration than production; a part-
+finished grounded sweep briefly made a prompt-mix difference look like a
+visibility gap. Both are now regression-tested.
 
 ## Requirements
 

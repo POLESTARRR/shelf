@@ -87,38 +87,39 @@ def build(conn) -> str:
     # ------------------------------------------------------------- headline
     if grounded and memory:
         g, m = grounded[0], memory[0]
-        gs = {r["brand"]: r for r in score.Scores(conn, g["engine"], g["model"]).visibility()}
-        ms = {r["brand"]: r for r in score.Scores(conn, m["engine"], m["model"]).visibility()}
+        # Paired: restricted to prompts BOTH engines answered. Comparing each
+        # engine's overall rate would compare different questions whenever one
+        # sweep is further along than the other, and intents differ hugely in
+        # how often they recommend anyone at all.
+        pg = score.paired_gap(conn, g, m)
+        gs = {r["brand"]: r for r in pg["rows"]}
+        ms = gs
 
         w("## The gap between memory and the live web")
         w("")
-        w(f"`{_label(g)}` (n={g['n']}) against `{_label(m)}` (n={m['n']}).")
+        w(f"`{_label(g)}` against `{_label(m)}`, on the "
+          f"**{pg['n_shared_prompts']} prompts both engines answered**. A vendor counts "
+          f"once per prompt if any repetition recommended it.")
         w("")
-        w("| Vendor | Live web | Model memory | Gap |")
+        w("| Vendor | Live web | Model memory | Gap (pp) |")
         w("|---|---|---|---:|")
-        both = sorted(set(gs) | set(ms),
-                      key=lambda b: -(gs.get(b, {}).get("rec_rate", 0)))
-        for b in both:
-            gr, mr = gs.get(b), ms.get(b)
-            if (not gr or gr["rec_rate"] == 0) and (not mr or mr["rec_rate"] == 0):
-                continue
-            gtxt = pct(gr["rec_rate"], gr["rec_lo"], gr["rec_hi"]) if gr else "—"
-            mtxt = (f"{mr['times_recommended']}/{mr['n_runs']} = "
-                    f"{pct(mr['rec_rate'], mr['rec_lo'], mr['rec_hi'])}") if mr else "—"
-            gap = ((gr["rec_rate"] if gr else 0) - (mr["rec_rate"] if mr else 0)) * 100
-            w(f"| {b} | {gtxt} | {mtxt} | {gap:+.1f} |")
+        for r in pg["rows"]:
+            w(f"| {r['brand']} "
+              f"| {r['live_hits']}/{pg['n_shared_prompts']} = "
+              f"{pct(r['live'], r['live_lo'], r['live_hi'])} "
+              f"| {r['mem_hits']}/{pg['n_shared_prompts']} = "
+              f"{pct(r['mem'], r['mem_lo'], r['mem_hi'])} "
+              f"| {r['gap']*100:+.1f} |")
         w("")
 
-        never = [b for b in focus
-                 if ms.get(b) and ms[b]["times_recommended"] == 0]
+        never = sorted(set(pg["never_from_memory"]) & set(focus))
         if never:
-            n_m = ms[never[0]]["n_runs"]
-            hi = ms[never[0]]["rec_hi"] * 100
-            w(f"**Never recommended from memory.** In {n_m} answers from models with no "
-              f"web access, these were recommended zero times "
-              f"(95% upper bound {hi:.1f}%):")
+            w(f"**Never recommended from memory.** Across those "
+              f"{pg['n_shared_prompts']} prompts, models with no web access recommended "
+              f"these zero times (95% upper bound {pg['zero_hi']*100:.1f}%) — while the "
+              f"same prompts against live search did recommend several of them:")
             w("")
-            w("> " + ", ".join(sorted(never)))
+            w("> " + ", ".join(never))
             w("")
 
         # A vendor scoring the same on both sides is the control that shows the
@@ -126,18 +127,17 @@ def build(conn) -> str:
         # A control has to be substantial on BOTH sides. Without the floor on
         # the grounded side a single observation out of thirty reads as
         # "agreement" purely because both numbers happen to be small.
-        controls = [(b, gs[b], ms[b]) for b in set(gs) & set(ms)
-                    if ms[b]["rec_rate"] >= 0.10 and gs[b]["rec_rate"] >= 0.10
-                    and gs[b]["times_recommended"] >= 3
-                    and abs(gs[b]["rec_rate"] - ms[b]["rec_rate"]) < 0.06]
+        controls = [r for r in pg["rows"]
+                    if r["mem"] >= 0.05 and r["live"] >= 0.05
+                    and r["live_hits"] >= 3 and abs(r["gap"]) < 0.06]
         if controls:
             w("**Control.** These score the same either way, which is what makes the")
             w("rest interpretable: if the extractor, prompt set or scoring were biased,")
             w("they would move too.")
             w("")
-            for b, gr, mr in sorted(controls, key=lambda t: -t[2]["rec_rate"]):
-                w(f"- **{b}** — live web {gr['rec_rate']*100:.1f}%, "
-                  f"memory {mr['rec_rate']*100:.1f}%")
+            for r in sorted(controls, key=lambda r: -r["mem"]):
+                w(f"- **{r['brand']}** — live web {r['live']*100:.1f}%, "
+                  f"memory {r['mem']*100:.1f}%")
             w("")
 
     # ------------------------------------------------------------ stability
@@ -150,10 +150,14 @@ def build(conn) -> str:
     w("|---|---:|---:|")
     for e in engs:
         inst = score.Scores(conn, e["engine"], e["model"]).instability()
+        # Both are None-able and independently so: an engine can have repeated
+        # prompts (stability defined) while no repetition recommended anyone,
+        # leaving the coin-flip denominator at zero.
         if inst["set_stability"] is None:
             continue
-        w(f"| `{e['engine']}/{e['model']}` | {inst['set_stability']:.3f} | "
-          f"{inst['coinflip_rate']*100:.1f}% |")
+        flip = ("n/a" if inst["coinflip_rate"] is None
+                else f"{inst['coinflip_rate']*100:.1f}%")
+        w(f"| `{e['engine']}/{e['model']}` | {inst['set_stability']:.3f} | {flip} |")
     w("")
     w("*Set stability: mean pairwise Jaccard of the recommended-vendor set across")
     w("repetitions (1.0 = identical every time). Coin-flip rate: share of")

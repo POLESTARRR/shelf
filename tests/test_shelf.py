@@ -409,5 +409,77 @@ class TestScoringExcludesSelfReference(unittest.TestCase):
         self.assertEqual(inst["coinflip_rate"], 0.0)
 
 
+class TestPairedGap(unittest.TestCase):
+    """The gap table must compare the same questions on both sides.
+
+    Collection order is a seeded shuffle, so a part-finished grounded sweep has
+    a different intent mix from a finished memory sweep — and intents differ
+    hugely in how often they recommend anyone. Comparing overall rates let that
+    mix difference masquerade as a visibility gap.
+    """
+
+    def setUp(self):
+        self.tmp = tempfile.TemporaryDirectory()
+        self.conn = db.connect(Path(self.tmp.name) / "t.db")
+        db.init(self.conn)
+        self.alpha = db.upsert_brand(self.conn, "Alpha", "a.com", True, [])
+        self.live = {"engine": "web", "model": "m", "grounded": 1}
+        self.mem = {"engine": "mem", "model": "m", "grounded": 0}
+
+        # Two shared prompts, on which the engines genuinely differ.
+        for i in range(2):
+            pid = db.insert_prompt(self.conn, f"shared {i}?", "shortlist",
+                                   "practitioner", "shortlist", None)
+            for eng, rec in (("web", 1), ("mem", 0)):
+                rid = db.record_run(self.conn, prompt_id=pid, engine=eng, model="m",
+                                    grounded=int(eng == "web"), rep=0, response="t")
+                if rec:
+                    self.conn.execute(
+                        "INSERT INTO mentions (run_id, brand_id, mentioned,"
+                        " recommended, prompted) VALUES (?,?,1,1,0)", (rid, self.alpha))
+
+        # Twenty prompts only the memory engine reached, where it always
+        # recommends Alpha. Unpaired maths would read this as memory > web.
+        for i in range(20):
+            pid = db.insert_prompt(self.conn, f"mem only {i}?", "shortlist",
+                                   "practitioner", "shortlist", None)
+            rid = db.record_run(self.conn, prompt_id=pid, engine="mem", model="m",
+                                grounded=0, rep=0, response="t")
+            self.conn.execute("INSERT INTO mentions (run_id, brand_id, mentioned,"
+                              " recommended, prompted) VALUES (?,?,1,1,0)",
+                              (rid, self.alpha))
+        self.conn.commit()
+
+    def tearDown(self):
+        self.conn.close(); self.tmp.cleanup()
+
+    def test_restricted_to_shared_prompts(self):
+        g = score.paired_gap(self.conn, self.live, self.mem)
+        self.assertEqual(g["n_shared_prompts"], 2,
+                         "prompts only one engine answered leaked into the comparison")
+
+    def test_gap_reflects_shared_prompts_only(self):
+        row = next(r for r in g_rows(self.conn, self.live, self.mem) if r["brand"] == "Alpha")
+        self.assertEqual(row["live"], 1.0)
+        self.assertEqual(row["mem"], 0.0, "the 20 memory-only wins inflated the rate")
+        self.assertAlmostEqual(row["gap"], 1.0)
+
+    def test_repetitions_do_not_add_weight(self):
+        """A prompt counts once per engine however many times it was repeated."""
+        pid = self.conn.execute("SELECT id FROM prompts WHERE text='shared 0?'").fetchone()["id"]
+        for rep in range(1, 6):
+            rid = db.record_run(self.conn, prompt_id=pid, engine="web", model="m",
+                                grounded=1, rep=rep, response="t")
+            self.conn.execute("INSERT INTO mentions (run_id, brand_id, mentioned,"
+                              " recommended, prompted) VALUES (?,?,1,1,0)", (rid, self.alpha))
+        self.conn.commit()
+        row = next(r for r in g_rows(self.conn, self.live, self.mem) if r["brand"] == "Alpha")
+        self.assertEqual(row["live_hits"], 2, "extra repetitions were counted as extra prompts")
+
+
+def g_rows(conn, live, mem):
+    return score.paired_gap(conn, live, mem)["rows"]
+
+
 if __name__ == "__main__":
     unittest.main(verbosity=2)

@@ -239,6 +239,23 @@ def cmd_status(args):
         print(f"  - {r['engine']}/{r['model']} grounded={r['grounded']}: {r['n']}")
 
 
+def cmd_checkpoint(args):
+    """Fold the WAL back into the .db file before committing it.
+
+    In WAL mode recent writes live in shelf.db-wal, which is gitignored. Commit
+    the .db alone and those answers silently vanish from the clone - a fresh
+    checkout came up 31 answers short before this existed.
+    """
+    conn = db.connect()
+    before = conn.execute("SELECT COUNT(*) FROM runs").fetchone()[0]
+    busy, log, moved = conn.execute("PRAGMA wal_checkpoint(TRUNCATE)").fetchone()
+    if busy:
+        print("checkpoint blocked - a collector is still writing. Stop it and retry.")
+        return 1
+    print(f"checkpointed {moved} pages; {before} runs are now in the .db file itself")
+    return 0
+
+
 def main():
     ap = argparse.ArgumentParser(prog="shelf")
     sub = ap.add_subparsers(dest="cmd", required=True)
@@ -258,6 +275,7 @@ def main():
     p.set_defaults(fn=cmd_collect)
     p = sub.add_parser("extract"); p.set_defaults(fn=cmd_extract)
     p = sub.add_parser("status");  p.set_defaults(fn=cmd_status)
+    p = sub.add_parser("checkpoint"); p.set_defaults(fn=cmd_checkpoint)
     p = sub.add_parser("metrics")
     p.add_argument("--engine", default=None)
     p.add_argument("--model", default=None)

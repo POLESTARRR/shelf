@@ -1,11 +1,17 @@
 # secrets
 .env
 
-# database and its SQLite sidecars (WAL mode creates -wal/-shm)
-*.db
+# SQLite sidecars (WAL mode creates -wal/-shm). The database itself is NOT
+# ignored: data/shelf.db is the collected corpus, and shipping it is the point.
+# Without it a clone has no answers, so the dashboard and the report would both
+# come up empty and nobody could check the findings against the raw text.
 *.db-journal
 *.db-wal
 *.db-shm
+
+# Scraped third-party page text, fetched by the grounded engine. Regenerable,
+# not ours to redistribute, and 249 files of noise in a diff.
+data/webcache/
 
 # collector runtime state
 data/.collect-*.lock

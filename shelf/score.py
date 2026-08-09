@@ -197,6 +197,55 @@ class Scores:
                  "owned_by": brand_domains.get(r["domain"])} for r in rows]
 
 
+def paired_gap(conn, live: dict, memory: dict) -> dict:
+    """Live-web vs model-memory recommendation rates on the SAME prompts.
+
+    Comparing each engine's overall rate is invalid whenever the two engines
+    have answered different prompts. Collection order is a seeded shuffle, so a
+    sweep that is only part-finished has a different intent mix from a finished
+    one - and intents differ enormously in how often they recommend anyone at
+    all ("shortlist" almost always does, "fact_probe" almost never). An
+    unfinished grounded sweep therefore drags its own rates toward zero for a
+    reason that has nothing to do with visibility.
+
+    So restrict both sides to the prompts both engines answered, and count each
+    prompt once per engine (recommended in ANY repetition), which also stops an
+    engine with more repetitions from carrying more weight.
+    """
+    def per_prompt(e):
+        s = Scores(conn, e["engine"], e["model"], e["grounded"])
+        by_run = s._mentions()
+        out = defaultdict(set)
+        for r in s._runs():
+            out[r["prompt_id"]]  # a prompt with no recommendation still counts
+            for m in by_run.get(r["id"], []):
+                if m["recommended"]:
+                    out[r["prompt_id"]].add(m["brand_id"])
+        return out
+
+    a, b = per_prompt(live), per_prompt(memory)
+    shared = sorted(set(a) & set(b))
+    names = Scores(conn).brands()
+    rows = []
+    for bid, name in names.items():
+        ha = sum(1 for p in shared if bid in a[p])
+        hb = sum(1 for p in shared if bid in b[p])
+        if not (ha or hb):
+            continue
+        pa, alo, ahi = wilson(ha, len(shared))
+        pb, blo, bhi = wilson(hb, len(shared))
+        rows.append({"brand": name,
+                     "live": pa, "live_lo": alo, "live_hi": ahi, "live_hits": ha,
+                     "mem": pb, "mem_lo": blo, "mem_hi": bhi, "mem_hits": hb,
+                     "gap": pa - pb})
+    rows.sort(key=lambda r: -r["gap"])
+    zero_mem = sorted(names[bid] for bid in names
+                      if not any(bid in b[p] for p in shared))
+    return {"n_shared_prompts": len(shared), "rows": rows,
+            "never_from_memory": zero_mem,
+            "zero_hi": wilson(0, len(shared))[2] if shared else None}
+
+
 def compare_engines(conn) -> dict:
     """Memory vs live search: do different engines recommend the same vendors?"""
     combos = [(r["engine"], r["model"], r["grounded"]) for r in conn.execute(
