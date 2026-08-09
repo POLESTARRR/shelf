@@ -39,27 +39,28 @@ statement.
 **Category:** AI sales prospecting and outbound platforms
 **Vendors:** 12 focus + 14 comparison
 **Prompts:** 240, generated across 4 personas × 5 stages × 11 intents
-**Engines:** 3 models via Groq free tier (model memory), a self-built retrieval
-pipeline (live web), and a manual Perplexity sample
+**Engines:** 3 models via Groq free tier (model memory, n=414), a self-built
+retrieval pipeline (live web, n=208), and a manual Perplexity sample (n=10)
 **Repetitions:** 5 per prompt
 
 ### Headline finding
 
-On the **134 prompts answered by both** a model with live web access and the
+On the **143 prompts answered by both** a model with live web access and the
 same model working from memory alone:
 
 | Vendor | Live web | Model memory | Gap |
 |---|---:|---:|---:|
-| Clay | 14.2% | **0.0%** | +14.2 |
-| Lemlist | 12.7% | **0.0%** | +12.7 |
-| Instantly | 8.2% | **0.0%** | +8.2 |
-| Artisan | 7.5% | **0.0%** | +7.5 |
-| Outreach | 15.7% | 21.6% | −6.0 |
-| Salesloft | 5.2% | 27.6% | −22.4 |
+| Apollo | 19.6% | 6.3% | +13.3 |
+| Clay | 13.3% | **0.0%** | +13.3 |
+| Lemlist | 13.3% | **0.0%** | +13.3 |
+| Artisan | 7.7% | **0.0%** | +7.7 |
+| Instantly | 7.7% | **0.0%** | +7.7 |
+| Outreach | 16.8% | 21.7% | −4.9 |
+| Salesloft | 5.6% | 26.6% | −21.0 |
 
 Ten vendors — AiSDR, Amplemarket, Artisan, Clay, Common Room, Instantly,
 Regie.ai, Smartlead, Unify, Warmly — were recommended **zero times** from model
-memory (95% upper bound 2.8%), several of them while the *same prompts* against
+memory (95% upper bound 2.6%), several of them while the *same prompts* against
 live search recommended them repeatedly.
 
 Outreach and Salesloft are the control: substantial on both sides, which is what
@@ -71,6 +72,13 @@ Full numbers, slices and limitations: [report/FINDINGS.md](report/FINDINGS.md).
 Nothing in that file is written by hand; it is regenerated from the database.
 
 ## Quick start
+
+![The dashboard](docs/dashboard.png)
+
+Every figure drills down to the answers it came from — click a vendor and you
+get the prompts, the personas, and the raw model output, not a tooltip:
+
+![Evidence drill-down](docs/evidence.png)
 
 The collected corpus ships with the repository, so you can inspect the findings
 before running anything:
