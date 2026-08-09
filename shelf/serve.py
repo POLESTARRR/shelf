@@ -342,8 +342,8 @@ select{font-family:var(--body);font-weight:700;font-size:13px;background:var(--w
 .circ{width:76px;height:76px;border-radius:50%;display:grid;place-items:center;
       font-family:var(--disp);font-weight:800;font-size:30px;color:var(--ink);
       background:var(--white);border:4px solid var(--sage);margin-bottom:16px}
-.step:nth-child(2) .circ{border-color:var(--yellow)}
-.step:nth-child(3) .circ{border-color:var(--white)}
+/* every step carries the same outline: three different colours read as three
+   different kinds of thing, when these are just steps one, two and three. */
 .step h3{font-size:20px;margin-bottom:6px}
 .step p{font-size:14px;opacity:.8;margin:0}
 
@@ -351,7 +351,6 @@ select{font-family:var(--body);font-weight:700;font-size:13px;background:var(--w
 .quotes{display:grid;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));gap:22px}
 .q{background:var(--white);border:2px solid var(--ink);padding:22px;
    border-radius:0 24px 0 24px;box-shadow:6px 6px 0 0 var(--ink)}
-.q .stars{color:#ffbc2e;font-size:17px;letter-spacing:2px;-webkit-text-stroke:1px #000}
 .q h3{font-size:19px;margin:10px 0 8px}
 .q p{margin:0;font-size:14px}
 
@@ -398,9 +397,10 @@ footer b{color:var(--yellow);font-family:var(--disp);letter-spacing:-.02em}
     <div>
       <span class="eyebrow">Answer Engine Optimization &middot; Measured</span>
       <h1>The AI has never <span class="stroke">heard of you</span>.</h1>
-      <p id="hero-p">Half of B2B buyers start vendor research inside an AI assistant.
-         This measures what those assistants actually say &mdash; with confidence
-         intervals, controls, and a published error rate for the extractor itself.</p>
+      <p id="hero-p">About half of B2B software buyers now start their research by
+         asking an AI assistant which vendor to use. This measures what the
+         assistants actually answer, how much that answer moves when you ask twice,
+         and how often the counting behind these numbers gets it wrong.</p>
       <div class="ctas">
         <button class="btn" onclick="document.querySelector('#gap-sec')
            .scrollIntoView()">See the finding</button>
@@ -416,17 +416,17 @@ footer b{color:var(--yellow);font-family:var(--disp);letter-spacing:-.02em}
       <div class="mock-body">
         <div class="mock-row">
           <div class="mini sage"><div class="k">Live web</div>
-            <div class="v" id="m-live">&mdash;</div></div>
+            <div class="v" id="m-live">&nbsp;</div></div>
           <div class="mini dark"><div class="k">Model memory</div>
-            <div class="v" id="m-mem">&mdash;</div></div>
+            <div class="v" id="m-mem">&nbsp;</div></div>
         </div>
         <div class="mini yel"><div class="k" id="m-name">Vendor</div>
           <div class="spark" id="m-spark"></div></div>
         <div class="mock-row">
           <div class="mini"><div class="k">Answers</div>
-            <div class="v" id="m-runs">&mdash;</div></div>
-          <div class="mini"><div class="k">Zero-mention vendors</div>
-            <div class="v" id="m-zero">&mdash;</div></div>
+            <div class="v" id="m-runs">&nbsp;</div></div>
+          <div class="mini"><div class="k">Never recommended</div>
+            <div class="v" id="m-zero">&nbsp;</div></div>
         </div>
       </div>
     </div>
@@ -438,8 +438,9 @@ footer b{color:var(--yellow);font-family:var(--disp);letter-spacing:-.02em}
 <section class="sec"><div class="wrap">
   <span class="eyebrow">The corpus</span>
   <h2 class="h2" style="margin-top:14px">Everything below is computed live</h2>
-  <p class="lede" style="margin-bottom:24px">Read straight out of SQLite on every
-     request. No cached numbers, nothing typed by hand.</p>
+  <p class="lede" style="margin-bottom:24px">Every figure here is read out of the
+     database when the page loads. None of it is typed in by hand, so it cannot
+     drift away from the answers it came from.</p>
   <div class="cards" id="cards"></div>
 </div></section>
 
@@ -448,8 +449,9 @@ footer b{color:var(--yellow);font-family:var(--disp);letter-spacing:-.02em}
   <div class="wrap">
     <span class="eyebrow">The finding</span>
     <h2 class="h2" style="margin-top:14px">Live web vs model memory</h2>
-    <p class="lede">Same model, same questions &mdash; one with web access, one
-       working from memory alone. Click any vendor to read the raw answers.</p>
+    <p class="lede">The same model, asked the same questions twice over. Once with
+       live web access, once working only from what it learned in training. Click
+       any figure to read the answers it was counted from.</p>
     <div id="gap" style="margin-top:26px"></div>
   </div>
 </section>
@@ -457,6 +459,12 @@ footer b{color:var(--yellow);font-family:var(--disp);letter-spacing:-.02em}
 <section class="sec" id="vis-sec"><div class="wrap">
   <span class="eyebrow">Per engine</span>
   <h2 class="h2" style="margin-top:14px">Who gets recommended</h2>
+  <p class="lede">A vendor counts as recommended when the answer puts it forward
+     as an option to consider, which in practice means it heads a bullet in the
+     list of suggestions or is set in bold as one of the picks. Being named in
+     passing, mentioned as a competitor, or held up as what not to buy counts as
+     mentioned but not recommended. Both are shown below, and how often that call
+     is wrong is measured further down the page.</p>
   <div class="ctl"><select id="eng" onchange="loadEngine()"></select></div>
   <div id="vis"></div>
   <div class="note" id="stab"></div>
@@ -465,8 +473,9 @@ footer b{color:var(--yellow);font-family:var(--disp);letter-spacing:-.02em}
 <section class="sec s-dark" id="slice-sec"><div class="wrap">
   <span class="eyebrow">Buyer persona</span>
   <h2 class="h2" style="margin-top:14px">The role changes the answer</h2>
-  <p class="lede">Ask as procurement and the model largely stops recommending
-     anyone. Same category, same model.</p>
+  <p class="lede">The same question asked by a VP of sales and by someone in
+     procurement does not come back the same. Visibility is not one number, it
+     depends on who is asking.</p>
   <div class="ctl">
     <select id="dim" onchange="loadEngine()">
       <option value="persona">persona</option>
@@ -480,31 +489,40 @@ footer b{color:var(--yellow);font-family:var(--disp);letter-spacing:-.02em}
 <section class="sec s-sage" id="cite-sec"><div class="wrap">
   <span class="eyebrow">Source graph</span>
   <h2 class="h2" style="margin-top:14px">Which pages decide the category</h2>
-  <p class="lede">Vendors that own the cited pages are marked. That is the lever:
-     the retrieval layer is winnable in a way training data is not.</p>
+  <p class="lede">When the model has web access, these are the pages it read
+     before answering. Where a vendor in this study owns the page, it is named.
+     Everything else belongs to someone with no stake in the outcome, review
+     sites, blogs and directories, which is where the category is actually won.</p>
   <div id="cites" style="margin-top:24px"></div>
 </div></section>
 
 <section class="sec" id="cal-sec"><div class="wrap">
   <span class="eyebrow">Honesty check</span>
   <h2 class="h2" style="margin-top:14px">How wrong is the extractor?</h2>
-  <p class="lede">Every figure on this page depends on a rule deciding whether a
-     vendor was recommended. That rule was measured against blind hand labels
-     rather than assumed correct.</p>
+  <p class="lede">Every figure above rests on one judgement call, made by code:
+     was this vendor actually put forward, or just mentioned in passing? To find
+     out how often that judgement is wrong, 24 answers were read and labelled by
+     hand first, then compared against what the code decided.</p>
   <div id="cal" style="margin-top:24px"></div>
   <div class="quotes" style="margin-top:34px">
-    <div class="q"><div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
-      <h3>Repetitions are kept</h3>
-      <p>Every prompt is asked five times and no repetition is collapsed at write
-         time. Run-to-run variance is a finding, not noise to average away.</p></div>
-    <div class="q"><div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
-      <h3>Self-references excluded</h3>
-      <p>An answer to &ldquo;alternatives to X&rdquo; always repeats X. Counting that
-         handed every vendor a free hit &mdash; 48% of raw mentions.</p></div>
-    <div class="q"><div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
-      <h3>Paired comparison</h3>
-      <p>The gap table uses only prompts both engines answered. Comparing overall
-         rates let a prompt-mix difference masquerade as visibility.</p></div>
+    <div class="q">
+      <h3>Every answer is kept</h3>
+      <p>Each question is asked five times and all five answers are stored. Nothing
+         is averaged away at the point of writing, because how much the answer
+         changes between tries turned out to be one of the more useful findings.</p>
+    </div>
+    <div class="q">
+      <h3>A vendor cannot vote for itself</h3>
+      <p>Ask for alternatives to a vendor and the answer repeats that vendor's name
+         every time. Counting those gave each one a free hit on its own questions,
+         and they were 48% of all mentions before they were excluded.</p>
+    </div>
+    <div class="q">
+      <h3>Like compared with like</h3>
+      <p>The comparison above uses only the questions both engines were asked. When
+         it used each engine's overall rate instead, one engine simply being
+         further through its run looked like a real difference in visibility.</p>
+    </div>
   </div>
 </div></section>
 
@@ -512,22 +530,23 @@ footer b{color:var(--yellow);font-family:var(--disp);letter-spacing:-.02em}
   <span class="eyebrow">Method</span>
   <h2 class="h2" style="margin-top:14px">How it works</h2>
   <div class="steps">
-    <div class="step"><div class="circ">1</div><h3>Generate</h3>
-      <p>240 prompts across persona &times; funnel stage &times; intent, stratified so
-         no axis can silently starve.</p></div>
-    <div class="step"><div class="circ">2</div><h3>Collect</h3>
-      <p>Ask each engine repeatedly in seeded-shuffle order, so an interrupted
-         sweep is still a representative sample.</p></div>
-    <div class="step"><div class="circ">3</div><h3>Score</h3>
-      <p>Wilson intervals, Jaccard stability, paired engine comparison &mdash; and
-         a calibration pass against human labels.</p></div>
+    <div class="step"><div class="circ">1</div><h3>Write the questions</h3>
+      <p>240 buyer questions, built from every combination of who is asking, how
+         far along they are, and what they want to know. The mix is balanced so no
+         type of buyer quietly ends up with too few questions to count.</p></div>
+    <div class="step"><div class="circ">2</div><h3>Ask them, repeatedly</h3>
+      <p>Each engine gets the same questions in a shuffled order, five times over.
+         Shuffling means a run that stops early is still a fair sample rather than
+         all of one kind of question.</p></div>
+    <div class="step"><div class="circ">3</div><h3>Count, then check the count</h3>
+      <p>Work out how often each vendor is put forward, how wide the uncertainty
+         is, and how much the answers move. Then check that counting against
+         answers a person labelled by hand.</p></div>
   </div>
 </div></section>
 
 <footer><div class="wrap">
-  <b>SHELF</b> &mdash; an open measurement harness for answer-engine visibility.
-  Stdlib only, no dependencies, runs on free API tiers.
-  <div style="margin-top:10px;opacity:.7" id="foot"></div>
+  <b>SHELF</b>, an open measurement harness for answer engine visibility.
 </div></footer>
 
 <div id="modal" onclick="if(event.target.id=='modal')close_()"><div id="box"></div></div>
@@ -573,9 +592,14 @@ async function boot(){
 
   const sel=$('#eng');
   sel.innerHTML=o.engines.map(e=>
-    `<option value="${e.key}">${e.engine}/${e.model} — ${e.grounded?'live web':'memory'}`
-    +` — n=${e.n}${e.provisional?' (provisional)':''}</option>`).join('');
-  ENG=(o.engines.find(e=>!e.provisional&&!e.panel)||o.engines[0]).key;
+    `<option value="${e.key}">${e.engine}/${e.model} (`
+    +`${e.grounded?'live web':'memory'}, ${e.n} answers`
+    +`${e.provisional?', too few to rely on':''})</option>`).join('');
+  // ?engine=<key> preselects an engine, so a particular view can be linked to
+  // and so the page can be checked in a browser without clicking through it.
+  const want=new URLSearchParams(location.search).get('engine');
+  ENG=(o.engines.find(e=>e.key===want)
+       ||o.engines.find(e=>!e.provisional&&!e.panel)||o.engines[0]).key;
   sel.value=ENG;
 
   if(o.calibration){
@@ -585,12 +609,9 @@ async function boot(){
       <td class="num">${c[f].f1.toFixed(2)}</td></tr>`;
     $('#cal').innerHTML=tbl([['decision'],['precision','num'],['recall','num'],
         ['f1','num']],[row('mentioned'),row('recommended')])
-      +`<div class="note">Measured against ${c.n_labelled} blind hand-labelled
-        answers (sample <code>${c.sample_id}</code>). Published rather than assumed,
-        because a percentage from an unvalidated regex is decoration.</div>`;
+      +`<div class="note">Scored against ${c.n_labelled} answers that were read and
+        labelled by hand, without seeing what the extractor had guessed.</div>`;
   }
-  $('#foot').textContent=`${o.counts.runs} answers · ${o.counts.prompts} prompts · `
-    +`${o.counts.brands} vendors · regenerated live from SQLite`;
   loadGap(); loadEngine(); loadCites();
 }
 
@@ -598,9 +619,9 @@ async function loadGap(){
   const g=await get('/api/gap');
   if(!g.available){
     $('#gap').innerHTML=`<div class="card lg" style="padding:22px">
-      <b>Suppressed by design.</b> ${esc(g.reason)}. The dashboard refuses to draw
-      this comparison until both sides clear the threshold, rather than drawing it
-      thin.</div>`;
+      <b>Not shown yet, on purpose.</b> ${esc(g.reason)}. Drawing this comparison
+      on too few answers would produce a chart nobody should act on, so the page
+      leaves it out until there is enough to say something.</div>`;
     return;
   }
   const LK=g.live.key, MK=g.memory.key;
@@ -615,10 +636,13 @@ async function loadGap(){
   });
   $('#gap').innerHTML=tbl([['vendor'],['live web','num'],['model memory','num'],
       ['gap (pp)','num']],rows)
-    +`<div class="note">Paired on the <b>${g.n_shared_prompts} prompts both engines
-      answered</b>. <b>Never recommended from memory</b> (0 of
-      ${g.n_shared_prompts}, 95% upper bound ${pc(g.zero_hi)}):
-      ${g.never_from_memory.join(', ')}.</div>`;
+    +`<div class="note">Both columns cover the same
+      <b>${g.n_shared_prompts} questions</b>, the ones each engine was asked. The
+      small grey figure is how many of those questions produced a recommendation.
+      <br><br><b>Never recommended from memory.</b> Across all
+      ${g.n_shared_prompts} questions, the model working without web access put
+      these forward zero times. Even at the top of the plausible range that stays
+      under ${pc(g.zero_hi)}: ${g.never_from_memory.join(', ')}.</div>`;
 
   // marquee + hero mockup are driven by the same data, never hard-coded
   const names=g.never_from_memory.length?g.never_from_memory:g.rows.map(r=>r.brand);
@@ -627,7 +651,7 @@ async function loadGap(){
   $('#m-zero').textContent=g.never_from_memory.length;
   const top=g.rows[0];
   if(top){
-    $('#m-name').textContent=top.brand+' — recommendation rate';
+    $('#m-name').textContent=top.brand+' recommendation rate';
     $('#m-live').textContent=pc(top.live);
     $('#m-mem').textContent=pc(top.mem);
     const vals=g.rows.slice(0,8).map(r=>r.live);
@@ -645,18 +669,25 @@ async function loadEngine(){
       ['mentioned','num'],['share of voice','num'],['']],
     v.rows.map(r=>`<tr><td>${drill(r.brand)}</td>
       <td class="num">${pc(r.rec_rate)}</td>
-      <td class="num ci">${pc(r.rec_lo)}–${pc(r.rec_hi)}</td>
+      <td class="num ci">${pc(r.rec_lo)} to ${pc(r.rec_hi)}</td>
       <td class="num">${pc(r.mention_rate)}</td>
       <td class="num">${pc(r.share_of_voice)}</td>
       <td><div class="bar"><i style="width:${r.rec_rate/max*100}%"></i></div></td>
       </tr>`));
 
   const s=await get('/api/stability?engine='+encodeURIComponent(ENG));
+  // Not an error state: some engines were only ever asked each question once,
+  // so there is no second answer to compare the first one against. Saying that
+  // plainly beats "not enough data", which reads like something is broken.
   $('#stab').innerHTML=(s.set_stability==null||s.coinflip_rate==null)
-    ?'Not enough repeated prompts on this engine to measure stability yet.'
-    :`<b>Set stability ${s.set_stability.toFixed(3)} · coin-flip rate
-      ${pc(s.coinflip_rate)}</b> — ask the same question twice and this share of
-      (prompt, vendor) pairs changes. A single-shot audit of this category is noise.`;
+    ? `Stability needs the same question asked more than once, and every prompt on
+       this engine was asked a single time, so there is nothing to compare yet.
+       The two engines with repeats are the ones the findings rest on.`
+    : `<b>Set stability ${s.set_stability.toFixed(3)}, coin-flip rate
+       ${pc(s.coinflip_rate)}.</b> Asked the same question twice, this share of
+       (prompt, vendor) pairs changes. Measured across
+       ${s.prompts_with_reps} prompts that were repeated. Checking this category
+       once and calling it a result would be reporting noise.`;
 
   const sl=await get(`/api/slice?engine=${encodeURIComponent(ENG)}&dim=${$('#dim').value}`);
   const ent=Object.entries(sl.slices);
@@ -675,11 +706,11 @@ async function loadEngine(){
 async function loadCites(){
   const c=await get('/api/citations');
   $('#cites').innerHTML=tbl([['domain'],['citations','num'],['prompts','num'],
-      ['owned by a vendor here']],
+      ['owned by a vendor in this study']],
     c.rows.map(r=>`<tr><td>${esc(r.domain)}</td>
       <td class="num">${r.citations}</td><td class="num">${r.prompts}</td>
       <td>${r.owned_by?`<span class="pill y">${esc(r.owned_by)}</span>`
-                      :'<span class="ci">third party</span>'}</td></tr>`));
+                      :'<span class="ci">no</span>'}</td></tr>`));
 }
 
 async function evidence(brand,eng){
@@ -689,8 +720,8 @@ async function evidence(brand,eng){
   const e=await get(`/api/evidence?brand=${encodeURIComponent(brand)}`
     +`&engine=${encodeURIComponent(eng)}`);
   $('#box').innerHTML=`<h3>${esc(brand)}</h3>
-    <div class="meta">${e.items.length} answers naming it on ${esc(e.engine||'')}
-      — self-references excluded</div>
+    <div class="meta">${e.items.length} answers naming it on ${esc(e.engine||'')},
+      leaving out questions that named it first</div>
     <button class="btn" onclick="close_()">Close</button>`
     +(e.items.map(i=>`<div class="ev">
         <div class="q2">${esc(i.prompt)}</div>
@@ -699,8 +730,9 @@ async function evidence(brand,eng){
                          :'<span class="pill">mentioned only</span>'}</div>
         <pre>${esc(i.answer)}</pre></div>`).join('')
       ||`<div class="ev"><b>Not named once</b> in any answer from
-          <code>${esc(eng)}</code>. For a vendor that exists and sells into this
-          category, an empty panel is the finding, not a missing page.</div>`);
+          <code>${esc(eng)}</code>. This vendor exists and sells into this
+          category, so an empty panel here is the result, not a page that failed
+          to load.</div>`);
   window.scrollTo({top:0});
 }
 function close_(){
