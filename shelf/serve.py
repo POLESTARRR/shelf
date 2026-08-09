@@ -232,13 +232,10 @@ nav{margin-left:auto;display:flex;gap:26px;align-items:center}
 nav a{font-weight:700;font-size:14px;text-decoration:none;padding-bottom:2px;
       border-bottom:2px solid transparent}
 nav a:hover{border-bottom-color:var(--ink)}
-.live{display:flex;align-items:center;gap:8px;background:var(--white);
+.live{display:flex;align-items:center;background:var(--white);
       border:2px solid var(--ink);border-radius:999px;padding:6px 14px;
       font-weight:700;font-size:12px;box-shadow:4px 4px 0 0 var(--ink);
       white-space:nowrap}
-.dot{width:9px;height:9px;border-radius:50%;background:#16a34a;
-     animation:pulse 1.8s infinite}
-@keyframes pulse{0%,100%{opacity:1}50%{opacity:.25}}
 
 /* ---------- hero ---------- */
 .hero{background:var(--yellow);padding:72px 32px 76px}
@@ -390,7 +387,7 @@ footer b{color:var(--yellow);font-family:var(--disp);letter-spacing:-.02em}
     <a href="#slice-sec">Personas</a>
     <a href="#cite-sec">Sources</a>
     <a href="#cal-sec">Accuracy</a>
-    <div class="live"><span class="dot"></span><span id="live">reading data</span></div>
+    <div class="live">Answer engine visibility, measured</div>
   </nav>
 </header>
 
@@ -580,13 +577,11 @@ const drillNum=(txt,b,eng)=>`<a class="drill" href="#v=${encodeURIComponent(b)}`
 async function boot(){
   const o=await get('/api/overview');
   if(o.empty){
-    $('#live').textContent='NO DATA';
     $('#cards').innerHTML=`<div class="card" style="padding:20px">${esc(o.hint)}</div>`;
     document.querySelectorAll('#gap-sec,#vis-sec,#slice-sec,#cite-sec,#cal-sec')
       .forEach(s=>s.remove());
     return;
   }
-  $('#live').textContent='live from the database';
   $('#m-runs').textContent=o.counts.runs;
   const label={prompts:'prompts',brands:'vendors',runs:'answers',
                mentions:'mentions',citations:'citations'};
@@ -652,8 +647,6 @@ async function loadGap(){
   const line=names.map(n=>`<span>${esc(n.toUpperCase())}</span>`).join('');
   $('#track').innerHTML=line+line;
   $('#m-zero').textContent=g.never_from_memory.length;
-  const k=g.never_from_memory.length;
-  if(k)$('#live').textContent=`${k} vendors never recommended`;
   const top=g.rows[0];
   if(top){
     $('#m-name').textContent=top.brand+' recommendation rate';
