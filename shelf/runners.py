@@ -217,7 +217,7 @@ class Manual(Runner):
 
     Workflow: `export_manual.py` writes a numbered prompt sheet. You paste each
     answer into runs/manual/<engine>/<prompt_id>_<rep>.txt and this reads them
-    back. Slower, but it captures the consumer surfaces buyers actually use —
+    back. Slower, but it captures the consumer surfaces buyers actually use
     and we label them clearly as manually collected in the methodology.
     """
 
@@ -243,7 +243,7 @@ def json_ask(prompt: str, model: str = "llama-3.3-70b-versatile", retries: int =
 
     Used for structured extraction over answers we already collected (finding
     vendor names, splitting prose into discrete factual claims). This is a
-    parsing aid only — it never decides whether anything is *true*. Truth is
+    parsing aid only. It never decides whether anything is *true*. Truth is
     established by a human against a cited source, in claims.py.
     """
     load_env()

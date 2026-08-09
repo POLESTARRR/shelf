@@ -5,8 +5,8 @@ was "recommended". If that decision is 80% accurate, every headline figure
 carries an unstated 20% error and the study is worthless.
 
 So we hand-label a blind random sample and publish precision/recall/F1 for the
-extractor itself. Labelling is blind — the sheet never shows what the extractor
-guessed — because seeing the machine's answer first anchors the human to it.
+extractor itself. Labelling is blind, the sheet never shows what the extractor
+guessed, because seeing the machine's answer first anchors the human to it.
 
     python3 -m shelf.calibrate sample --n 40
     # fill in labels/sample_<id>.json by hand

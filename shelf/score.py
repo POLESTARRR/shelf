@@ -1,7 +1,7 @@
 """Metrics.
 
 The governing idea: an AI answer is a *sample*, not a ranking. Ask the same
-question twice and you can get two different vendor lists — published work
+question twice and you can get two different vendor lists, published work
 finds 40-60% of cited domains turn over inside a month. So every headline
 number here ships with a 95% confidence interval, and instability is reported
 as a first-class metric rather than averaged away.
@@ -123,7 +123,7 @@ class Scores:
           set_stability  mean pairwise Jaccard of the recommended-brand set
                          across repetitions of the same prompt (1.0 = identical)
           coinflip_rate  share of (prompt, brand) pairs where the brand appears
-                         in some repetitions but not all — i.e. visibility that
+                         in some repetitions but not all, i.e. visibility that
                          is real but unreliable
         """
         by_run = self._mentions()

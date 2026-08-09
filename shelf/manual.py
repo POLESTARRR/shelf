@@ -4,7 +4,7 @@ These are the surfaces real buyers actually use, and none of them has a free
 API. So we collect a smaller, deliberately stratified sample by hand and label
 it clearly as manually collected in the methodology.
 
-Every engine gets the SAME core question set — `select()` is deterministic, so
+Every engine gets the SAME core question set, `select()` is deterministic, so
 asking for --n 10 returns the same ten prompts every time. That is what makes
 cross-engine comparison possible: differences in the answers are then
 attributable to the engine, not to having asked it different questions.
@@ -25,7 +25,7 @@ Or work offline from a printed sheet and import the folder later:
     python3 -m shelf.manual import --engine perplexity
 
 Note: this is a module inside this project, not a public package, and it needs
-no Perplexity API key — it uses your ordinary account through the browser.
+no Perplexity API key. It uses your ordinary account through the browser.
 """
 
 from __future__ import annotations
@@ -127,7 +127,7 @@ def cmd_collect(args):
 
   For each prompt below:
     1. The question is already COPIED TO YOUR CLIPBOARD.
-    2. Open a NEW {args.engine} chat  (new chat every time — a continuing
+    2. Open a NEW {args.engine} chat  (new chat every time, a continuing
        thread contaminates the next answer and invalidates the sample).
     3. Paste it, press enter, wait for the full answer.
     4. Copy the whole answer, paste it back here.
@@ -150,14 +150,14 @@ def cmd_collect(args):
 
         text = _read_answer()
         if text is None:
-            print("\nstopped — progress saved."); break
+            print("\nstopped, progress saved."); break
         if not text or text.strip().upper() == "SKIP":
             print("  skipped\n"); continue
 
         _store(conn, p["id"], args.engine, args.rep, text, args.model)
         done += 1
         cites = len(extract.find_citations(text))
-        print(f"  saved — {len(text)} chars, {cites} citations   "
+        print(f"  saved, {len(text)} chars, {cites} citations   "
               f"({done} done, {len(todo) - i} left)\n")
 
     print(f"\nstored {done} answers from {args.engine}")
@@ -172,7 +172,7 @@ def cmd_export(args):
     d = MANUAL / args.engine
     d.mkdir(parents=True, exist_ok=True)
 
-    lines = [f"# Manual collection sheet — {args.engine}", "",
+    lines = [f"# Manual collection sheet, {args.engine}", "",
              f"{len(picked)} prompts. Open a NEW chat for each one (a continuing",
              "thread contaminates the next answer). Save each full answer as",
              f"`runs/manual/{args.engine}/<prompt_id>_{args.rep}.txt`, then run:",

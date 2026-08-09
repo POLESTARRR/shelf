@@ -2,7 +2,7 @@
 
 Our regex extractor can only find brands we already listed, which makes every
 share-of-voice number a closed-world claim: "of the vendors I thought to look
-for, here is who wins." That quietly hides the most interesting result — the
+for, here is who wins." That quietly hides the most interesting result, the
 vendors an AI recommends that nobody on the client's competitive radar has.
 
 So we do a second pass with an LLM that reads each answer and lists *every*

@@ -2,7 +2,7 @@
 
 Everything here is computed from the database at run time. There are no
 hard-coded numbers anywhere in the output, so the report cannot drift away from
-the data it claims to describe — regenerate it and it tells you whatever is
+the data it claims to describe, regenerate it and it tells you whatever is
 currently true.
 
 Two rules the generator enforces so the document stays honest:
@@ -30,7 +30,7 @@ MIN_N = 30          # below this an engine is provisional, never headline
 
 
 def pct(p, lo, hi):
-    return f"{p*100:.1f}% ({lo*100:.1f}–{hi*100:.1f})"
+    return f"{p*100:.1f}% ({lo*100:.1f}-{hi*100:.1f})"
 
 
 def engines(conn):
@@ -43,7 +43,7 @@ def engines(conn):
 
 def _label(e):
     kind = "live web" if e["grounded"] else "model memory"
-    return f"{e['engine']}/{e['model']} — {kind}"
+    return f"{e['engine']}/{e['model']}, {kind}"
 
 
 def build(conn) -> str:
@@ -66,7 +66,7 @@ def build(conn) -> str:
     w("")
     w("Around half of B2B software buyers now begin vendor research inside an AI")
     w("assistant. This measures what those assistants actually say for one")
-    w("category — with confidence intervals, because the surface is unstable.")
+    w("category, with confidence intervals, because the surface is unstable.")
     w("")
 
     # ---------------------------------------------------------------- corpus
@@ -116,7 +116,7 @@ def build(conn) -> str:
         if never:
             w(f"**Never recommended from memory.** Across those "
               f"{pg['n_shared_prompts']} prompts, models with no web access recommended "
-              f"these zero times (95% upper bound {pg['zero_hi']*100:.1f}%) — while the "
+              f"these zero times (95% upper bound {pg['zero_hi']*100:.1f}%), while the "
               f"same prompts against live search did recommend several of them:")
             w("")
             w("> " + ", ".join(never))
@@ -136,7 +136,7 @@ def build(conn) -> str:
             w("they would move too.")
             w("")
             for r in sorted(controls, key=lambda r: -r["mem"]):
-                w(f"- **{r['brand']}** — live web {r['live']*100:.1f}%, "
+                w(f"- **{r['brand']}**, live web {r['live']*100:.1f}%, "
                   f"memory {r['mem']*100:.1f}%")
             w("")
 
@@ -177,7 +177,7 @@ def build(conn) -> str:
         w("|---|---:|---|")
         for key, blk in s.by_slice("persona").items():
             top = ", ".join(f"{b['brand']} {b['rate']*100:.0f}%"
-                            for b in blk["brands"][:3]) or "—"
+                            for b in blk["brands"][:3]) or "-"
             w(f"| {key} | {blk['n_runs']} | {top} |")
         w("")
 
@@ -189,7 +189,7 @@ def build(conn) -> str:
         w("| Domain | Citations | Controlled by a vendor in this study |")
         w("|---|---:|---|")
         for g in graph:
-            w(f"| {g['domain']} | {g['citations']} | {g['owned_by'] or '—'} |")
+            w(f"| {g['domain']} | {g['citations']} | {g['owned_by'] or '-'} |")
         w("")
         owned = sum(1 for g in graph if g["owned_by"])
         w(f"Of the top {len(graph)} cited domains, {owned} are owned by a vendor in "
@@ -212,7 +212,7 @@ def build(conn) -> str:
             w(f"**`{e['engine']}/{e['model']}`** (n={e['n']})")
             w("")
             for r in rows:
-                w(f"- {r['brand']} — {pct(r['rec_rate'], r['rec_lo'], r['rec_hi'])}")
+                w(f"- {r['brand']}, {pct(r['rec_rate'], r['rec_lo'], r['rec_hi'])}")
             w("")
 
     # ----------------------------------------------------------- calibration

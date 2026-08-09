@@ -1,4 +1,4 @@
-"""SQLite access layer. Stdlib only — nothing to install."""
+"""SQLite access layer. Stdlib only. Nothing to install."""
 
 from __future__ import annotations
 
@@ -84,7 +84,7 @@ def record_run(conn, *, prompt_id, engine, model, grounded, rep,
     Without the overwrite branch a rate-limited run is permanently stuck: the
     resume query re-queues it because error IS NOT NULL, then the UNIQUE
     constraint rejects the insert and the failure is silently kept forever.
-    A successful run is never overwritten — that would let a re-run quietly
+    A successful run is never overwritten. That would let a re-run quietly
     mutate collected data.
     """
     try:

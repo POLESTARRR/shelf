@@ -2,7 +2,7 @@
 
 Run: python3 -m unittest discover -s tests -v
 
-Deliberately stdlib unittest, no pytest — the whole repo installs with nothing.
+Deliberately stdlib unittest, no pytest, the whole repo installs with nothing.
 """
 
 from __future__ import annotations
@@ -244,7 +244,7 @@ class TestAllocator(unittest.TestCase):
     A flat round-robin over (intent, persona, subject) looks balanced but is
     not: intents with one bucket per vendor collect a slot every pass, while
     category-wide intents have a single bucket. In the real config that gave
-    60 'alternatives' prompts and 2 'shortlist' prompts — starving the exact
+    60 'alternatives' prompts and 2 'shortlist' prompts, starving the exact
     question type where vendors get recommended.
     """
 
@@ -413,7 +413,7 @@ class TestPairedGap(unittest.TestCase):
     """The gap table must compare the same questions on both sides.
 
     Collection order is a seeded shuffle, so a part-finished grounded sweep has
-    a different intent mix from a finished memory sweep — and intents differ
+    a different intent mix from a finished memory sweep, and intents differ
     hugely in how often they recommend anyone. Comparing overall rates let that
     mix difference masquerade as a visibility gap.
     """

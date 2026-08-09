@@ -11,14 +11,14 @@ recorded here rather than hidden.
 When a B2B buyer asks an AI assistant which vendor to use, some vendors are
 recommended and others are not. This study measures, for one product category:
 
-1. **Visibility** — how often each vendor is mentioned, and how often it is
+1. **Visibility**: how often each vendor is mentioned, and how often it is
    actually *recommended* (a distinction most tooling collapses)
-2. **Stability** — whether the same question asked twice produces the same
+2. **Stability**: whether the same question asked twice produces the same
    vendors
-3. **Slice sensitivity** — whether visibility changes by buyer persona and
+3. **Slice sensitivity**: whether visibility changes by buyer persona and
    funnel stage
-4. **Sourcing** — which web sources the answers draw on
-5. **Accuracy** — whether the factual statements made about a vendor are true
+4. **Sourcing**: which web sources the answers draw on
+5. **Accuracy**: whether the factual statements made about a vendor are true
 
 ## 2. Category and population
 
@@ -37,17 +37,17 @@ frozen before collection begins and any change is a new study version.
 Prompts are generated, not hand-picked, so the set cannot be tuned toward a
 flattering result. Three axes:
 
-- **Persona** — practitioner, economic buyer, technical/security reviewer,
+- **Persona**: practitioner, economic buyer, technical/security reviewer,
   procurement
-- **Stage** — problem, compare, shortlist, validate, implement
-- **Intent** — discovery, constrained discovery, comparison, alternatives,
+- **Stage**: problem, compare, shortlist, validate, implement
+- **Intent**: discovery, constrained discovery, comparison, alternatives,
   shortlist, objection, trust, integration, implementation, fact probe,
   recency probe
 
 Persona is written into the prompt text ("I'm a RevOps lead responsible for
 data compliance. …") rather than held as metadata. Without that, all four
 personas render identical strings, deduplication keeps one, and the persona
-axis silently collapses — a bug that existed in an early version of this code
+axis silently collapses, a bug that existed in an early version of this code
 and is preserved in the git history.
 
 Only invalid persona/stage pairs are excluded (procurement does not perform
@@ -59,7 +59,7 @@ alphabetical truncation removes whole personas.
 
 | Engine | Access | Grounding | Role in the study |
 |---|---|---|---|
-| Groq (Llama 3.3 70B) | Free API | None — model memory only | Automated scale; measures what the model *believes* |
+| Groq (Llama 3.3 70B) | Free API | None (model memory only) | Automated scale; measures what the model *believes* |
 | Perplexity | Manual, consumer UI | Live web | Real buyer surface; smaller stratified sample |
 
 **Google Gemini was excluded.** Its free API tier now returns
@@ -77,7 +77,7 @@ mid-collection makes early and late runs non-comparable.
 
 Manually collected answers (Perplexity, ChatGPT) follow a fixed protocol:
 
-- a **new chat for every prompt** — a continuing thread contaminates the next
+- a **new chat for every prompt**: a continuing thread contaminates the next
   answer with prior context
 - no memory/personalisation features enabled
 - the complete answer is stored verbatim, including citations
@@ -86,8 +86,8 @@ Manually collected answers (Perplexity, ChatGPT) follow a fixed protocol:
 
 ## 5. Repetition and uncertainty
 
-Every prompt is run **5 times** per engine. This is not redundancy — it is the
-measurement. Published work finds 40–60% of domains cited in AI answers turn
+Every prompt is run **5 times** per engine. This is not redundancy. It is the
+measurement. Published work finds 40-60% of domains cited in AI answers turn
 over within a month, and identical prompts return different vendor sets.
 
 Consequently:
@@ -113,8 +113,8 @@ the collection a representative sample. Seed: 1337.
 
 A brand counts as:
 
-- **mentioned** — the answer names it anywhere
-- **recommended** — it heads a list item or is emphasised, i.e. put forward as
+- **mentioned**: the answer names it anywhere
+- **recommended**. It heads a list item or is emphasised, i.e. put forward as
   an option rather than named in passing
 
 This is a heuristic, so its accuracy is measured rather than assumed.
@@ -136,7 +136,7 @@ answer recommends; anything absent from the config is reported as an
 ## 8. Claim accuracy
 
 For fact probes, an LLM splits prose into discrete checkable claims. A **human**
-then assigns each a verdict — `true`, `false`, `outdated`, `unverifiable` —
+then assigns each a verdict: `true`, `false`, `outdated`, `unverifiable`
 against a cited public source, recorded in `evidence_url`.
 
 Truth is never assigned by a model. Grading a model with a model would make the
@@ -167,13 +167,13 @@ is wrong" from "the model's training data predates the fact".
 
 1. **One ungrounded API engine.** Groq measures model memory, not live search.
    Grounded measurement rests on a smaller manual sample.
-2. **Manual sample is small and human-collected**, therefore more exposed to
+2. **Manual sample is small and human-collected**: therefore more exposed to
    timing and session effects than the automated sweep.
 3. **English-language, US/UK-framed prompts only.**
 4. **Point-in-time.** Given documented answer volatility, these results describe
    the collection window, not a durable ranking. Collection dates are recorded
    per run.
-5. **The recommendation heuristic is imperfect** — see the published F1.
+5. **The recommendation heuristic is imperfect**: see the published F1.
 6. **Category boundaries are contested.** Several vendors span adjacent
    categories, and some buyers would substitute toward tools we classify as
    incumbents rather than competitors.

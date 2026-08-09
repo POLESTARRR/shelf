@@ -9,7 +9,7 @@ key. Driving a logged-in browser would need the user's password and breach
 those platforms' terms, so it is out.
 
 That left the study with only ungrounded models, which measure what a model
-remembers rather than what the live web says — and the gap between those two is
+remembers rather than what the live web says, and the gap between those two is
 the finding the study is built around.
 
 So we assemble the missing half honestly: search the live web, retrieve the

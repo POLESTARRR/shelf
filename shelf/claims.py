@@ -127,7 +127,7 @@ def cmd_sheet(args):
             "For each claim set verdict to one of: true | false | outdated | "
             "unverifiable. Paste the URL you checked into evidence_url. "
             "'outdated' means it was true once but no longer is. "
-            "'unverifiable' means no public source settles it — do not guess. "
+            "'unverifiable' means no public source settles it, do not guess. "
             "Check the vendor's own site first, then a dated third-party source."
         ),
         "items": items,
@@ -160,7 +160,7 @@ def cmd_score(args):
         "FROM claims c JOIN brands b ON b.id=c.brand_id JOIN runs r ON r.id=c.run_id "
         "WHERE c.verdict IS NOT NULL"))
     if not rows:
-        print("no verified claims yet — run `sheet`, fill it in, then `load`"); return 1
+        print("no verified claims yet, run `sheet`, fill it in, then `load`"); return 1
 
     from shelf.score import wilson
 

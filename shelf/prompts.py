@@ -9,7 +9,7 @@ We generate along three axes instead:
     persona  x  stage  x  intent
 
 so that findings can be sliced like: "visible to practitioners at the compare
-stage, invisible to the security reviewer at the validate stage" — which is
+stage, invisible to the security reviewer at the validate stage", which is
 the slice that actually explains lost deals.
 """
 
@@ -33,7 +33,7 @@ TEMPLATES: list[tuple[str, str, str]] = [
     ("integration", "compare",   "Which {cs} integrate best with {int}?"),
 
     # --- head-to-head --------------------------------------------------------
-    ("comparison",  "compare",   "{a} vs {b} — which is better for {seg}?"),
+    ("comparison",  "compare",   "{a} vs {b}, which is better for {seg}?"),
     ("comparison",  "compare",   "Compare {a} and {b} on pricing, support and ease of setup."),
 
     # --- shortlist / decision ------------------------------------------------
@@ -160,8 +160,8 @@ def allocate(items: list[dict], limit: int, group: str, subkeys: tuple[str, ...]
 
     A single flat round-robin over (group, *subkeys) is not balanced, even
     though it looks like it should be. Groups differ in how many sub-buckets
-    they have — brand-specific question types get one bucket per vendor, while
-    category-wide ones have a single bucket — so each pass hands the
+    they have, brand-specific question types get one bucket per vendor, while
+    category-wide ones have a single bucket, so each pass hands the
     brand-specific groups a dozen slots and the category-wide ones one. In this
     project that produced 60 'alternatives' prompts and 2 'shortlist' prompts,
     starving the exact question type where vendors actually get recommended.

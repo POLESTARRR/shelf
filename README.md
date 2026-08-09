@@ -4,7 +4,7 @@
 
 Around half of B2B software buyers now begin vendor research inside an AI
 assistant rather than a search engine. That makes "what does ChatGPT say about
-us?" a pipeline question — but almost no go-to-market team has any
+us?" a pipeline question, but almost no go-to-market team has any
 instrumentation for it, and the tools that do exist report a single percentage
 with no error bar, on a surface that is documented to be highly unstable.
 
@@ -23,11 +23,11 @@ Everything runs on free API tiers. There are no dependencies to install.
 |---|---|
 | Ask once, report a number | Ask **5×**, report a 95% Wilson confidence interval |
 | Treat "mentioned" as visibility | Separate **mentioned** from actually **recommended** |
-| Track "best `<category>`" keywords | Generate **persona × stage × intent** prompts — the security reviewer and the VP ask different questions and get different answers |
-| Count the brand named in the prompt | **Exclude self-references** — an answer to "alternatives to X" always repeats X. In our first pass this was **48% of all raw mentions** |
+| Track "best `<category>`" keywords | Generate **persona × stage × intent** prompts. The security reviewer and the VP ask different questions and get different answers |
+| Count the brand named in the prompt | **Exclude self-references**: an answer to "alternatives to X" always repeats X. In our first pass this was **48% of all raw mentions** |
 | Trust the extractor | **Publish the extractor's own precision/recall** against blind human labels |
 | Closed brand list | **Open-set discovery** surfaces vendors recommended that nobody was tracking |
-| Only measure presence | Also measure **whether the claims are true** — pricing, certifications, acquisitions |
+| Only measure presence | Also measure **whether the claims are true**: pricing, certifications, acquisitions |
 
 The last two rows matter most commercially. A vendor can be recommended
 constantly and still lose deals because the model states its pricing wrong, and
@@ -58,14 +58,14 @@ same model working from memory alone:
 | Outreach | 16.8% | 21.7% | −4.9 |
 | Salesloft | 5.6% | 26.6% | −21.0 |
 
-Ten vendors — AiSDR, Amplemarket, Artisan, Clay, Common Room, Instantly,
-Regie.ai, Smartlead, Unify, Warmly — were recommended **zero times** from model
+Ten vendors (AiSDR, Amplemarket, Artisan, Clay, Common Room, Instantly,
+Regie.ai, Smartlead, Unify, Warmly) were recommended **zero times** from model
 memory (95% upper bound 2.6%), several of them while the *same prompts* against
 live search recommended them repeatedly.
 
 Outreach and Salesloft are the control: substantial on both sides, which is what
 makes the zeros interpretable rather than a suspected extractor bug. The split
-tracks company age — a model's memory is frozen at training time, so newer
+tracks company age, a model's memory is frozen at training time, so newer
 vendors are invisible to every assistant that is not retrieving.
 
 Full numbers, slices and limitations: [report/FINDINGS.md](report/FINDINGS.md).
@@ -75,7 +75,7 @@ Nothing in that file is written by hand; it is regenerated from the database.
 
 ![The dashboard](docs/dashboard.png)
 
-Every figure drills down to the answers it came from — click a vendor and you
+Every figure drills down to the answers it came from. Click a vendor and you
 get the prompts, the personas, and the raw model output, not a tooltip:
 
 ![Evidence drill-down](docs/evidence.png)
@@ -143,7 +143,7 @@ Design decisions worth knowing:
   source text, so a disagreement about method never requires re-collection.
 - **Repetitions are never collapsed at write time.** Run-to-run variance is a
   finding, not noise to average away.
-- **Collection order is a seeded shuffle**, not prompt-id order, so an
+- **Collection order is a seeded shuffle**: not prompt-id order, so an
   interrupted sweep is still a representative sample.
 - **Model versions are pinned.** A model that silently upgrades mid-collection
   makes early and late runs non-comparable.
@@ -163,7 +163,7 @@ python3 -m unittest discover -s tests -v
 numbers: Wilson bounds at 0 and 1, brand matching against ordinary English words
 (`Clay`, `Instantly`, `Warmly`, `Outreach`), self-reference exclusion, retry of
 failed runs, stratified trimming that must not delete an entire persona, and
-paired comparison — the memory-vs-web table must never compare two engines
+paired comparison, the memory-vs-web table must never compare two engines
 across different prompt sets.
 
 Several of these exist because the bug happened. Calibration caught the

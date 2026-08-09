@@ -105,7 +105,7 @@ def _collect(args):
 
     todo = db.pending_runs(conn, runner.engine, runner.model, grounded, args.reps)
     if not todo:
-        print("nothing pending — already collected")
+        print("nothing pending, already collected")
         return
     print(f"{len(todo)} calls pending  [{runner.engine}/{runner.model} grounded={int(grounded)}]")
 
@@ -182,7 +182,7 @@ def cmd_metrics(args):
 
     vis = [v for v in s.visibility() if v["times_recommended"] or v["mention_rate"] > 0]
     if not vis:
-        print("no extracted mentions yet — run: python3 run.py extract"); return 1
+        print("no extracted mentions yet, run: python3 run.py extract"); return 1
 
     n = vis[0]["n_runs"]
     print(f"\nVISIBILITY   (n = {n} answers)")

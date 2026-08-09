@@ -710,7 +710,7 @@ async function loadCites(){
     c.rows.map(r=>`<tr><td>${esc(r.domain)}</td>
       <td class="num">${r.citations}</td><td class="num">${r.prompts}</td>
       <td>${r.owned_by?`<span class="pill y">${esc(r.owned_by)}</span>`
-                      :'<span class="ci">no</span>'}</td></tr>`));
+                      :'<span class="ci">&mdash;</span>'}</td></tr>`));
 }
 
 async function evidence(brand,eng){
