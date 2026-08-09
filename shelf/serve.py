@@ -177,6 +177,7 @@ PAGE = r"""<!doctype html>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>AI Visibility Audit</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Crect width='24' height='24' rx='5' fill='%23000'/%3E%3Cg stroke='%23ffe17c' stroke-width='2.8' fill='none'%3E%3Cpath d='M2.6 18.1h18.8'/%3E%3Cpath d='M6.4 18.1V11.2'/%3E%3Cpath d='M12 18.1V4.9'/%3E%3Cpath d='M17.6 18.1V14.4' stroke-opacity='.42'/%3E%3C/g%3E%3C/svg%3E">
 <style>
 :root{
   --yellow:#ffe17c; --char:#171e19; --sage:#b7c6c2; --white:#fff; --ink:#000;
@@ -224,15 +225,17 @@ header{position:sticky;top:0;z-index:20;height:80px;background:var(--yellow);
        padding:0 32px;gap:20px}
 .logo{display:flex;align-items:center;gap:12px;font-family:var(--disp);
       font-weight:800;font-size:19px;letter-spacing:-.03em}
-.mark{width:40px;height:40px;background:var(--ink);border-radius:10px;color:var(--yellow);
-      display:grid;place-items:center;font-size:20px}
+.mark{width:40px;height:40px;background:var(--ink);border-radius:10px;
+      color:var(--yellow);display:grid;place-items:center}
+.mark svg{display:block}
 nav{margin-left:auto;display:flex;gap:26px;align-items:center}
 nav a{font-weight:700;font-size:14px;text-decoration:none;padding-bottom:2px;
       border-bottom:2px solid transparent}
 nav a:hover{border-bottom-color:var(--ink)}
 .live{display:flex;align-items:center;gap:8px;background:var(--white);
       border:2px solid var(--ink);border-radius:999px;padding:6px 14px;
-      font-weight:700;font-size:12px;box-shadow:4px 4px 0 0 var(--ink)}
+      font-weight:700;font-size:12px;box-shadow:4px 4px 0 0 var(--ink);
+      white-space:nowrap}
 .dot{width:9px;height:9px;border-radius:50%;background:#16a34a;
      animation:pulse 1.8s infinite}
 @keyframes pulse{0%,100%{opacity:1}50%{opacity:.25}}
@@ -380,14 +383,14 @@ footer b{color:var(--yellow);font-family:var(--disp);letter-spacing:-.02em}
 </style>
 
 <header>
-  <div class="logo"><div class="mark">&#9889;</div> SHELF</div>
+  <div class="logo"><div class="mark"><svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="butt"><path d="M2.6 18.1h18.8"/><path d="M6.4 18.1V11.2"/><path d="M12 18.1V4.9"/><path d="M17.6 18.1V14.4" opacity=".42"/></svg></div> SHELF</div>
   <nav>
     <a href="#gap-sec">The Gap</a>
     <a href="#vis-sec">Vendors</a>
     <a href="#slice-sec">Personas</a>
     <a href="#cite-sec">Sources</a>
     <a href="#cal-sec">Accuracy</a>
-    <div class="live"><span class="dot"></span><span id="live">LOADING</span></div>
+    <div class="live"><span class="dot"></span><span id="live">reading data</span></div>
   </nav>
 </header>
 
@@ -583,7 +586,7 @@ async function boot(){
       .forEach(s=>s.remove());
     return;
   }
-  $('#live').textContent=o.counts.runs+' ANSWERS';
+  $('#live').textContent='live from the database';
   $('#m-runs').textContent=o.counts.runs;
   const label={prompts:'prompts',brands:'vendors',runs:'answers',
                mentions:'mentions',citations:'citations'};
@@ -649,6 +652,8 @@ async function loadGap(){
   const line=names.map(n=>`<span>${esc(n.toUpperCase())}</span>`).join('');
   $('#track').innerHTML=line+line;
   $('#m-zero').textContent=g.never_from_memory.length;
+  const k=g.never_from_memory.length;
+  if(k)$('#live').textContent=`${k} vendors never recommended`;
   const top=g.rows[0];
   if(top){
     $('#m-name').textContent=top.brand+' recommendation rate';

@@ -1,6 +1,6 @@
 # Which vendors does an AI recommend to a B2B buyer?
 
-*Generated 2026-08-09 09:13 UTC from 632 collected answers. Every figure is recomputed from the database; nothing in this document is written by hand.*
+*Generated 2026-08-09 09:57 UTC from 632 collected answers. Every figure is recomputed from the database; nothing in this document is written by hand.*
 
 Around half of B2B software buyers now begin vendor research inside an AI
 assistant. This measures what those assistants actually say for one

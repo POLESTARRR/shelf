@@ -226,6 +226,12 @@ def paired_gap(conn, live: dict, memory: dict) -> dict:
     a, b = per_prompt(live), per_prompt(memory)
     shared = sorted(set(a) & set(b))
     names = Scores(conn).brands()
+    # The zero list covers focus vendors only. Comparison brands were added to
+    # give the focus set something to be measured against, and counting a
+    # deliberately peripheral name as "never recommended" would inflate the
+    # headline. The report and the dashboard now derive it from the same place,
+    # so they cannot disagree.
+    focus = {r["id"] for r in conn.execute("SELECT id FROM brands WHERE is_focus = 1")}
     rows = []
     for bid, name in names.items():
         ha = sum(1 for p in shared if bid in a[p])
@@ -240,7 +246,7 @@ def paired_gap(conn, live: dict, memory: dict) -> dict:
                      "gap": pa - pb})
     rows.sort(key=lambda r: -r["gap"])
     zero_mem = sorted(names[bid] for bid in names
-                      if not any(bid in b[p] for p in shared))
+                      if bid in focus and not any(bid in b[p] for p in shared))
     return {"n_shared_prompts": len(shared), "rows": rows,
             "never_from_memory": zero_mem,
             "zero_hi": wilson(0, len(shared))[2] if shared else None}
