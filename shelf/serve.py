@@ -232,6 +232,8 @@ nav{margin-left:auto;display:flex;gap:26px;align-items:center}
 nav a{font-weight:700;font-size:14px;text-decoration:none;padding-bottom:2px;
       border-bottom:2px solid transparent}
 nav a:hover{border-bottom-color:var(--ink)}
+.sep{width:6px;height:6px;border-radius:50%;background:var(--ink);
+     display:inline-block;margin:0 8px;flex:none}
 .live{display:flex;align-items:center;background:var(--white);
       border:2px solid var(--ink);border-radius:999px;padding:6px 14px;
       font-weight:700;font-size:12px;box-shadow:4px 4px 0 0 var(--ink);
@@ -387,7 +389,7 @@ footer b{color:var(--yellow);font-family:var(--disp);letter-spacing:-.02em}
     <a href="#slice-sec">Personas</a>
     <a href="#cite-sec">Sources</a>
     <a href="#cal-sec">Accuracy</a>
-    <div class="live">AEO GEO</div>
+    <div class="live">AEO<span class="sep"></span>GEO</div>
   </nav>
 </header>
 
