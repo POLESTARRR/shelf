@@ -387,7 +387,7 @@ footer b{color:var(--yellow);font-family:var(--disp);letter-spacing:-.02em}
     <a href="#slice-sec">Personas</a>
     <a href="#cite-sec">Sources</a>
     <a href="#cal-sec">Accuracy</a>
-    <div class="live">AEO GEO Measuring Tool</div>
+    <div class="live">AEO GEO</div>
   </nav>
 </header>
 
