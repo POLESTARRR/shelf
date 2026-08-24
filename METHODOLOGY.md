@@ -118,10 +118,19 @@ A brand counts as:
   an option rather than named in passing
 
 This is a heuristic, so its accuracy is measured rather than assumed.
-`shelf/calibrate.py` draws a seeded random sample, a human labels it **blind**
-(the sheet never shows what the extractor guessed, because seeing the machine's
-answer first anchors the labeller), and precision/recall/F1 are published for
-both fields. Where two people label the same items, Cohen's kappa is reported.
+`shelf/calibrate.py` draws a seeded random sample and a labeler scores it
+**blind** (the sheet never shows what the extractor guessed, because seeing the
+machine's answer first anchors the labeller), and precision/recall/F1 are
+published for both fields, together with the labeler's identity and sample
+size — never asserted as "human" unless a human actually did it.
+
+**Current run: labelled by an AI reviewer (Claude), n=24.** The dashboard
+treats any engine slice under 30 answers as too thin to rely on (`MIN_N` in
+`shelf/serve.py`); this calibration sample is smaller still, and has not been
+cross-checked against an independent human labeler via Cohen's kappa. Read it
+as a sanity check on the extractor, not as validated ground truth. An AI
+labeler can also share the extractor's own blind spots in a way an independent
+human would not, which a same-model check cannot rule out.
 
 **No headline number in this study should be read without the extractor's
 error rate beside it.**

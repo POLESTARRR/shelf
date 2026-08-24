@@ -4,9 +4,15 @@ Every number in the final report depends on a regex deciding whether a brand
 was "recommended". If that decision is 80% accurate, every headline figure
 carries an unstated 20% error and the study is worthless.
 
-So we hand-label a blind random sample and publish precision/recall/F1 for the
-extractor itself. Labelling is blind, the sheet never shows what the extractor
-guessed, because seeing the machine's answer first anchors the human to it.
+So we label a blind random sample and publish precision, recall and F1 for
+the extractor itself, along with who did the labelling. Labelling is blind:
+the sheet never shows what the extractor guessed, because seeing the
+machine's answer first anchors the labeller to it.
+
+An AI labeller is a weaker check than an independent human, since it can
+share the extractor's own blind spots in a way a human never would. Record
+the real labeller with --labeler, and never write "human" unless a human
+actually did it.
 
     python3 -m shelf.calibrate sample --n 40
     # fill in labels/sample_<id>.json by hand
@@ -101,14 +107,21 @@ def cmd_score(args):
     for item in sheet["items"]:
         if item["mentioned"] is None:
             continue
-        row = conn.execute("SELECT response FROM runs WHERE id=?", (item["run_id"],)).fetchone()
-        hits = extract.find_mentions(row["response"], brands)
+        row = conn.execute(
+            "SELECT r.response, p.subject FROM runs r JOIN prompts p ON p.id = r.prompt_id "
+            "WHERE r.id = ?", (item["run_id"],)).fetchone()
+        # Must match run.py's real extract step exactly: pass subject, and drop
+        # prompted hits, or this scores a computation the dashboard never uses.
+        # A fact-probe answer about Unify always "mentions" Unify - production
+        # excludes that self-reference from ever counting toward Unify's own
+        # rate, so a fair calibration has to exclude it here too, on both sides.
+        hits = extract.find_mentions(row["response"], brands, subject=row["subject"])
         pred = {
-            "mentioned": {id2name[h["brand_id"]] for h in hits if h["mentioned"]},
-            "recommended": {id2name[h["brand_id"]] for h in hits if h["recommended"]},
+            "mentioned": {id2name[h["brand_id"]] for h in hits if h["mentioned"] and not h["prompted"]},
+            "recommended": {id2name[h["brand_id"]] for h in hits if h["recommended"] and not h["prompted"]},
         }
         for field in ("mentioned", "recommended"):
-            truth = set(item.get(field) or [])
+            truth = set(item.get(field) or []) - ({row["subject"]} if row["subject"] else set())
             p = pred[field]
             agg[field][0] += len(p & truth)
             agg[field][1] += len(p - truth)

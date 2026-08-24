@@ -25,7 +25,7 @@ Everything runs on free API tiers. There are no dependencies to install.
 | Treat "mentioned" as visibility | Separate **mentioned** from actually **recommended** |
 | Track "best `<category>`" keywords | Generate **persona × stage × intent** prompts. The security reviewer and the VP ask different questions and get different answers |
 | Count the brand named in the prompt | **Exclude self-references**: an answer to "alternatives to X" always repeats X. In our first pass this was **48% of all raw mentions** |
-| Trust the extractor | **Publish the extractor's own precision/recall** against blind human labels |
+| Trust the extractor | **Publish the extractor's own precision and recall**, along with who labelled it and how many answers, against a blind-labelled sample |
 | Closed brand list | **Open-set discovery** surfaces vendors recommended that nobody was tracking |
 | Only measure presence | Also measure **whether the claims are true**: pricing, certifications, acquisitions |
 

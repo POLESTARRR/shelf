@@ -17,7 +17,7 @@ from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
 from urllib.parse import parse_qs, urlparse
 
-from shelf import db, score
+from shelf import db, discover, score
 
 ROOT = Path(__file__).resolve().parent.parent
 MIN_N = 30
@@ -63,8 +63,8 @@ def api_overview(conn, q):
     if files:
         cal = json.loads(files[-1].read_text())
     return {"engines": engs, "counts": counts, "min_n": MIN_N,
-            "calibration": cal and {k: cal[k] for k in
-                                    ("sample_id", "n_labelled", "mentioned", "recommended")}}
+            "calibration": cal and {k: cal.get(k) for k in
+                                    ("sample_id", "labeler", "n_labelled", "mentioned", "recommended")}}
 
 
 def _scores(conn, key):
@@ -130,9 +130,39 @@ def api_evidence(conn, q):
                        "snippet": r["snippet"], "answer": r["response"]} for r in rows]}
 
 
+def api_discover(conn, q):
+    """Companies an open-set LLM pass found that the config never listed.
+
+    Reads only what `shelf.discover run` already saved to disk - no live call
+    happens on page load, so opening the dashboard stays free and instant.
+    """
+    if not discover.OUT.exists():
+        return {"available": False,
+                "reason": "Open-set discovery hasn't been run yet. Run: "
+                          "python3 -m shelf.discover run"}
+    store = json.loads(discover.OUT.read_text())
+    known = discover.known_map(conn)
+
+    from collections import Counter
+    counts, unknown, display = Counter(), Counter(), {}
+    for products in store.values():
+        for p in products:
+            k = discover._norm(p)
+            if not k or len(k) < 2:
+                continue
+            counts[k] += 1
+            display.setdefault(k, p.strip())
+            if k not in known:
+                unknown[k] += 1
+
+    return {"available": True, "n_answers_analysed": len(store),
+            "untracked": [{"name": display[k], "n": n} for k, n in unknown.most_common(25)]}
+
+
 ROUTES = {"/api/overview": api_overview, "/api/visibility": api_visibility,
           "/api/gap": api_gap, "/api/slice": api_slice, "/api/stability": api_stability,
-          "/api/citations": api_citations, "/api/evidence": api_evidence}
+          "/api/citations": api_citations, "/api/evidence": api_evidence,
+          "/api/discover": api_discover}
 
 
 # --------------------------------------------------------------------- http
@@ -388,6 +418,7 @@ footer b{color:var(--yellow);font-family:var(--disp);letter-spacing:-.02em}
     <a href="#vis-sec">Vendors</a>
     <a href="#slice-sec">Personas</a>
     <a href="#cite-sec">Sources</a>
+    <a href="#disc-sec">New Names</a>
     <a href="#cal-sec">Accuracy</a>
     <div class="live">AEO<span class="sep"></span>GEO</div>
   </nav>
@@ -498,13 +529,29 @@ footer b{color:var(--yellow);font-family:var(--disp);letter-spacing:-.02em}
   <div id="cites" style="margin-top:24px"></div>
 </div></section>
 
+<section class="sec s-yellow dots-wrap" id="disc-sec">
+  <div class="dots"></div>
+  <div class="wrap">
+    <span class="eyebrow">Open-set discovery</span>
+    <h2 class="h2" style="margin-top:14px">Who's showing up that nobody was tracking</h2>
+    <p class="lede">The extractor everywhere else on this page can only find the
+       companies typed into this study's config. This asks the AI itself, per
+       answer already collected, "which products did you actually recommend?" —
+       no fixed list — and checks the result against what this study was
+       watching for. No new questions are asked to build this list.</p>
+    <div id="disc" style="margin-top:26px"></div>
+  </div>
+</section>
+
 <section class="sec" id="cal-sec"><div class="wrap">
   <span class="eyebrow">Honesty check</span>
   <h2 class="h2" style="margin-top:14px">How wrong is the extractor?</h2>
   <p class="lede">Every figure above rests on one judgement call, made by code:
      was this vendor actually put forward, or just mentioned in passing? To find
-     out how often that judgement is wrong, 24 answers were read and labelled by
-     hand first, then compared against what the code decided.</p>
+     out how often that judgement is wrong, a blind sample was labelled
+     independently first, then compared against what the code decided. Who did
+     the labelling and how many answers matters — both are shown below, not
+     hidden behind a bare percentage.</p>
   <div id="cal" style="margin-top:24px"></div>
   <div class="quotes" style="margin-top:34px">
     <div class="q">
@@ -542,8 +589,8 @@ footer b{color:var(--yellow);font-family:var(--disp);letter-spacing:-.02em}
          all of one kind of question.</p></div>
     <div class="step"><div class="circ">3</div><h3>Count, then check the count</h3>
       <p>Work out how often each vendor is put forward, how wide the uncertainty
-         is, and how much the answers move. Then check that counting against
-         answers a person labelled by hand.</p></div>
+         is, and how much the answers move. Then check that counting against a
+         blind-labelled sample, with who labelled it shown alongside the score.</p></div>
   </div>
 </div></section>
 
@@ -580,7 +627,7 @@ async function boot(){
   const o=await get('/api/overview');
   if(o.empty){
     $('#cards').innerHTML=`<div class="card" style="padding:20px">${esc(o.hint)}</div>`;
-    document.querySelectorAll('#gap-sec,#vis-sec,#slice-sec,#cite-sec,#cal-sec')
+    document.querySelectorAll('#gap-sec,#vis-sec,#slice-sec,#cite-sec,#disc-sec,#cal-sec')
       .forEach(s=>s.remove());
     return;
   }
@@ -607,12 +654,39 @@ async function boot(){
       <td class="num">${c[f].precision.toFixed(2)}</td>
       <td class="num">${c[f].recall.toFixed(2)}</td>
       <td class="num">${c[f].f1.toFixed(2)}</td></tr>`;
+    const isHuman=(c.labeler||'').toLowerCase()==='human';
     $('#cal').innerHTML=tbl([['decision'],['precision','num'],['recall','num'],
         ['f1','num']],[row('mentioned'),row('recommended')])
-      +`<div class="note">Scored against ${c.n_labelled} answers that were read and
-        labelled by hand, without seeing what the extractor had guessed.</div>`;
+      +`<div class="note">Scored against ${c.n_labelled} answers, labelled by
+        <b>${esc(c.labeler||'unknown')}</b>${isHuman?'':' (an AI reviewer, not an independent human)'},
+        without seeing what the extractor had guessed.
+        ${c.n_labelled<o.min_n?` <b>Sample is smaller than this study's own
+        ${o.min_n}-answer reliability floor</b> — read these figures as a
+        sanity check, not a settled result.`:''}
+        ${isHuman?'':` An AI labeller can share the extractor's own blind spots,
+        which a human check would not — this has not yet been cross-checked
+        against an independent human sample.`}</div>`;
   }
-  loadGap(); loadEngine(); loadCites();
+  loadGap(); loadEngine(); loadCites(); loadDiscover();
+}
+
+async function loadDiscover(){
+  const d=await get('/api/discover');
+  if(!d.available){
+    $('#disc').innerHTML=`<div class="card" style="padding:20px">${esc(d.reason)}</div>`;
+    return;
+  }
+  if(!d.untracked.length){
+    $('#disc').innerHTML=`<div class="card" style="padding:20px">No untracked
+      companies turned up across ${d.n_answers_analysed} answers analysed so far.</div>`;
+    return;
+  }
+  $('#disc').innerHTML=tbl([['company'],['times recommended','num']],
+      d.untracked.map(r=>`<tr><td>${esc(r.name)}</td><td class="num">${r.n}</td></tr>`))
+    +`<div class="note">Read from ${d.n_answers_analysed} answers this study already
+       collected — no new questions were asked to build this list. Being named
+       here means an AI put it forward as an option in this category; it does
+       not mean this study has checked anything else about it.</div>`;
 }
 
 async function loadGap(){
