@@ -366,5 +366,1292 @@
     "Freshsales",
     "Zoho CRM",
     "Clay"
+  ],
+  "32": [
+    "AiSDR",
+    "Outreach",
+    "Salesloft",
+    "Apollo.io",
+    "XANT"
+  ],
+  "34": [
+    "Salesforce",
+    "HubSpot",
+    "Microsoft Dynamics",
+    "Zoho CRM",
+    "Pipedrive",
+    "Copper",
+    "Freshsales",
+    "Insightly"
+  ],
+  "60": [
+    "SalesLoft",
+    "Apollo.io",
+    "Groove",
+    "Mixmax",
+    "Outplay",
+    "Reply.io",
+    "Gong",
+    "Chorus.ai",
+    "People.ai",
+    "HubSpot Sales Hub Enterprise",
+    "Microsoft Dynamics 365 Sales",
+    "Zoho CRM Plus"
+  ],
+  "61": [
+    "Salesloft",
+    "HubSpot Sales",
+    "Streak",
+    "Yesware",
+    "Freshsales",
+    "Pipedrive",
+    "Monetary"
+  ],
+  "136": [
+    "Coupa",
+    "SAP Ariba",
+    "Oracle Procurement Cloud",
+    "Jaggaer",
+    "Ivalua",
+    "GEP SMART",
+    "Proactis",
+    "Basware",
+    "Precoro"
+  ],
+  "139": [
+    "Microsoft Teams",
+    "Google Workspace",
+    "RingCentral",
+    "8x8",
+    "Cisco Webex",
+    "Nutanix UCaaS",
+    "Mitel",
+    "Vonage Business Cloud"
+  ],
+  "140": [
+    "Regie.ai",
+    "Jasper",
+    "Writer",
+    "Copy.ai",
+    "Writesonic",
+    "Peppertype.ai",
+    "Content at Scale",
+    "MarketMuse",
+    "HyperWrite",
+    "OpenAI"
+  ],
+  "143": [
+    "Syft",
+    "Zycus",
+    "Jaggaer",
+    "Mercateo",
+    "Coupa",
+    "Basware"
+  ],
+  "177": [
+    "Clay"
+  ],
+  "180": [
+    "Coupa",
+    "Ariba",
+    "Mercateo",
+    "Zycus",
+    "Procurify",
+    "Jaggaer",
+    "TradeGecko"
+  ],
+  "181": [
+    "HubSpot Sales Hub",
+    "Apollo.io",
+    "ZoomInfo ReachOut",
+    "Clearbit Reveal",
+    "Clearbit Enrichment",
+    "Salesforce",
+    "HubSpot",
+    "Microsoft Dynamics",
+    "Pipedrive",
+    "Outreach",
+    "Salesloft",
+    "Okta",
+    "Zapier"
+  ],
+  "184": [
+    "TradeGecko",
+    "Zoho Inventory",
+    "Cin7",
+    "Skubana",
+    "Brightpearl",
+    "SAP Commerce Cloud",
+    "NetSuite",
+    "Infor OS",
+    "JDA",
+    "Manhattan Associates",
+    "Coupa"
+  ],
+  "201": [
+    "SAP Ariba",
+    "Coupa",
+    "Ivalua",
+    "GEP SMART",
+    "Oracle Procurement Cloud",
+    "Jaggaer",
+    "Basware",
+    "Zycus",
+    "Tradeshift"
+  ],
+  "204": [
+    "Clay",
+    "Zoho Procurement",
+    "Agiloft",
+    "Purchasing Intent",
+    "Jaggaer",
+    "Procurify",
+    "Ivalua",
+    "Coupa"
+  ],
+  "205": [
+    "ChatGPT\u20114",
+    "OpenAI",
+    "Notion AI",
+    "Apollo.io",
+    "Seamless.ai",
+    "Clearbit Enrichment",
+    "LinkedIn Sales Navigator",
+    "Lemlist",
+    "Reply.io",
+    "Hyperise",
+    "Exceed.ai",
+    "Saleswhale",
+    "Zapier",
+    "Make",
+    "Aircall",
+    "Gong",
+    "Otter.ai",
+    "HubSpot CRM",
+    "Sales Hub Starter",
+    "Pipedrive",
+    "InsightSquared"
+  ],
+  "209": [
+    "HubSpot Sales",
+    "Salesloft",
+    "Outreach",
+    "ProsperWorks",
+    "Datanyze",
+    "Clearbit",
+    "Hunter",
+    "Bombora",
+    "Mailshake",
+    "Yesware",
+    "Mailchimp",
+    "Ringo",
+    "LeadIQ",
+    "Lusha",
+    "Ahrefs",
+    "Skaled",
+    "Zapier",
+    "Salesforce",
+    "Google Suite"
+  ],
+  "226": [
+    "Alibaba",
+    "Azure AD",
+    "Coupa Pay",
+    "Microsoft Dynamics",
+    "NetSuite",
+    "Okta",
+    "Oracle",
+    "Regie.ai",
+    "SAP",
+    "Workday",
+    "TradeShift"
+  ],
+  "231": [
+    "Coupa",
+    "SAP Ariba",
+    "Procurify",
+    "Jaggaer",
+    "Mercell",
+    "TradeGecko",
+    "Zycus",
+    "BMC Helix"
+  ],
+  "236": [
+    "Unify",
+    "Microsoft Teams",
+    "Slack",
+    "Salesforce",
+    "Microsoft Dynamics",
+    "HubSpot"
+  ],
+  "241": [
+    "Five9",
+    "Genesys",
+    "Cisco BroadCloud",
+    "Verint Genesys",
+    "8x8",
+    "Nextiva",
+    "Freshworks",
+    "Avaya OneCloud"
+  ],
+  "257": [
+    "Apollo.io",
+    "11x",
+    "Alice",
+    "NVIDIA",
+    "NVIDIA Nemotron"
+  ],
+  "265": [
+    "SAP Ariba",
+    "Coupa",
+    "Oracle Procurement Cloud",
+    "GEP SMART",
+    "Jaggaer",
+    "Ivalua",
+    "Basware",
+    "BravoSolution",
+    "SynerTrade",
+    "SciQuest",
+    "Procurify",
+    "SpendHQ",
+    "Odoo Purchasing",
+    "Apache OFBiz",
+    "ProcurementExpress.com",
+    "Medline",
+    "B2B Wave"
+  ],
+  "268": [
+    "Apollo.io",
+    "NVIDIA",
+    "Outreach",
+    "Salesloft"
+  ],
+  "271": [
+    "TradeMarket",
+    "Mercateo",
+    "Synertrade",
+    "Aquis Online",
+    "Basware",
+    "Coupa",
+    "Oracle Procurement Cloud Service",
+    "Ivalua"
+  ],
+  "276": [
+    "ChatGPT",
+    "Claude",
+    "Gemini",
+    "NVIDIA",
+    "NVIDIA Nemotron",
+    "Apollo.io",
+    "Reply.io",
+    "11x",
+    "Artisan",
+    "Clay",
+    "Instantly"
+  ],
+  "277": [
+    "Apollo.io",
+    "Dynamics",
+    "HubSpot",
+    "Outreach.io",
+    "Pipedrive",
+    "Salesforce",
+    "SalesLoft",
+    "Zoho"
+  ],
+  "282": [
+    "Salesforce CRM",
+    "HubSpot CRM",
+    "Pipedrive",
+    "Freshsales",
+    "Zoho CRM",
+    "Monday.com",
+    "Copper",
+    "Polarity",
+    "Seismic",
+    "Marketo"
+  ],
+  "297": [
+    "Eloqua",
+    "HubSpot",
+    "Instantly",
+    "Marketo",
+    "Outreach.io",
+    "Pipedrive",
+    "Salesforce",
+    "ZoomInfo",
+    "Clearbit"
+  ],
+  "302": [
+    "Instantly",
+    "Joor",
+    "SAP Ariba",
+    "TradeGecko",
+    "Coupa",
+    "Zoho Procurement",
+    "Mercateo",
+    "Procurify",
+    "Celture"
+  ],
+  "305": [
+    "11x",
+    "Artisan",
+    "Salesforce",
+    "HubSpot",
+    "Pipedrive",
+    "Zapier",
+    "Make",
+    "Outreach",
+    "Gong",
+    "Clearbit",
+    "BuiltWith",
+    "ZoomInfo",
+    "Apollo"
+  ],
+  "306": [
+    "Artisan",
+    "11x"
+  ],
+  "327": [
+    "Excel",
+    "Google Sheets",
+    "Google Workspace",
+    "HubSpot",
+    "Okta",
+    "PowerBI",
+    "Salesforce",
+    "SharePoint",
+    "Slack"
+  ],
+  "328": [
+    "Coupa",
+    "Workday Procurement",
+    "Jaggaer",
+    "Zycus",
+    "TradeGecko",
+    "Zoho Expense",
+    "AvidXchange",
+    "SAP Ariba",
+    "Oracle Procurement Cloud",
+    "Mercateo"
+  ],
+  "329": [
+    "Salesloft",
+    "11x"
+  ],
+  "330": [
+    "Regie.ai",
+    "11x"
+  ],
+  "331": [
+    "Unify",
+    "11x",
+    "Salesforce",
+    "HubSpot",
+    "Pipedrive",
+    "Microsoft Dynamics",
+    "Zoho",
+    "Zapier"
+  ],
+  "332": [
+    "SmartLead",
+    "11x"
+  ],
+  "333": [
+    "Apollo.io",
+    "Outreach.io",
+    "LeadIQ",
+    "AI\u2011Write",
+    "Keen.io",
+    "Zopto"
+  ],
+  "334": [
+    "Mailshake",
+    "Outreach",
+    "Streak",
+    "Yesware",
+    "Aircall",
+    "Dooly",
+    "Hubspot Sales"
+  ],
+  "337": [
+    "Salesforce"
+  ],
+  "338": [
+    "Prospect.io",
+    "Lusha",
+    "Hunt",
+    "Snov.io",
+    "Aircall",
+    "Clearbit",
+    "Reply",
+    "HubSpot Sales"
+  ],
+  "339": [
+    "Cognism",
+    "Apollo.io",
+    "ZoomInfo",
+    "Snov.io",
+    "Outreach.io"
+  ],
+  "340": [
+    "Outreach Sales",
+    "HubSpot CRM",
+    "Prospected",
+    "Salesloft",
+    "Mailchimp",
+    "Sendinblue",
+    "ZoomInfo",
+    "Datanyze",
+    "Hunter"
+  ],
+  "341": [
+    "Outreach",
+    "ZoomInfo",
+    "DiscoverOrg",
+    "LinkedIn Sales Navigator",
+    "Apollo",
+    "AWS",
+    "Azure",
+    "Outreach Private Cloud"
+  ],
+  "342": [
+    "HubSpot",
+    "HubSpot Sales",
+    "HubSpot CRM"
+  ],
+  "343": [
+    "Apollo.io",
+    "ClickUp",
+    "Google Workspace",
+    "HubSpot",
+    "Pipedrive",
+    "Salesforce",
+    "Slack",
+    "Zoho",
+    "Zapier"
+  ],
+  "344": [
+    "HubSpot Sales",
+    "Outplay",
+    "Drift",
+    "SalesLoft"
+  ],
+  "346": [
+    "Hunter",
+    "Snov.io",
+    "Lusha",
+    "Mailshake",
+    "Yesware",
+    "Streak",
+    "Clearbit"
+  ],
+  "349": [
+    "Salesloft",
+    "Outreach",
+    "Copper CRM",
+    "HubSpot",
+    "Hunter",
+    "Mailchimp",
+    "Clearbit",
+    "Prospector"
+  ],
+  "351": [
+    "Amplemarket",
+    "11x",
+    "HubSpot",
+    "Salesforce",
+    "Pipedrive"
+  ],
+  "353": [
+    "HubSpot Sales",
+    "SalesLoft",
+    "Sonder",
+    "ChurnZero",
+    "Salesforce Einstein",
+    "Pipedrive",
+    "Yesware",
+    "Groove"
+  ],
+  "356": [
+    "Outreach",
+    "11x"
+  ],
+  "357": [
+    "SalesLoft",
+    "Yesware",
+    "Hunter",
+    "Lusha",
+    "5+",
+    "Alpaca",
+    "DemandTools",
+    "Leadi",
+    "Salesforce Einstein",
+    "HubSpot Sales"
+  ],
+  "362": [
+    "HubSpot Sales Hub",
+    "Salesloft",
+    "InsideView Reach",
+    "Salesforce Essentials",
+    "EngageBay",
+    "Yesware",
+    "Mailchimp for Business"
+  ],
+  "363": [
+    "Prosapia",
+    "Lusha",
+    "Clearbit",
+    "ProspectIO",
+    "SalesIntel",
+    "Hunter",
+    "Bombora",
+    "Prosperio AI",
+    "InsideView",
+    "Data.com"
+  ],
+  "366": [
+    "HubSpot Sales",
+    "InsideView",
+    "SalesLoft",
+    "Outreach",
+    "Yesware",
+    "Drift",
+    "Pipedrive",
+    "Lusha",
+    "Copper",
+    "Slintel"
+  ],
+  "368": [
+    "Outreach",
+    "11x",
+    "Salesforce",
+    "HubSpot",
+    "Microsoft Dynamics",
+    "Marketo",
+    "Gainsight",
+    "Slack",
+    "Zoom",
+    "Outlook",
+    "Google",
+    "Microsoft Teams",
+    "Pipedrive",
+    "Zoho",
+    "Zapier"
+  ],
+  "374": [
+    "HubSpot Sales",
+    "Salesloft",
+    "Drift",
+    "Outreach",
+    "PandaDoc",
+    "Copper",
+    "Apollo",
+    "Slintel"
+  ],
+  "376": [
+    "Instantly",
+    "11x"
+  ],
+  "379": [
+    "Smartlead",
+    "11x"
+  ],
+  "380": [
+    "SalesLoft",
+    "HubSpot",
+    "Pipedrive",
+    "Outplay",
+    "Prosphere",
+    "ManyChat",
+    "MobileMonkey",
+    "Leadiro",
+    "InsideView",
+    "ZoomInfo",
+    "Clearbit",
+    "Hunter"
+  ],
+  "381": [
+    "Artisan",
+    "11x"
+  ],
+  "385": [
+    "HubSpot Sales",
+    "Drift",
+    "Salesforce Einstein",
+    "ProsperWorks",
+    "Copper",
+    "Mailchimp Sales",
+    "Brevity",
+    "Outplay",
+    "Pipedrive"
+  ],
+  "386": [
+    "HubSpot Sales",
+    "SalesLoft",
+    "Lusha",
+    "Mailshake",
+    "Hunter",
+    "ProsperWorks",
+    "Aritic Sales",
+    "Karma",
+    "Copper",
+    "Prospect.io"
+  ],
+  "394": [
+    "HubSpot Sales Tools",
+    "Drift",
+    "ProsperWorks",
+    "Copper",
+    "Yesware",
+    "Mailchimp",
+    "Sales Loft",
+    "Quotient",
+    "Salesloft"
+  ],
+  "396": [
+    "Common Room",
+    "11x"
+  ],
+  "397": [
+    "SalesLoft",
+    "Drift",
+    "RingDNA",
+    "InsideView",
+    "Outreach"
+  ],
+  "399": [
+    "HubSpot Sales",
+    "Mailchimp",
+    "DemandBase",
+    "LinkedIn Sales Navigator",
+    "PandaDoc's Outreach",
+    "Salesloft",
+    "Yesware",
+    "Chili Piper"
+  ],
+  "400": [
+    "ProsperWorks",
+    "Salesforce",
+    "Outreach",
+    "5th Finger",
+    "Yesware",
+    "HubSpot Sales",
+    "Leadium",
+    "InsideSales.com",
+    "Datanyze"
+  ],
+  "401": [
+    "LeadIQ",
+    "Hunter",
+    "Lusha",
+    "Datanyze",
+    "ProsperKit",
+    "Copper",
+    "Mailchimp"
+  ],
+  "403": [
+    "ProsperWorks",
+    "Copper",
+    "SaleHoo",
+    "Dialpad"
+  ],
+  "406": [
+    "Cuda",
+    "Outreach",
+    "HubSpot CRM Sales"
+  ],
+  "408": [
+    "HubSpot Sales",
+    "HubSpot CRM",
+    "Conversica",
+    "InsideSales",
+    "RingDNA",
+    "Salesforce Einstein",
+    "HubSpot"
+  ],
+  "409": [
+    "ProsperWorks",
+    "InsideView",
+    "HubSpot Sales",
+    "Pardot",
+    "Marketo",
+    "Salesloft",
+    "Apollo.io",
+    "Prospector",
+    "Chargify"
+  ],
+  "411": [
+    "Warmly",
+    "11x"
+  ],
+  "417": [
+    "Salesloft",
+    "11x"
+  ],
+  "419": [
+    "HubSpot Sales",
+    "HubSpot CRM"
+  ],
+  "421": [
+    "HubSpot Sales",
+    "Pipedrive",
+    "Salesforce",
+    "Copper",
+    "Freshsales",
+    "Zoho CRM",
+    "Monday.com",
+    "Calendly",
+    "Mailchimp",
+    "Close"
+  ],
+  "422": [
+    "SalesLoft",
+    "HubSpot Sales Hub",
+    "Drift",
+    "Outreach"
+  ],
+  "423": [
+    "SalesLoft",
+    "HubSpot Sales",
+    "Outreach",
+    "Lionbridge Data Enrichment",
+    "Datanyze",
+    "InsideView",
+    "Copper",
+    "Drift",
+    "Leadiro",
+    "Five9",
+    "RingCentral",
+    "Mixpanel",
+    "Google Analytics 360",
+    "Zapier",
+    "Pandey"
+  ],
+  "426": [
+    "11x",
+    "AiSDR"
+  ],
+  "430": [
+    "SAP Ariba",
+    "Coupa",
+    "Zycus",
+    "Infor",
+    "Basware"
+  ],
+  "432": [
+    "11x",
+    "AiSDR"
+  ],
+  "433": [
+    "Lusha",
+    "Datanyze",
+    "HubSpot Sales",
+    "Yesware",
+    "Drift",
+    "SaleHoo",
+    "Hunter",
+    "Mailshake",
+    "Prospector",
+    "Clearbit"
+  ],
+  "434": [
+    "SalesLoft",
+    "Drift",
+    "HubSpot Sales",
+    "ProsperWorks",
+    "InsideSales.com",
+    "Copper",
+    "Yesware",
+    "Mailchimp",
+    "Prospect.io",
+    "Leadium",
+    "LinkedIn Sales Navigator",
+    "ZoomInfo",
+    "Datanyze",
+    "Clearbit"
+  ],
+  "438": [
+    "Instantly",
+    "11x"
+  ],
+  "440": [
+    "HubSpot Sales",
+    "Yesware",
+    "Outreach",
+    "Apollo",
+    "LinkedIn Sales Navigator",
+    "Datanyze",
+    "Pipeliner"
+  ],
+  "442": [
+    "OutboundEngine",
+    "Drift",
+    "Mailshake",
+    "Yesware",
+    "HubSpot Sales",
+    "ProsperWorks",
+    "SalesLoft",
+    "Lusha",
+    "Datanyze",
+    "Bombora"
+  ],
+  "448": [
+    "HubSpot Sales",
+    "SalesLoft",
+    "Apollo",
+    "Yesware",
+    "Ricochet",
+    "Kite",
+    "Mailchimp",
+    "Stitch",
+    "InsideView",
+    "Copper"
+  ],
+  "450": [
+    "RingDNA",
+    "insideSales.com",
+    "Alyce",
+    "SalesLoft"
+  ],
+  "451": [
+    "Lusha",
+    "Huntster",
+    "Outplay"
+  ],
+  "454": [
+    "Instantly",
+    "11x"
+  ],
+  "458": [
+    "HubSpot",
+    "HubSpot CRM",
+    "HubSpot CMS",
+    "HubSpot Sales",
+    "Marketing Hub",
+    "Sales Hub",
+    "Service Hub",
+    "Clari",
+    "Drift",
+    "Salesloft"
+  ],
+  "459": [
+    "Salesforce Sales Cloud",
+    "HubSpot CRM",
+    "Microsoft Dynamics 365",
+    "Pipedrive",
+    "Freshsales",
+    "Zoho CRM",
+    "Salesloft",
+    "InsideView"
+  ],
+  "461": [
+    "HubSpot Sales",
+    "SalesLoft",
+    "Yesware",
+    "Outreach",
+    "Kixify",
+    "Copper",
+    "Selligit"
+  ],
+  "462": [
+    "Copper",
+    "Yesware",
+    "Mailchimp",
+    "HubSpot Sales",
+    "Sandler Selling System",
+    "Mailshake",
+    "Leadium"
+  ],
+  "464": [
+    "HubSpot",
+    "Pardot",
+    "Outreach",
+    "InsideSales.com",
+    "Salesforce Sales Cloud",
+    "Calendly",
+    "Drift",
+    "Groove",
+    "Yesware",
+    "Terminus"
+  ],
+  "465": [
+    "Hunter",
+    "Datanyze",
+    "Prospector by LinkedIn Sales Navigator",
+    "Clearbit",
+    "Outreach",
+    "SalesLoft",
+    "InsideView",
+    "Upland",
+    "Dooly",
+    "Cirrus"
+  ],
+  "466": [
+    "HubSpot Sales",
+    "Drift",
+    "ProsperWorks",
+    "Mailshake",
+    "Yesware",
+    "Sailthru",
+    "Copper",
+    "Apollo",
+    "SalesLoft",
+    "Kanary"
+  ],
+  "472": [
+    "Outreach",
+    "11x"
+  ],
+  "475": [
+    "Salesloft",
+    "11x"
+  ],
+  "477": [
+    "Outreach",
+    "Halo",
+    "Yesware"
+  ],
+  "478": [
+    "Outreach",
+    "SalesLoft",
+    "HubSpot Sales",
+    "Demandbase",
+    "Lusha",
+    "ProsperWorks",
+    "Clearbit",
+    "InsideView",
+    "DiscoverOrg",
+    "ZoomInfo"
+  ],
+  "479": [
+    "HubSpot Sales",
+    "Outreach",
+    "SalesLoft"
+  ],
+  "480": [
+    "HubSpot Sales",
+    "Salesforce Sales Cloud",
+    "Drift",
+    "SalesLoft",
+    "Yesware",
+    "Calendly",
+    "Pardot",
+    "Prospector",
+    "Copper",
+    "Slintel"
+  ],
+  "481": [
+    "Drift",
+    "HubSpot",
+    "Salesforce",
+    "Pipedrive",
+    "Marketo"
+  ],
+  "483": [
+    "HubSpot Sales",
+    "SalesLoft",
+    "Drift",
+    "Salesforce Einstein",
+    "Prosperworks",
+    "Hubstaff",
+    "RingDNA",
+    "InsideView"
+  ],
+  "484": [
+    "HubSpot Sales",
+    "Salesloft",
+    "Yesware",
+    "Outreach"
+  ],
+  "487": [
+    "LinkedIn Sales Navigator",
+    "Hunter",
+    "Snov.io",
+    "Clearbit",
+    "Outreach",
+    "Salesloft",
+    "Drift",
+    "RingDNA",
+    "Chorus",
+    "Calendly",
+    "Yesware",
+    "Boomerang",
+    "Ahrefs",
+    "BuzzSumo"
+  ],
+  "488": [
+    "HubSpot Sales",
+    "HubSpot CRM",
+    "HubSpot Marketing Hub",
+    "HubSpot Service Hub",
+    "HubSpot"
+  ],
+  "489": [
+    "AiSDR",
+    "HubSpot Service Hub's Conversation Inbox",
+    "HubSpot Service Hub",
+    "HubSpot CRM",
+    "HubSpot"
+  ],
+  "490": [
+    "HubSpot Sales",
+    "ProsperWorks",
+    "SalesLoft",
+    "Outreach",
+    "Drift",
+    "Clearbit",
+    "Lionet",
+    "Datanyze",
+    "Salesforce",
+    "Sinch",
+    "Hunter",
+    "Calendly",
+    "Yesware"
+  ],
+  "491": [
+    "Amplemarket",
+    "11x"
+  ],
+  "492": [
+    "6sense",
+    "Copper",
+    "HubSpot Sales",
+    "Lusha",
+    "Mailchimp",
+    "Marketo",
+    "Outreach",
+    "Pardot",
+    "Salesloft",
+    "Clari"
+  ],
+  "493": [
+    "Instantly",
+    "11x"
+  ],
+  "496": [
+    "Prospect.io",
+    "Mailshake",
+    "Prospect.io Email Finder",
+    "Datanyze",
+    "LinkedIn Sales Navigator",
+    "Drift",
+    "HubSpot Sales Hub",
+    "InsideView",
+    "Sailthru",
+    "ZoomInfo",
+    "HubSpot Chatbox",
+    "Drift Conversational AI",
+    "Intercom"
+  ],
+  "498": [
+    "Outreach",
+    "HubSpot Sales",
+    "Mailchimp",
+    "Sailthru",
+    "Drift",
+    "ProsperWorks",
+    "XANT",
+    "Pipedrive",
+    "SalesLoft",
+    "Chorus"
+  ],
+  "502": [
+    "11x",
+    "AiSDR"
+  ],
+  "504": [
+    "OutReach",
+    "Lusha",
+    "Slintel"
+  ],
+  "505": [
+    "Salesforce",
+    "HubSpot CRM",
+    "Pipedrive",
+    "Zoho CRM",
+    "Freshsales",
+    "Microsoft Dynamics 365",
+    "SugarCRM"
+  ],
+  "506": [
+    "Hunter",
+    "Mailshake",
+    "Sailthru",
+    "Yesware",
+    "Mailchimp",
+    "Apollo.io"
+  ],
+  "509": [
+    "Hunter",
+    "Yesware",
+    "Snov.io",
+    "Mailshake",
+    "Outreach",
+    "SalesLoft",
+    "Clearbit"
+  ],
+  "516": [
+    "AiSDR",
+    "11x",
+    "Airtable",
+    "Salesforce"
+  ],
+  "517": [
+    "ZoomInfo",
+    "ZoomInfo SalesOS",
+    "11x"
+  ],
+  "520": [
+    "Salesforce",
+    "HubSpot",
+    "Microsoft Dynamics 365",
+    "SugarCRM",
+    "Pipedrive",
+    "Freshsales",
+    "Zoho CRM",
+    "Marketo"
+  ],
+  "521": [
+    "RingDNA",
+    "InsideView",
+    "Datanyze",
+    "Chorus",
+    "Groove"
+  ],
+  "523": [
+    "HubSpot",
+    "HubSpot CRM",
+    "HubSpot Sales Tools",
+    "Sales Hub"
+  ],
+  "524": [
+    "HubSpot CRM",
+    "SalesLoft",
+    "Outreach",
+    "5th Corner",
+    "ProsperWorks",
+    "Yesware",
+    "Clearbit"
+  ],
+  "525": [
+    "Salesloft",
+    "Groove",
+    "Chorus",
+    "Aivo",
+    "Copper",
+    "Lusha",
+    "Clearbit",
+    "ZoomInfo",
+    "Datanyze",
+    "Hunter",
+    "Amazon Web Services",
+    "Microsoft Azure",
+    "Google Cloud Platform"
+  ],
+  "526": [
+    "Genesys",
+    "Five9",
+    "Verint",
+    "Nuance Communications",
+    "Twilio Flex",
+    "Salesloft",
+    "Salesforce Service Cloud",
+    "Zendesk Sell",
+    "Cisco Contact Center",
+    "Ameyo"
+  ],
+  "527": [
+    "Apollo",
+    "Jaggaer",
+    "Procurify",
+    "Coupa",
+    "SAP Ariba",
+    "Zoho Invoice",
+    "Zoho Expense"
+  ],
+  "529": [
+    "8x8",
+    "Five9",
+    "Genesys",
+    "NICE CXone",
+    "Twilio",
+    "NewVoiceMedia",
+    "RingCentral",
+    "Verint"
+  ],
+  "531": [
+    "HubSpot Sales",
+    "Prospery",
+    "Yesware",
+    "Mailchimp",
+    "Leadspace",
+    "Prospect.io",
+    "Dooly",
+    "SalesLoft"
+  ],
+  "535": [
+    "HubSpot Sales",
+    "ProspectingAI by ZoomInfo",
+    "SalesLoft",
+    "Apollo",
+    "Outreach",
+    "Mailchimp",
+    "Freshworks (formerly Freshsales)",
+    "Copper (formerly ProsperWorks)"
+  ],
+  "539": [
+    "HubSpot Sales Enterprise",
+    "HubSpot"
+  ],
+  "540": [
+    "Common Room",
+    "11x"
+  ],
+  "541": [
+    "Prosperity Insights",
+    "InsideView",
+    "LinkedIn Sales Navigator",
+    "HubSpot Sales",
+    "SalesLoft",
+    "Demandbase",
+    "ZoomInfo",
+    "Rapportive",
+    "Yesware",
+    "Kendata"
+  ],
+  "543": [
+    "Artisan",
+    "11x",
+    "Salesforce",
+    "HubSpot",
+    "Microsoft Dynamics"
+  ],
+  "546": [
+    "HubSpot Sales",
+    "Drift",
+    "Chime",
+    "Prospero",
+    "Datanyze",
+    "Hunter",
+    "Snov.io",
+    "Rainmaker",
+    "SalesLoft",
+    "InsideSales.com",
+    "Outreach",
+    "Yesware",
+    "Mailchimp",
+    "Ahrefs",
+    "Zapier",
+    "Integromat"
+  ],
+  "547": [
+    "e-Sourcing Suite",
+    "ProcurePoint",
+    "Tender Evaluation Management (TEM)",
+    "Procurify",
+    "Bloomtool",
+    "Coupa",
+    "Oracle Procure-to-Pay"
   ]
 }

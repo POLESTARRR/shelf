@@ -238,7 +238,7 @@ class Manual(Runner):
         return Answer(text="", error="manual engine: use read() with a prompt id")
 
 
-def json_ask(prompt: str, model: str = "llama-3.3-70b-versatile", retries: int = 3):
+def json_ask(prompt: str, model: str = "openai/gpt-oss-120b", retries: int = 3):
     """Ask a model for strict JSON and parse it.
 
     Used for structured extraction over answers we already collected (finding
@@ -270,12 +270,12 @@ def json_ask(prompt: str, model: str = "llama-3.3-70b-versatile", retries: int =
 
 def _websearch(model=None):
     from shelf.grounded import WebGrounded          # imported lazily: grounded.py imports us
-    return WebGrounded(model or "llama-3.1-8b-instant")
+    return WebGrounded(model or "openai/gpt-oss-120b")
 
 
 REGISTRY = {
     "websearch": _websearch,
     "gemini": lambda m=None: Gemini(m or "gemini-2.5-flash"),
-    "groq": lambda m=None: Groq(m or "llama-3.3-70b-versatile"),
+    "groq": lambda m=None: Groq(m or "openai/gpt-oss-120b"),
     "openrouter": lambda m=None: OpenRouter(m or "meta-llama/llama-3.3-70b-instruct:free"),
 }

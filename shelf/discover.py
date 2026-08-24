@@ -75,7 +75,12 @@ def cmd_run(args):
 
     for i, r in enumerate(todo, 1):
         res = runners.json_ask(TEMPLATE.format(answer=(r["response"] or "")[:6000]))
-        store[str(r["id"])] = (res or {}).get("products", []) if isinstance(res, dict) else []
+        if res is None:
+            # A transient failure (bad model name, rate limit exhausted, etc) is
+            # not the same as "the AI found zero products" - caching it as [] would
+            # mark this answer done forever and it would never be retried.
+            continue
+        store[str(r["id"])] = res.get("products", []) if isinstance(res, dict) else []
         if i % 10 == 0 or i == len(todo):
             OUT.write_text(json.dumps(store, indent=2))
             print(f"  {i}/{len(todo)}")
