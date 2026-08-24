@@ -1,0 +1,182 @@
+<!doctype html>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Live AEO Check — shelf</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Crect width='24' height='24' rx='5' fill='%23000'/%3E%3Cg stroke='%23ffe17c' stroke-width='2.8' fill='none'%3E%3Cpath d='M2.6 18.1h18.8'/%3E%3Cpath d='M6.4 18.1V11.2'/%3E%3Cpath d='M12 18.1V4.9'/%3E%3Cpath d='M17.6 18.1V14.4' stroke-opacity='.42'/%3E%3C/g%3E%3C/svg%3E">
+<style>
+:root{
+  --yellow:#ffe17c; --char:#171e19; --sage:#b7c6c2; --white:#fff; --ink:#000; --pale:#f4f4f5;
+  --disp:"Helvetica Neue",Inter,"Segoe UI",system-ui,sans-serif;
+  --body:ui-sans-serif,-apple-system,"Segoe UI",Roboto,sans-serif;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--white);color:var(--ink);font-family:var(--body);
+     font-weight:500;font-size:15px;line-height:1.6;-webkit-font-smoothing:antialiased}
+h1,h2,.disp{font-family:var(--disp);font-weight:800;letter-spacing:-.04em;line-height:1;margin:0}
+header{background:var(--yellow);border-bottom:2px solid var(--ink);padding:20px 24px;
+       display:flex;align-items:center;gap:12px}
+.mark{width:36px;height:36px;background:var(--ink);border-radius:9px;color:var(--yellow);
+      display:grid;place-items:center;flex:none}
+.logo{font-family:var(--disp);font-weight:800;font-size:18px}
+.wrap{max-width:720px;margin:0 auto;padding:40px 20px 80px}
+.eyebrow{font-family:var(--disp);font-weight:800;font-size:11px;letter-spacing:.16em;
+      text-transform:uppercase;display:inline-block;background:var(--white);color:var(--ink);
+      border:2px solid var(--ink);border-radius:999px;padding:4px 14px;
+      box-shadow:3px 3px 0 0 var(--ink)}
+h1{font-size:clamp(28px,5vw,42px);margin:16px 0 12px}
+.lede{font-size:15px;max-width:60ch;opacity:.85}
+.card{background:var(--white);border:2px solid var(--ink);border-radius:14px;
+      box-shadow:6px 6px 0 0 var(--ink);padding:24px;margin-top:28px}
+label{display:block;font-family:var(--disp);font-weight:800;font-size:11px;
+      letter-spacing:.1em;text-transform:uppercase;margin:16px 0 6px}
+label:first-child{margin-top:0}
+input{width:100%;font-family:var(--body);font-size:15px;font-weight:600;padding:12px 14px;
+      border:2px solid var(--ink);border-radius:10px;background:var(--pale)}
+input:focus{outline:none;background:var(--white);box-shadow:0 0 0 3px var(--yellow)}
+.hint{font-size:12px;opacity:.65;margin-top:5px}
+.hint a{color:inherit}
+.btn{margin-top:22px;width:100%;font-family:var(--disp);font-weight:800;font-size:14px;
+     letter-spacing:.04em;text-transform:uppercase;background:var(--ink);color:var(--white);
+     border:2px solid var(--ink);border-radius:12px;padding:15px 20px;cursor:pointer;
+     box-shadow:5px 5px 0 0 var(--ink);transition:all .15s ease}
+.btn:hover:not(:disabled){transform:translate(3px,3px);box-shadow:2px 2px 0 0 var(--ink)}
+.btn:disabled{opacity:.55;cursor:default}
+#status{margin-top:16px;font-weight:700;font-size:13px;min-height:18px}
+#err{color:#c3230f;font-weight:700;font-size:13px;margin-top:10px}
+.result{margin-top:28px}
+.headline{background:var(--char);color:var(--white);border-radius:14px;padding:20px;
+      margin-bottom:18px}
+.headline b{font-family:var(--disp);font-size:26px;display:block}
+.headline span{font-size:12px;letter-spacing:.08em;text-transform:uppercase;opacity:.7}
+.ev{border:2px solid var(--ink);border-radius:12px;padding:16px;margin-bottom:14px}
+.pill{display:inline-block;font-size:10px;font-weight:800;letter-spacing:.08em;
+      text-transform:uppercase;border:2px solid var(--ink);border-radius:999px;
+      padding:2px 9px;margin-bottom:8px}
+.pill.y{background:var(--yellow)}
+.pill.s{background:var(--sage)}
+pre{white-space:pre-wrap;font:12.5px/1.6 ui-monospace,SFMono-Regular,Menlo,monospace;
+    background:var(--pale);border:2px solid var(--ink);border-radius:10px;padding:12px;
+    max-height:220px;overflow:auto;margin:0}
+mark{background:var(--yellow);padding:0 2px;border-radius:3px}
+.note{font-size:12.5px;opacity:.7;margin-top:16px;max-width:65ch}
+footer{text-align:center;font-size:12px;opacity:.6;padding:30px 20px}
+</style>
+
+<header>
+  <div class="mark"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.8"><path d="M2.6 18.1h18.8"/><path d="M6.4 18.1V11.2"/><path d="M12 18.1V4.9"/><path d="M17.6 18.1V14.4" opacity=".42"/></svg></div>
+  <div class="logo">SHELF · Live Check</div>
+  <a href="index.html" style="margin-left:auto;font-weight:700;font-size:13px;text-decoration:none;color:inherit;border-bottom:2px solid var(--ink)">&larr; Full study</a>
+</header>
+
+<div class="wrap">
+  <span class="eyebrow">Answer Engine Optimization</span>
+  <h1>Does the AI know your company?</h1>
+  <p class="lede">Type your company and a question a buyer might ask. This asks a real
+     AI model <b>3 times, not once</b> — because the same question can get a different
+     answer each time, and one answer is noise, not a result — then checks whether your
+     company actually got named and recommended.</p>
+
+  <div class="card">
+    <label>Your API key (free, yours, never stored)</label>
+    <input id="key" type="password" placeholder="gsk_...">
+    <div class="hint">Runs entirely in your browser and is sent only to Groq, never to us
+      or saved anywhere. Get a free one with no card at
+      <a href="https://console.groq.com/keys" target="_blank" rel="noopener">console.groq.com/keys</a>
+      — takes about a minute.</div>
+
+    <label>Company or product name</label>
+    <input id="brand" placeholder="e.g. Notion">
+
+    <label>Question a buyer might ask</label>
+    <input id="question" placeholder="e.g. What's the best tool for team wikis and docs?">
+
+    <button class="btn" id="go" onclick="run()">Check now</button>
+    <div id="status"></div>
+    <div id="err"></div>
+  </div>
+
+  <div id="result" class="result"></div>
+  <p class="note" id="foot"></p>
+</div>
+
+<footer>Built on the same measurement engine as the full shelf study — free forever,
+  your key never leaves your browser.</footer>
+
+<script>
+const $=s=>document.querySelector(s);
+const esc=s=>(s||'').replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]));
+const REPS=3, MODEL='openai/gpt-oss-120b';
+
+function findMention(text, brand){
+  if(!text) return {mentioned:false, recommended:false, snippet:''};
+  const re=brand.replace(/[.*+?^${}()|[\]\\]/g,'\\$&');
+  const pat=new RegExp('(?<![\\w])(?:'+re+')(?![\\w])','i');
+  const m=pat.exec(text);
+  if(!m) return {mentioned:false, recommended:false, snippet:''};
+  const start=m.index;
+  const lineStart=text.lastIndexOf('\n',start)+1;
+  let lineEnd=text.indexOf('\n',start); if(lineEnd===-1) lineEnd=text.length;
+  const line=text.slice(lineStart,lineEnd+1);
+  const inList=/^\s*(?:[-*•]|\d+[.)])\s+/.test(line);
+  let inBold=false;
+  const boldRe=/\*\*(.+?)\*\*/g; let bm;
+  while((bm=boldRe.exec(text))){
+    if(bm.index<=start && start<bm.index+bm[0].length){ inBold=true; break; }
+  }
+  return {mentioned:true, recommended:inList||inBold,
+          snippet:text.slice(Math.max(0,start-80),Math.min(text.length,start+160)).trim()};
+}
+
+async function askGroq(key, question){
+  const res=await fetch('https://api.groq.com/openai/v1/chat/completions',{
+    method:'POST',
+    headers:{'Content-Type':'application/json','Authorization':'Bearer '+key},
+    body:JSON.stringify({model:MODEL, messages:[{role:'user',content:question}], max_tokens:700})
+  });
+  const data=await res.json();
+  if(!res.ok) throw new Error((data.error&&data.error.message)||('HTTP '+res.status));
+  return data.choices[0].message.content;
+}
+
+async function run(){
+  const key=$('#key').value.trim(), brand=$('#brand').value.trim(), q=$('#question').value.trim();
+  $('#err').textContent=''; $('#result').innerHTML='';
+  if(!key||!brand||!q){ $('#err').textContent='Fill in all three fields.'; return; }
+
+  const btn=$('#go'); btn.disabled=true;
+  const answers=[];
+  try{
+    for(let i=1;i<=REPS;i++){
+      $('#status').textContent=`Asking ${MODEL} (${i}/${REPS})...`;
+      const text=await askGroq(key,q);
+      answers.push(text);
+    }
+  }catch(e){
+    $('#err').textContent='Could not reach Groq: '+e.message;
+    btn.disabled=false; $('#status').textContent=''; return;
+  }
+  $('#status').textContent=''; btn.disabled=false;
+
+  const hits=answers.map(a=>findMention(a,brand));
+  const recCount=hits.filter(h=>h.recommended).length;
+  const mentCount=hits.filter(h=>h.mentioned).length;
+  const changed=new Set(hits.map(h=>h.recommended)).size>1;
+
+  $('#result').innerHTML=`
+    <div class="headline">
+      <span>out of ${REPS} tries</span>
+      <b>Recommended ${recCount}/${REPS} &middot; Mentioned ${mentCount}/${REPS}</b>
+    </div>`
+    + (changed?`<p class="note">The answer changed between tries — this is exactly the
+        kind of instability the full study measures. One good answer today is not a
+        guarantee of the next one.</p>`:'')
+    + answers.map((a,i)=>{
+        const h=hits[i];
+        const pill=h.recommended?'<span class="pill y">recommended</span>'
+                   :h.mentioned?'<span class="pill s">mentioned only</span>'
+                   :'<span class="pill">not named</span>';
+        return `<div class="ev">${pill}<pre>${esc(a)}</pre></div>`;
+      }).join('');
+  $('#foot').textContent='This uses the same "count, don’t assume" extractor as the full study, and is just as fallible — read the raw answers above, not only the pill.';
+}
+</script>
