@@ -536,8 +536,8 @@ footer b{color:var(--yellow);font-family:var(--disp);letter-spacing:-.02em}
     <h2 class="h2" style="margin-top:14px">Who's showing up that nobody was tracking</h2>
     <p class="lede">The extractor everywhere else on this page can only find the
        companies typed into this study's config. This asks the AI itself, per
-       answer already collected, "which products did you actually recommend?" —
-       no fixed list — and checks the result against what this study was
+       answer already collected, "which products did you actually recommend?"
+       with no fixed list, and checks the result against what this study was
        watching for. No new questions are asked to build this list.</p>
     <div id="disc" style="margin-top:26px"></div>
   </div>
@@ -549,9 +549,9 @@ footer b{color:var(--yellow);font-family:var(--disp);letter-spacing:-.02em}
   <p class="lede">Every figure above rests on one judgement call, made by code:
      was this vendor actually put forward, or just mentioned in passing? To find
      out how often that judgement is wrong, a blind sample was labelled
-     independently first, then compared against what the code decided. Who did
-     the labelling and how many answers matters — both are shown below, not
-     hidden behind a bare percentage.</p>
+     independently first, then compared against what the code decided. Who
+     did the labelling and how many answers matters, and both are shown
+     below rather than hidden behind a bare percentage.</p>
   <div id="cal" style="margin-top:24px"></div>
   <div class="quotes" style="margin-top:34px">
     <div class="q">
@@ -661,11 +661,11 @@ async function boot(){
         <b>${esc(c.labeler||'unknown')}</b>${isHuman?'':' (an AI reviewer, not an independent human)'},
         without seeing what the extractor had guessed.
         ${c.n_labelled<o.min_n?` <b>Sample is smaller than this study's own
-        ${o.min_n}-answer reliability floor</b> — read these figures as a
+        ${o.min_n}-answer reliability floor.</b> Read these figures as a
         sanity check, not a settled result.`:''}
-        ${isHuman?'':` An AI labeller can share the extractor's own blind spots,
-        which a human check would not — this has not yet been cross-checked
-        against an independent human sample.`}</div>`;
+        ${isHuman?'':` An AI labeller can share the extractor's own blind
+        spots in a way a human check would not, and this has not yet been
+        cross-checked against an independent human sample.`}</div>`;
   }
   loadGap(); loadEngine(); loadCites(); loadDiscover();
 }
@@ -684,7 +684,7 @@ async function loadDiscover(){
   $('#disc').innerHTML=tbl([['company'],['times recommended','num']],
       d.untracked.map(r=>`<tr><td>${esc(r.name)}</td><td class="num">${r.n}</td></tr>`))
     +`<div class="note">Read from ${d.n_answers_analysed} answers this study already
-       collected — no new questions were asked to build this list. Being named
+       collected, with no new questions asked to build this list. Being named
        here means an AI put it forward as an option in this category; it does
        not mean this study has checked anything else about it.</div>`;
 }

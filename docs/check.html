@@ -1,7 +1,7 @@
 <!doctype html>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Live AEO Check — shelf</title>
+<title>Live AEO Check: shelf</title>
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Crect width='24' height='24' rx='5' fill='%23000'/%3E%3Cg stroke='%23ffe17c' stroke-width='2.8' fill='none'%3E%3Cpath d='M2.6 18.1h18.8'/%3E%3Cpath d='M6.4 18.1V11.2'/%3E%3Cpath d='M12 18.1V4.9'/%3E%3Cpath d='M17.6 18.1V14.4' stroke-opacity='.42'/%3E%3C/g%3E%3C/svg%3E">
 <style>
 :root{
@@ -72,17 +72,17 @@ footer{text-align:center;font-size:12px;opacity:.6;padding:30px 20px}
   <span class="eyebrow">Answer Engine Optimization</span>
   <h1>Does the AI know your company?</h1>
   <p class="lede">Type your company and a question a buyer might ask. This asks a real
-     AI model <b>3 times, not once</b> — because the same question can get a different
-     answer each time, and one answer is noise, not a result — then checks whether your
-     company actually got named and recommended.</p>
+     AI model <b>3 times, not once</b>, because the same question can get a different
+     answer each time and one answer alone is noise, not a result. Then it checks whether
+     your company actually got named and recommended.</p>
 
   <div class="card">
     <label>Your API key (free, yours, never stored)</label>
     <input id="key" type="password" placeholder="gsk_...">
     <div class="hint">Runs entirely in your browser and is sent only to Groq, never to us
       or saved anywhere. Get a free one with no card at
-      <a href="https://console.groq.com/keys" target="_blank" rel="noopener">console.groq.com/keys</a>
-      — takes about a minute.</div>
+      <a href="https://console.groq.com/keys" target="_blank" rel="noopener">console.groq.com/keys</a>,
+      and it takes about a minute.</div>
 
     <label>Company or product name</label>
     <input id="brand" placeholder="e.g. Notion">
@@ -99,8 +99,8 @@ footer{text-align:center;font-size:12px;opacity:.6;padding:30px 20px}
   <p class="note" id="foot"></p>
 </div>
 
-<footer>Built on the same measurement engine as the full shelf study — free forever,
-  your key never leaves your browser.</footer>
+<footer>Built on the same measurement engine as the full shelf study. Free forever,
+  and your key never leaves your browser.</footer>
 
 <script>
 const $=s=>document.querySelector(s);
@@ -167,7 +167,7 @@ async function run(){
       <span>out of ${REPS} tries</span>
       <b>Recommended ${recCount}/${REPS} &middot; Mentioned ${mentCount}/${REPS}</b>
     </div>`
-    + (changed?`<p class="note">The answer changed between tries — this is exactly the
+    + (changed?`<p class="note">The answer changed between tries. This is exactly the
         kind of instability the full study measures. One good answer today is not a
         guarantee of the next one.</p>`:'')
     + answers.map((a,i)=>{
@@ -177,6 +177,6 @@ async function run(){
                    :'<span class="pill">not named</span>';
         return `<div class="ev">${pill}<pre>${esc(a)}</pre></div>`;
       }).join('');
-  $('#foot').textContent='This uses the same "count, don’t assume" extractor as the full study, and is just as fallible — read the raw answers above, not only the pill.';
+  $('#foot').textContent='This uses the same "count, don\'t assume" extractor as the full study, and is just as fallible. Read the raw answers above, not only the pill.';
 }
 </script>

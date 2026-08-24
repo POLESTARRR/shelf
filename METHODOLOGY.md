@@ -122,15 +122,15 @@ This is a heuristic, so its accuracy is measured rather than assumed.
 **blind** (the sheet never shows what the extractor guessed, because seeing the
 machine's answer first anchors the labeller), and precision/recall/F1 are
 published for both fields, together with the labeler's identity and sample
-size — never asserted as "human" unless a human actually did it.
+size. It is never asserted as "human" unless a human actually did it.
 
-**Current run: labelled by an AI reviewer (Claude), n=24.** The dashboard
-treats any engine slice under 30 answers as too thin to rely on (`MIN_N` in
-`shelf/serve.py`); this calibration sample is smaller still, and has not been
-cross-checked against an independent human labeler via Cohen's kappa. Read it
-as a sanity check on the extractor, not as validated ground truth. An AI
-labeler can also share the extractor's own blind spots in a way an independent
-human would not, which a same-model check cannot rule out.
+**Current run: labelled by an AI reviewer (Claude), n=40.** That clears the
+dashboard's own 30-answer floor for trusting a rate (`MIN_N` in
+`shelf/serve.py`), but it has not been cross-checked against an independent
+human labeler via Cohen's kappa. Read it as a sanity check on the extractor,
+not as validated ground truth. An AI labeler can also share the extractor's
+own blind spots in a way an independent human would not, and a same-model
+check cannot rule that out.
 
 **No headline number in this study should be read without the extractor's
 error rate beside it.**
