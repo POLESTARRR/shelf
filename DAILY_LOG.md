@@ -5,3 +5,6 @@ Ambiguous brand names (ordinary English words) require case-sensitive matching A
 
 ## 2026-10-17
 The Wilson interval calculation in `score.py` uses Z95 = 1.959963985 (hardcoded constant) and returns (point, low, high) as proportions.
+
+## 2026-10-17
+A regex-based list detector `LIST_RE = re.compile(r'^\s*(?:[-*•]|\d+[\.\)])\s+', re.M)` identifies recommendation list structures.
