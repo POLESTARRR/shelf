@@ -11,3 +11,6 @@ A regex-based list detector `LIST_RE = re.compile(r'^\s*(?:[-*•]|\d+[\.\)])\s+
 
 ## 2026-10-19
 The `visibility()` method returns per-brand presence rate, recommendation rate, share of voice, mean rank, and times recommended, all with 95% CIs.
+
+## 2026-10-19
+The `compare_engines()` function computes per-prompt Jaccard similarity between different engine configurations to measure vendor recommendation agreement.
