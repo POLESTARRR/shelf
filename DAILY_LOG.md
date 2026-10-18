@@ -14,3 +14,6 @@ The `visibility()` method returns per-brand presence rate, recommendation rate, 
 
 ## 2026-10-19
 The `compare_engines()` function computes per-prompt Jaccard similarity between different engine configurations to measure vendor recommendation agreement.
+
+## 2026-10-19
+The `paired_gap()` function compares live-web vs model-memory recommendation rates on the SAME prompts, avoiding bias from different intent mixes.
