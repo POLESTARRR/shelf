@@ -8,3 +8,6 @@ The Wilson interval calculation in `score.py` uses Z95 = 1.959963985 (hardcoded 
 
 ## 2026-10-17
 A regex-based list detector `LIST_RE = re.compile(r'^\s*(?:[-*•]|\d+[\.\)])\s+', re.M)` identifies recommendation list structures.
+
+## 2026-10-19
+The `visibility()` method returns per-brand presence rate, recommendation rate, share of voice, mean rank, and times recommended, all with 95% CIs.
