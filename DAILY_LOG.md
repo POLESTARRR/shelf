@@ -17,3 +17,6 @@ The `compare_engines()` function computes per-prompt Jaccard similarity between 
 
 ## 2026-10-19
 The `paired_gap()` function compares live-web vs model-memory recommendation rates on the SAME prompts, avoiding bias from different intent mixes.
+
+## 2026-10-28
+Gemini grounding links are redirect URLs; `resolve_redirect()` follows them via HEAD request to surface real publishers in the citation source graph.
