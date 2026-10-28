@@ -20,3 +20,6 @@ The `paired_gap()` function compares live-web vs model-memory recommendation rat
 
 ## 2026-10-28
 Gemini grounding links are redirect URLs; `resolve_redirect()` follows them via HEAD request to surface real publishers in the citation source graph.
+
+## 2026-10-28
+The `citation_graph()` method tracks top-N cited domains with counts per domain and distinct prompts citing it, linking domains to brand ownership.
