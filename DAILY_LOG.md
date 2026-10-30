@@ -23,3 +23,6 @@ Gemini grounding links are redirect URLs; `resolve_redirect()` follows them via 
 
 ## 2026-10-28
 The `citation_graph()` method tracks top-N cited domains with counts per domain and distinct prompts citing it, linking domains to brand ownership.
+
+## 2026-10-30
+Focus brands are flagged with `is_focus = 1` in the database; the zero-from-memory list excludes comparison brands to avoid inflating headline zero counts.
