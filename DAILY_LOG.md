@@ -26,3 +26,6 @@ The `citation_graph()` method tracks top-N cited domains with counts per domain 
 
 ## 2026-10-30
 Focus brands are flagged with `is_focus = 1` in the database; the zero-from-memory list excludes comparison brands to avoid inflating headline zero counts.
+
+## 2026-10-31
+The `Scores` class filters runs by engine, model, and grounded status, building dynamic SQL WHERE clauses from constructor parameters.
