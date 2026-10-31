@@ -29,3 +29,6 @@ Focus brands are flagged with `is_focus = 1` in the database; the zero-from-memo
 
 ## 2026-10-31
 The `Scores` class filters runs by engine, model, and grounded status, building dynamic SQL WHERE clauses from constructor parameters.
+
+## 2026-10-31
+The `_proper_noun_position()` function checks for preceding vendor verbs like 'switch to', 'moving off', 'using' to disambiguate brand vs common word.
