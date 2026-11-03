@@ -32,3 +32,6 @@ The `Scores` class filters runs by engine, model, and grounded status, building 
 
 ## 2026-10-31
 The `_proper_noun_position()` function checks for preceding vendor verbs like 'switch to', 'moving off', 'using' to disambiguate brand vs common word.
+
+## 2026-11-03
+Instability is measured via two metrics: `set_stability` (mean pairwise Jaccard of recommended-brand sets across repetitions) and `coinflip_rate` (share of brand-prompt pairs with unreliable visibility).
