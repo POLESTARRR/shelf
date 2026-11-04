@@ -1,0 +1,17 @@
+For a 20-person B2B SaaS startup with no SDR team, I'd recommend **Apollo.io** as your single AI SDR and prospecting vendor.
+
+## Why Apollo.io fits this situation best
+
+- **All-in-one stack**: Apollo combines a large B2B contact database, AI enrichment, sequencing (email + LinkedIn + calls), and basic CRM-like pipeline tracking in one platform. For a small team with zero SDRs, this avoids stitching together multiple tools (data + sending + research). [monday](https://monday.com/blog/crm-and-sales/best-ai-sdr-tools/)
+- **Strong for SMB / price-sensitive teams**: Independent comparisons explicitly call out Apollo as the best fit for "SMB or price-sensitive teams needing broad reach," thanks to its generous entry tier and breadth of functionality per dollar. [origami](https://origami.chat/blog/best-ai-sales-prospecting-tools-startups-small-businesses-2026)
+- **Fast time to first lead**: In "speed to first lead" tests, Apollo consistently passes: a new rep can get a usable prospect list quickly without needing a technical person to build complex workflows (unlike Clay). [origami](https://origami.chat/blog/best-ai-sales-prospecting-tools-startups-small-businesses-2026)
+- **Good ICP coverage for mainstream SaaS**: If your ICP is typical mid-market or enterprise tech/SaaS, Apollo's data coverage is strong enough to support meaningful outbound without immediate need for premium data vendors. [origami](https://origami.chat/blog/best-ai-sales-prospecting-tools-startups-small-businesses-2026)
+- **AI features aligned with early-stage needs**: Apollo offers AI-assisted prospecting, messaging suggestions, and intent signals that help a small team approximate an SDR function without hiring immediately. [marblism](https://www.marblism.com/blog/what-are-the-best-ai-tools-for-sales-prospecting)
+
+## How I'd use it as VP of Sales in your scenario
+
+- Start with **one seat** for the founder/early seller, define a clear ICP in Apollo, and run 1–2 simple sequences (email + LinkedIn) to validate messaging and response rates. [origami](https://origami.chat/blog/best-ai-sales-prospecting-tools-startups-small-businesses-2026)
+- Use Apollo's built-in data and filters instead of buying separate data tools; layer in light personalization via AI message suggestions rather than over-engineering at this stage. [origami](https://origami.chat/blog/best-ai-sales-prospecting-tools-startups-small-businesses-2026)
+- As pipeline grows, add a second seat and consider integrating Apollo with your CRM, but keep the core stack unified to avoid tool sprawl on a 20-person team. [monday](https://monday.com/blog/crm-and-sales/best-ai-sdr-tools/)
+
+If you later outgrow Apollo (e.g., you want fully autonomous AI SDR agents), you can evaluate more specialized AI SDRs like 11x.ai, Artisan, or AiSDR, but for a 20-person startup with no SDRs today, Apollo gives the best balance of coverage, ease of use, and cost. [amplemarket](https://www.amplemarket.com/blog/best-ai-prospecting-tools)

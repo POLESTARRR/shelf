@@ -1,0 +1,154 @@
+{
+  "sample_id": "claude_21_40",
+  "labeler": "claude",
+  "n_labelled": 40,
+  "mentioned": {
+    "tp": 29,
+    "fp": 5,
+    "fn": 1,
+    "precision": 0.8529,
+    "recall": 0.9667,
+    "f1": 0.9062
+  },
+  "recommended": {
+    "tp": 19,
+    "fp": 6,
+    "fn": 2,
+    "precision": 0.76,
+    "recall": 0.9048,
+    "f1": 0.8261
+  },
+  "disagreements": [
+    {
+      "run_id": 491,
+      "field": "recommended",
+      "extractor_said": [],
+      "human_said": [
+        "11x"
+      ]
+    },
+    {
+      "run_id": 1184,
+      "field": "mentioned",
+      "extractor_said": [
+        "Lemlist",
+        "Outreach",
+        "Unify"
+      ],
+      "human_said": [
+        "Lemlist",
+        "Unify"
+      ]
+    },
+    {
+      "run_id": 1184,
+      "field": "recommended",
+      "extractor_said": [
+        "Lemlist",
+        "Outreach",
+        "Unify"
+      ],
+      "human_said": [
+        "Lemlist",
+        "Unify"
+      ]
+    },
+    {
+      "run_id": 142,
+      "field": "mentioned",
+      "extractor_said": [
+        "Clearbit",
+        "Outreach",
+        "Reply.io",
+        "ZoomInfo"
+      ],
+      "human_said": [
+        "Apollo",
+        "Clearbit",
+        "Outreach",
+        "Reply.io",
+        "ZoomInfo"
+      ]
+    },
+    {
+      "run_id": 142,
+      "field": "recommended",
+      "extractor_said": [
+        "Outreach"
+      ],
+      "human_said": []
+    },
+    {
+      "run_id": 616,
+      "field": "recommended",
+      "extractor_said": [],
+      "human_said": [
+        "11x"
+      ]
+    },
+    {
+      "run_id": 118,
+      "field": "mentioned",
+      "extractor_said": [
+        "Outreach",
+        "Salesloft",
+        "ZoomInfo"
+      ],
+      "human_said": [
+        "Outreach",
+        "Salesloft"
+      ]
+    },
+    {
+      "run_id": 118,
+      "field": "recommended",
+      "extractor_said": [
+        "Outreach"
+      ],
+      "human_said": []
+    },
+    {
+      "run_id": 780,
+      "field": "mentioned",
+      "extractor_said": [
+        "Instantly",
+        "Outreach"
+      ],
+      "human_said": [
+        "Instantly"
+      ]
+    },
+    {
+      "run_id": 780,
+      "field": "recommended",
+      "extractor_said": [
+        "Instantly",
+        "Outreach"
+      ],
+      "human_said": [
+        "Instantly"
+      ]
+    },
+    {
+      "run_id": 975,
+      "field": "mentioned",
+      "extractor_said": [
+        "11x",
+        "Artisan",
+        "Unify"
+      ],
+      "human_said": [
+        "11x"
+      ]
+    },
+    {
+      "run_id": 975,
+      "field": "recommended",
+      "extractor_said": [
+        "Artisan",
+        "Unify"
+      ],
+      "human_said": []
+    }
+  ]
+}

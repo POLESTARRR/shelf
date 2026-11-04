@@ -1,0 +1,47 @@
+{
+  "category": "customer support helpdesk software",
+  "category_short": "helpdesk tools",
+
+  "segments": [
+    "a 50-person B2B SaaS company",
+    "an enterprise with 5,000 employees",
+    "a startup with no dedicated support team",
+    "a UK company that must keep data in the EU"
+  ],
+
+  "constraints": [
+    "is SOC 2 Type II certified",
+    "supports SSO and SAML",
+    "integrates with Salesforce",
+    "costs under $50 per agent per month",
+    "can be self-hosted"
+  ],
+
+  "integrations": ["Salesforce", "Slack", "HubSpot"],
+
+  "roles": {
+    "practitioner": "support team lead",
+    "economic_buyer": "VP of Customer Experience",
+    "technical": "IT security reviewer",
+    "procurement": "procurement manager"
+  },
+
+  "focus_brands": [
+    { "name": "Example Co", "domain": "example.com", "aliases": ["ExampleCo", "Example"] }
+  ],
+
+  "competitor_brands": [
+    { "name": "Zendesk", "domain": "zendesk.com", "aliases": [] },
+    { "name": "Intercom", "domain": "intercom.com", "aliases": [] },
+    { "name": "Freshdesk", "domain": "freshdesk.com", "aliases": ["Freshworks"] },
+    { "name": "Help Scout", "domain": "helpscout.com", "aliases": ["Helpscout"] }
+  ],
+
+  "fact_probes": [
+    "How much does {brand} cost?",
+    "What integrations does {brand} support?",
+    "Who founded {brand} and when?",
+    "Is {brand} SOC 2 compliant?",
+    "What are the main limitations of {brand}?"
+  ]
+}

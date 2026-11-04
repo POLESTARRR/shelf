@@ -1,0 +1,24 @@
+## Recommendation: Apollo.io
+
+As VP of Sales, I would recommend **Apollo.io** for a 200-person B2B SaaS company with eight SDRs because it offers the best balance of prospect data, AI-assisted research, multichannel sequencing, automation, CRM integration, and cost control in one platform.
+
+### Why Apollo
+
+- **Consolidates the SDR stack:** Apollo combines contact discovery, enrichment, AI-assisted personalization, email sequences, calling, and reporting instead of requiring separate tools for each function. Apollo describes its platform as combining a 240M+ contact database, multichannel sequences, and a built-in dialer. [apollo](https://www.apollo.io/insights/apollo-vs-instantly)
+- **Fits an eight-person team:** The team can begin with a controlled pilot and scale seats as usage grows. Apollo's published annual pricing starts at $49 per user per month for Basic and $79 for Professional, although final pricing and credits should be confirmed during procurement. [apollo](https://www.apollo.io/insights/most-cost-effective-prospecting-solution-for-small-business)
+- **Supports manager-level control:** AI can help research accounts, prioritize prospects, draft messages, and automate follow-ups, while SDRs retain human oversight for high-value opportunities.
+- **Integrates with common CRMs:** Apollo supports CRM integrations, including Salesforce and HubSpot, which helps keep prospecting activity connected to pipeline reporting. [apollo](https://www.apollo.io/insights/apollo-vs-instantly)
+- **Provides enterprise-relevant security controls:** Apollo reports SOC 2 and ISO 27001 certifications and GDPR compliance, important considerations even for a mid-sized SaaS company. [apollo](https://www.apollo.io/product/security)
+
+### How I would deploy it
+
+I would run a **30-day pilot with two SDRs** focused on one ICP and one outbound segment. I would measure:
+
+- Qualified meetings booked per SDR.
+- Positive reply and connect rates.
+- Cost per qualified meeting.
+- Email deliverability and unsubscribe rates.
+- CRM data accuracy.
+- Opportunities and pipeline generated, not merely activity volume.
+
+If the pilot improves qualified pipeline without harming deliverability or data quality, I would roll Apollo out to all eight SDRs. I would choose Apollo over a fully autonomous AI SDR initially because a growing B2B SaaS company still benefits from human judgment in messaging, qualification, and brand protection.

@@ -1,0 +1,55 @@
+If you're moving off 11x, don't evaluate only "another AI SDR." First decide whether you want **autonomous outbound**, **human-led sales engagement**, or a **modular prospecting stack**. My shortlist would be **Regie.ai, Artisan, Apollo, Outreach, Salesloft, and Clay**, with the right choice depending on your team size, CRM, channel mix, and tolerance for automation risk.
+
+## Shortlist by operating model
+
+| Option | Best fit | What to evaluate |
+|---|---|---|
+| **Regie.ai / RegieOne** | Closest replacement if you still want AI-led prospecting | Autonomous prospect discovery, enrichment, personalized outreach, calls, LinkedIn workflows, CRM logging, and human handoff. Regie positions its agents as handling discovery through outreach across multiple channels. [regie](https://www.regie.ai/prospecting-agents) |
+| **Artisan** | Direct AI-BDR alternative | Quality of research, email personalization, deliverability, objection handling, meeting booking, and how much human control managers retain. |
+| **Apollo** | Cost-conscious teams wanting data plus execution in one platform | Contact-data accuracy in your ICP, sequencing, dialer, enrichment, CRM sync, and total cost. Apollo combines prospecting data and sales engagement rather than requiring several separate tools. [apollo](https://www.apollo.io/) |
+| **Outreach** | Larger or process-heavy sales organizations | Governance, forecasting, coaching, deal management, permissions, analytics, and enterprise integrations. Outreach now combines engagement, deal management, forecasting, coaching, and AI agents. [outreach](https://www.outreach.io/product) |
+| **Salesloft** | Teams focused on rep execution and manager visibility | Cadences, next-best actions, conversation intelligence, coaching, forecasting, and AI-assisted research. Salesloft's AI agents are designed to prioritize actions, research accounts, identify buyers, and support sellers. [salesloft](https://www.salesloft.com/platform/ai-agents) |
+| **Clay + your preferred sequencer** | RevOps teams wanting maximum control and data flexibility | Enrichment waterfalls, signal quality, workflow maintenance, cost per enriched record, and integration with your CRM and engagement tool. Clay supports enrichment from many providers and routing qualified prospects into the sales workflow. [clay](https://www.clay.com/blog/how-to-create-your-own-sales-prospect-list-in-minutes) |
+
+## My practical recommendation
+
+- **Want the closest strategic substitute for 11x:** Pilot **Regie.ai and Artisan**.
+- **Want lower cost and faster implementation:** Evaluate **Apollo**.
+- **Want to put humans back in control while improving execution:** Evaluate **Salesloft or Outreach**.
+- **Have strong RevOps capability and unusual ICP signals:** Build a controlled stack around **Clay**, your CRM, and a sequencer.
+- **Have enterprise governance, multiple sales teams, or complex forecasting requirements:** Start with **Outreach and Salesloft**, not a standalone AI SDR.
+
+I would avoid replacing 11x with another black-box agent unless the vendor can show exactly **why each prospect was selected, what data informed the message, when a sequence pauses, and how a rep takes over**.
+
+## Evaluation scorecard
+
+Weight the evaluation around outcomes rather than feature count:
+
+| Category | Suggested weight | Questions to ask |
+|---|---:|---|
+| Pipeline quality | 25% | Does it create qualified opportunities, not merely replies or meetings? |
+| Data quality | 15% | What are email accuracy, role accuracy, firmographic freshness, and duplicate rates in your ICP? |
+| Deliverability and compliance | 15% | How does it protect domains, manage opt-outs, respect regional rules, and detect risky sending patterns? |
+| CRM and workflow fit | 15% | Does it write cleanly to Salesforce or HubSpot, preserve attribution, and prevent duplicate touches? |
+| Control and explainability | 10% | Can managers approve messaging, set guardrails, inspect reasoning, and stop campaigns immediately? |
+| Rep and manager usability | 10% | Does it reduce work without creating another queue of bad meetings and exceptions? |
+| Economics | 10% | Calculate cost per qualified opportunity and cost per pipeline dollar—not just license price. |
+
+## Run a controlled pilot
+
+Give each finalist the same:
+
+1. ICP and exclusions.
+2. Target-account list.
+3. Approved positioning, proof points, and disallowed claims.
+4. Suppression list and existing customer records.
+5. Meeting qualification criteria.
+6. Two to four weeks of execution time.
+
+Measure **qualified meetings held, opportunity conversion, pipeline created, positive-reply rate, bounce rate, unsubscribe/complaint rate, rep time required, and CRM-data accuracy**. Require the vendor to report results by segment, persona, message, and channel; otherwise, you won't know whether the tool works or merely found an easy pocket of prospects.
+
+## The key decision
+
+The most important question is: **Are you replacing an SDR, replacing an outbound stack, or replacing a workflow?**
+
+If you need predictable enterprise execution, choose a governed platform such as Outreach or Salesloft. If you need autonomous top-of-funnel coverage, test Regie and Artisan. If you primarily need better targeting and data while keeping your team's process, Apollo or Clay may be the better transition. Claims about AI SDR performance are often vendor-supplied, so make your own pilot results the deciding evidence.

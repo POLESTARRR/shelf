@@ -1,0 +1,10 @@
+# shelf has no required third-party dependencies. It runs on the Python
+# standard library alone, so a clone works with nothing installed.
+#
+# certifi is optional. Python installed from python.org on macOS ships without
+# a usable CA bundle, so HTTPS calls fail with CERTIFICATE_VERIFY_FAILED.
+# Install it only if you hit that:
+#
+#     python3 -m pip install certifi
+#
+# certifi>=2024.2.2
